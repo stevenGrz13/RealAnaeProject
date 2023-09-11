@@ -200,13 +200,16 @@ namespace AnaeLogiciel.Controllers
                     .Include(z => z.District)
                     .Include(z => z.Region)
                     .First(a => a.Id == v.IdSite);
-                liste.Add(site);
+                if (!liste.Contains(site))
+                {
+                    liste.Add(site);
+                }
             }
             ViewData["listesite"] = liste;
             return View("~/Views/FrontTechnicien/SiteTech.cshtml");
         }
 
-        public void versPageInsertionSite(string target, int idtypeindicateur ,int idsite, int idtechnicien)
+        public void versPageInsertionSite(int idoccurence, string target, int idtypeindicateur ,int idsite, int idtechnicien)
         {
             double realtarget = Double.Parse(target);
             TechnicienSite ts = new TechnicienSite()
@@ -214,6 +217,7 @@ namespace AnaeLogiciel.Controllers
                 IdSite = idsite,
                 IdTechnicien = idtechnicien,
                 IdIndicateur = idtypeindicateur,
+                IdOccurence = idoccurence,
                 Target = realtarget
             };
             _context.Add(ts);

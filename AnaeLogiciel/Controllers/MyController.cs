@@ -244,21 +244,7 @@ public class MyController : Controller
         ViewData["listesource"] = liste;
         return View("~/Views/PagesSourceDeVerification/AcceuilAjout.cshtml");
     }
-
-    public void InsertionTechnicienSite(int idtypeindicateur, int idsite, int idtechnicien, string target)
-    {
-        TechnicienSite technicienSite = new TechnicienSite()
-        {
-            IdSite = idsite,
-            IdTechnicien = idtechnicien,
-            IdIndicateur = idtypeindicateur,
-            Target = Double.Parse(target)
-        };
-        _context.Add(technicienSite);
-        _context.SaveChanges();
-    }
-
-    public void InsertionRapportTechnicienSite(int idsite, int idindicateur, string targeteffectue, DateOnly dateaction)
+    public void InsertionRapportTechnicienSite(int idsite, int idindicateur, string targeteffectue, DateOnly dateaction, int idoccurence)
     {
         int idtechnicien = Int32.Parse(HttpContext.Session.GetString("idtechnicien"));
         double effectuedtarget = Double.Parse(targeteffectue);
@@ -268,7 +254,8 @@ public class MyController : Controller
             IdTechnicien = idtechnicien,
             IdIndicateur = idindicateur,
             TargetEffectue = effectuedtarget,
-            DateAction = dateaction
+            DateAction = dateaction,
+            IdOccurence = idoccurence
         };
         _context.Add(rapportTechnicienSite);
         _context.SaveChanges();
@@ -289,21 +276,22 @@ public class MyController : Controller
 
     public IActionResult versInsertionRapportIndicateurTechnicien(int idsite)
     {
+        int idtechnicien = Int32.Parse(HttpContext.Session.GetString("idtechnicien"));
         List<TechnicienSite> liste = _context.TechnicienSite
             .Include(z => z.TypeIndicateur)
             .Include(y => y.Site)
-            .Where(a => a.IdSite == idsite).ToList();
+            .Where(a => a.IdSite == idsite && a.IdTechnicien == idtechnicien).ToList();
         ViewData["listetechniciensite"] = liste;
         ViewBag.idsite = idsite;
         return View("~/Views/FrontTechnicien/PageIndicateurTechnicien.cshtml");
     }
 
-    public IActionResult versPageInsertionRapport(int idsite, int idtypeindicateur)
+    public IActionResult versPageInsertionRapport(int idoccurence, int idsite, int idtypeindicateur)
     {
         TechnicienSite tc = _context.TechnicienSite
             .Include(a => a.TypeIndicateur)
             .Include(a => a.Site)
-            .First(a => a.IdSite == idsite && a.IdIndicateur == idtypeindicateur);
+            .First(a => a.IdSite == idsite && a.IdIndicateur == idtypeindicateur && a.IdOccurence == idoccurence);
         ViewData["techniciensite"] = tc;
         ViewBag.idsite = idsite;
         ViewBag.idtypeindicateur = idtypeindicateur;

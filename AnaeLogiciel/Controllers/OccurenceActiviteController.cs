@@ -28,65 +28,6 @@ namespace AnaeLogiciel.Controllers
                 .Include(a => a.Activite)
                 .Include(a => a.Projet)
                 .ToList();
-            foreach (var v in listeactiviteprojet)
-            {
-                try
-                {
-                    AssociationIndicateurActivite x =
-                        _context.IndicateurActiviteProjet.FirstOrDefault(a =>
-                            a.IdOccurence == v.Id);
-                    List<AssociationIndicateurActiviteAvecDate> xs =
-                        _context.IndicateurActiviteProjetAvecDate.Where(a =>
-                            a.IdOccurence == v.Id).ToList();
-
-                    double quantitedemandee = 0;
-                    double sommeeffectue = 0;
-
-                    if (xs.Count == 0)
-                    {
-                        sommeeffectue = 0;
-                    }
-                    else
-                    {
-                        foreach (var z in xs)
-                        {
-                            sommeeffectue += z.TargetEffectue;
-                        }   
-                    }
-
-                    if (x == null)
-                    {
-                        quantitedemandee = 0;
-                    }
-                    else
-                    {
-                        quantitedemandee = x.QuantiteDemande;   
-                    }
-
-                    try
-                    {
-                        v.Avancement = (sommeeffectue * 100) / quantitedemandee;
-                    }
-                    catch (Exception e)
-                    {
-                        v.Avancement = 0;
-                    }
-
-                    if (v.Avancement == 100)
-                    {
-                        v.FinishedOrNot = true;
-                    }
-                    else
-                    {
-                        v.FinishedOrNot = false;
-                    }
-                    _context.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    
-                }
-            }
             return View(listeactiviteprojet);
         }
 
@@ -154,9 +95,9 @@ namespace AnaeLogiciel.Controllers
                     try
                     {
                         double quantite = 0;
-                        List<AssociationIndicateurActiviteAvecDate> associationIndicateurActiviteAvecDate =
-                            _context.IndicateurActiviteProjetAvecDate
-                                .Where(a => a.IdOccurence == v.Id && a.IdTypeIndicateur == x[i].IdTypeIndicateur)
+                        List<RapportTechnicienSite> associationIndicateurActiviteAvecDate =
+                            _context.RapportTechnicienSite
+                                .Where(a => a.IdOccurence == v.Id && a.IdIndicateur == x[i].IdTypeIndicateur)
                                 .ToList();
                         foreach (var variable in associationIndicateurActiviteAvecDate)
                         {

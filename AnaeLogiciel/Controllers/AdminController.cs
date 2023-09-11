@@ -169,53 +169,47 @@ namespace AnaeLogiciel.Controllers
             Console.WriteLine("idtypeuser="+idtypeuser);
             if (idtypeuser == 1)
             {
-                try
+                List<Admin> liste = _context.Admin.ToList();
+                foreach (var v in liste)
                 {
-                    Admin admin = _context.Admin.First(a => a.Email == email && a.Pass == pass);
-                    HttpContext.Session.SetString("idadmin",admin.Id+"");
-                    Console.WriteLine("makato amle page frontofficeacceuil");
-                    return View("~/Views/FrontOffice/Acceuil.cshtml");  
-                }
-                catch
-                {
-                    ViewBag.message = "verifiez vos informations de connexion";
-                    return View("~/Views/Home/Index.cshtml");  
+                    if (v.Email == email && v.Pass == pass)
+                    {
+                        HttpContext.Session.SetString("idadmin",v.Id+"");
+                        Console.WriteLine("makato amle page frontofficeacceuil");
+                        return View("~/Views/FrontOffice/Acceuil.cshtml");  
+                    }
                 }   
             }
             if (idtypeuser == 2)
             {
-                try
+                List<Employe> liste = _context.Employe.ToList();
+                foreach (var v in liste)
                 {
-                    Employe admin = _context.Employe.First(a => a.Email == email && a.Pass == pass);
-                    HttpContext.Session.SetString("idemploye",admin.Id+"");
-                    return View("~/Views/FrontOffice/Acceuil.cshtml");  
-                }
-                catch
-                {
-                    ViewBag.message = "verifiez vos informations de connexion";
-                    return View("~/Views/Home/Index.cshtml");  
+                    if (v.Email == email && v.Pass == pass)
+                    {
+                        HttpContext.Session.SetString("idemploye",v.Id+"");
+                        Console.WriteLine("makato amle page frontofficeacceuil");
+                        return View("~/Views/FrontOffice/Acceuil.cshtml");  
+                    }
                 }   
             }
             if (idtypeuser == 3)
             {
-                try
+                List<Technicien> liste = _context.Technicien.ToList();
+                foreach (var v in liste)
                 {
-                    Technicien admin = _context.Technicien.First(a => a.Email == email && a.Pass == pass);
-                    HttpContext.Session.SetString("idtechnicien",admin.Id+"");
-                    HttpContext.Session.SetString("emailtechnicien",admin.Email+"");
-                    return View("~/Views/FrontTechnicien/AcceuilTech.cshtml");  
-                }
-                catch
-                {
-                    ViewBag.message = "verifiez vos informations de connexion";
-                    return View("~/Views/Home/Index.cshtml");  
+                    if (v.Email == email && v.Pass == pass)
+                    {
+                        HttpContext.Session.SetString("idemploye",v.Id+"");
+                        Console.WriteLine("makato amle page frontofficeacceuil");
+                        HttpContext.Session.SetString("idtechnicien",v.Id+"");
+                        HttpContext.Session.SetString("emailtechnicien",v.Email+"");
+                        return View("~/Views/FrontTechnicien/AcceuilTech.cshtml");  
+                    }
                 }   
             }
-            else
-            {
-                ViewBag.message = "verifiez vos informations de connexion";
-                return View("~/Views/Home/Index.cshtml");  
-            }
+            ViewBag.message = "verifiez vos informations de connexion";
+            return View("~/Views/Home/Index.cshtml"); 
         }
         
         [HttpPost]

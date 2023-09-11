@@ -20,7 +20,6 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<AnaeLogiciel.Models.OccurenceActivite> ActiviteProjet { get; set; } = default!;
     public DbSet<AnaeLogiciel.Models.DateRealisationProjet> DateRealisationProjet { get; set; } = default!;
     public DbSet<AnaeLogiciel.Models.AssociationIndicateurActivite> IndicateurActiviteProjet { get; set; } = default!;
-    public DbSet<AnaeLogiciel.Models.AssociationIndicateurActiviteAvecDate> IndicateurActiviteProjetAvecDate { get; set; } = default!;
     
     public DbSet<AnaeLogiciel.Models.OccurenceSourceDeVerification> ActiviteProjetSourceDeVerification { get; set; } = default!;
     

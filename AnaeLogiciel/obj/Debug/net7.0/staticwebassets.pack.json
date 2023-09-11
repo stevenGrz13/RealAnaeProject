@@ -2069,6 +2069,10 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "D:\\RealGitAnae\\RealAnaeProject\\AnaeLogiciel\\wwwroot\\occurence1\\rapport-pv\\Date.13.09.2023.Technicien.james@gmail.com.txt",
+      "PackagePath": "staticwebassets\\occurence1\\rapport-pv\\Date.13.09.2023.Technicien.james@gmail.com.txt"
+    },
+    {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.AnaeLogiciel.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

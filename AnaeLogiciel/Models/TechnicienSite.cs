@@ -23,8 +23,15 @@ public class TechnicienSite
     [DisplayName("indicateur")]
     public int IdIndicateur { get; set; }
     
+    [Column("idoccurence")]
+    [DisplayName("occurenceactivite")]
+    public int IdOccurence { get; set; }
+    
     [Column("target")]
     public double Target { get; set; }
+    
+    [ForeignKey("IdOccurence")]
+    public virtual OccurenceActivite? OccurenceActivite { get; set; }
     
     [ForeignKey("IdTechnicien")]
     public virtual Technicien? Technicien { get; set; }

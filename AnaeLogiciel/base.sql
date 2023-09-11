@@ -186,6 +186,7 @@ create table site(
 
 create table techniciensite(
     id serial not null,
+    idoccurence int not null,
     idsite int not null,
     idtechnicien int not null,
     idindicateur int not null,
@@ -193,11 +194,13 @@ create table techniciensite(
     primary key(id),
     foreign key(idsite) references site(id),
     foreign key(idtechnicien) references technicien(id),
-    foreign key(idindicateur) references typeindicateur(id)
+    foreign key(idindicateur) references typeindicateur(id),
+    foreign key(idoccurence) references occurenceactivite(id)
 );
 
 create table rapporttechniciensite(
     id serial not null,
+    idoccurence int not null,
     idsite int not null,
     idtechnicien int not null,
     idindicateur int not null,
@@ -206,28 +209,8 @@ create table rapporttechniciensite(
     primary key(id),
     foreign key(idsite) references site(id),
     foreign key(idtechnicien) references technicien(id),
-    foreign key(idindicateur) references typeindicateur(id)
-);
-
-create table occurencesite(
-    id serial not null,
-    idoccurence int not null,
-    idsite int not null,
-    primary key(id),
-    foreign key(idoccurence) references occurenceactivite(id),
-    foreign key(idsite) references site(id)
-);
-
-create table occurencesiteindicateurtechnicien(
-    id serial not null,
-    idoccurencesite int not null,
-    idindicateur int not null,
-    idtechnicien int not null,
-    target decimal(20,2) not null,
-    primary key(id),
-    foreign key(idoccurencesite) references occurencesite(id),
     foreign key(idindicateur) references typeindicateur(id),
-    foreign key(idtechnicien) references technicien(id)
+    foreign key(idoccurence) references occurenceactivite(id)
 );
 
 create or replace view viewsite as
@@ -237,11 +220,6 @@ on a.idoccurence = o.id;
 create or replace view techproj as
 select v.idoccurence,v.idprojet,t.idtechnicien from viewsite v join 
 technicienprojet t on v.idprojet=t.idprojet;
-
-create or replace view vcalculavancement as
-select r.idindicateur,r.targeteffectue,o.id idoccurence from rapporttechniciensite r join
-technicienprojet t on r.idtechnicien = t.idtechnicien
-join occurenceactivite o on t.idprojet = o.idprojet;
 
 
 

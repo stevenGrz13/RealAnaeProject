@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "1lQKNDsB6OrSHwKRP7q3L4VSlZ/+sRleC5TM0BHwPcQ=",
+  "Hash": "wX3bTxWoTREZK7KUgmEWSRSIUYZzu1mKuiSSs7bpS9I=",
   "Source": "AnaeLogiciel",
   "BasePath": "_content/AnaeLogiciel",
   "Mode": "Default",
@@ -9841,6 +9841,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\NiceAdmin\\users-profile.html"
+    },
+    {
+      "Identity": "D:\\RealGitAnae\\RealAnaeProject\\AnaeLogiciel\\wwwroot\\occurence1\\rapport-pv\\Date.13.09.2023.Technicien.james@gmail.com.txt",
+      "SourceId": "AnaeLogiciel",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\RealGitAnae\\RealAnaeProject\\AnaeLogiciel\\wwwroot\\",
+      "BasePath": "_content/AnaeLogiciel",
+      "RelativePath": "occurence1/rapport-pv/Date.13.09.2023.Technicien.james@gmail.com.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\occurence1\\rapport-pv\\Date.13.09.2023.Technicien.james@gmail.com.txt"
     }
   ]
 }

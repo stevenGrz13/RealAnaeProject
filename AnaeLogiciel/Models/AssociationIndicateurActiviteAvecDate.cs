@@ -5,10 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AnaeLogiciel.Models;
 
-[Table("vcalculavancement")]
-[Keyless]
+[Table("rapporttechniciensite")]
 public class AssociationIndicateurActiviteAvecDate
 {
+    [Key]
+    [Column("id")]
+    public int Id { get; set; }
+    
     [Column("idoccurence")]
     [DisplayName("occurenceactivite")]
     public int IdOccurence { get; set; }
@@ -17,8 +20,18 @@ public class AssociationIndicateurActiviteAvecDate
     [DisplayName("typeindicateur")]
     public int IdTypeIndicateur { get; set; }
     
+    [Column("idsite")]
+    [DisplayName("site")]
+    public int IdSite { get; set; }
+    
+    [Column("dateaction")]
+    public DateOnly Dateaction { get; set; }
+    
     [Column("targeteffectue")]
     public double TargetEffectue { get; set; }
+    
+    [ForeignKey("IdSite")]
+    public virtual Site? Site { get; set; }
     
     [ForeignKey("IdTypeIndicateur")]
     public virtual TypeIndicateur? TypeIndicateur { get; set; }
