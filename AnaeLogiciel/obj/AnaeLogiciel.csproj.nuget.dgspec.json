@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\STEVEN\\Documents\\GitHub\\AnaeProject\\AnaeLogiciel\\AnaeLogiciel\\AnaeLogiciel.csproj": {}
+    "D:\\RealGitAnae\\RealAnaeProject\\AnaeLogiciel\\AnaeLogiciel.csproj": {}
   },
   "projects": {
-    "C:\\Users\\STEVEN\\Documents\\GitHub\\AnaeProject\\AnaeLogiciel\\AnaeLogiciel\\AnaeLogiciel.csproj": {
+    "D:\\RealGitAnae\\RealAnaeProject\\AnaeLogiciel\\AnaeLogiciel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\STEVEN\\Documents\\GitHub\\AnaeProject\\AnaeLogiciel\\AnaeLogiciel\\AnaeLogiciel.csproj",
+        "projectUniqueName": "D:\\RealGitAnae\\RealAnaeProject\\AnaeLogiciel\\AnaeLogiciel.csproj",
         "projectName": "AnaeLogiciel",
-        "projectPath": "C:\\Users\\STEVEN\\Documents\\GitHub\\AnaeProject\\AnaeLogiciel\\AnaeLogiciel\\AnaeLogiciel.csproj",
+        "projectPath": "D:\\RealGitAnae\\RealAnaeProject\\AnaeLogiciel\\AnaeLogiciel.csproj",
         "packagesPath": "C:\\Users\\STEVEN\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\STEVEN\\Documents\\GitHub\\AnaeProject\\AnaeLogiciel\\AnaeLogiciel\\obj\\",
+        "outputPath": "D:\\RealGitAnae\\RealAnaeProject\\AnaeLogiciel\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\STEVEN\\AppData\\Roaming\\NuGet\\NuGet.Config"

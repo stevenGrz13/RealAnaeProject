@@ -1,0 +1,24 @@
+CAHIER DE CHARGE: 
+Conception et Réalisation d'une application web de gestion de projet pour ANAE
+
+1-Objectif du projet:
+-Faciliter et rapidifier les méthodes de travails de l'ONG
+
+2-Fonctionnalités principales:
+-Suivi en temps réel de toute les actions par le DG
+-Suivi du tableau de bord financière par le DG
+-Créer/Modifier/Supprimer des activités/projets (Employé)
+-Affecter des techniciens à des projets (Employé)
+-Tableau de bord de suivi
+-Rapport de toute les techniciens
+-Mailing automatique a chaque rapport
+-Notification en temps réel à chaque rapport
+
+3-Contraintes techniques
+-L'application doit être rapide
+-C# ASP.Net sera utilisee pour le developpement
+-postgresql sera utilisée pour la base de données
+
+4-Critère d'acceptation
+-Toutes les interfaces doivent être facile d'utilisation pour tous les utilisateurs
+

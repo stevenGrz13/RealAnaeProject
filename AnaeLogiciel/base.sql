@@ -209,6 +209,27 @@ create table rapporttechniciensite(
     foreign key(idindicateur) references typeindicateur(id)
 );
 
+create table occurencesite(
+    id serial not null,
+    idoccurence int not null,
+    idsite int not null,
+    primary key(id),
+    foreign key(idoccurence) references occurenceactivite(id),
+    foreign key(idsite) references site(id)
+);
+
+create table occurencesiteindicateurtechnicien(
+    id serial not null,
+    idoccurencesite int not null,
+    idindicateur int not null,
+    idtechnicien int not null,
+    target decimal(20,2) not null,
+    primary key(id),
+    foreign key(idoccurencesite) references occurencesite(id),
+    foreign key(idindicateur) references typeindicateur(id),
+    foreign key(idtechnicien) references technicien(id)
+);
+
 create or replace view viewsite as
 select o.idactivite, o.idprojet, a.idoccurence, a.idtypeindicateur, a.quantitedemande from associationindicateuractivite a join occurenceactivite o
 on a.idoccurence = o.id;
@@ -225,13 +246,10 @@ join occurenceactivite o on t.idprojet = o.idprojet;
 
 
 
-
-
-
 create table province (
-                          id serial not null,
-                          nom varchar(255) not null,
-                          primary key(id)
+    id serial not null,
+    nom varchar(255) not null,
+    primary key(id)
 );
 
 insert into province (nom) values
@@ -243,11 +261,11 @@ insert into province (nom) values
                                ('Toliara');
 
 create table region (
-                        id serial not null,
-                        id_province int not null,
-                        nom varchar(255) not null,
-                        primary key(id),
-                        foreign key(id_province) references province(id)
+    id serial not null,
+    id_province int not null,
+    nom varchar(255) not null,
+    primary key(id),
+    foreign key(id_province) references province(id)
 );
 
 INSERT INTO region (id_province, nom) VALUES
@@ -275,11 +293,11 @@ INSERT INTO region (id_province, nom) VALUES
                                           (6, 'Anosy');
 
 CREATE TABLE district (
-                          id int NOT NULL,
-                          id_region int NOT NULL,
-                          libelle varchar(255) NOT NULL,
-                          primary key(id),
-                          foreign key(id_region) references region(id)
+    id int NOT NULL,
+    id_region int NOT NULL,
+    libelle varchar(255) NOT NULL,
+    primary key(id),
+    foreign key(id_region) references region(id)
 );
 
 INSERT INTO district (id, id_region, libelle) VALUES
@@ -399,11 +417,11 @@ INSERT INTO district (id, id_region, libelle) VALUES
                                                   (116, 22, 'Taolanaro');
 
 create table commune(
-                        id int not null,
-                        id_district int not null,
-                        nom varchar(500) not null,
-                        primary key(id),
-                        foreign key(id_district) references district(id)
+    id int not null,
+    id_district int not null,
+    nom varchar(500) not null,
+    primary key(id),
+    foreign key(id_district) references district(id)
 );
 
 INSERT INTO commune (id, id_district, nom) VALUES
