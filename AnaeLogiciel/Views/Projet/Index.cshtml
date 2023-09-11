@@ -1,0 +1,76 @@
+@model IEnumerable<AnaeLogiciel.Models.Projet>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_LayoutGlobalProject";
+}
+
+<h3>Les Projets</h3>
+
+<link rel="stylesheet" href="css/site.css">
+
+<p>
+    <a asp-action="Create">Creer nouveau projet</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nom)
+            </th>
+            <th>Avancement</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+            <td>
+                <div class="progress-bar">
+                    <div class="filler" style="width: @item.Avancement%;"></div>
+                </div>
+            </td>
+            <td>
+                @using (Html.BeginForm("RealIndex", controllerName: "OccurenceActivite", FormMethod.Post))
+                {   
+                    <input type="hidden" name="idprojet" value="@item.Id">   
+                    <input type="submit" value="VERS ACTIVITES">
+                }
+            </td>
+            <td>
+                @using (Html.BeginForm("AjouterActivite", controllerName: "OccurenceActivite", FormMethod.Post))
+                {   
+                    <input type="hidden" name="idprojet" value="@item.Id">   
+                    <input type="submit" value="AJOUTER ACTIVITE">
+                }
+            </td>
+            <td>
+                @using (Html.BeginForm("versAffectationTechnicien", controllerName: "My", FormMethod.Post))
+                {   
+                    <input type="hidden" name="idprojet" value="@item.Id">   
+                    <input type="submit" value="AFFECTER DES TECHNICIENS">
+                }
+            </td>
+            <td>
+                @using (Html.BeginForm("VoirListeTechnicien", controllerName: "My", FormMethod.Post))
+                {   
+                    <input type="hidden" name="idprojet" value="@item.Id">   
+                    <input type="submit" value="VOIR LES TECHNICIENS AFFECTEES">
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

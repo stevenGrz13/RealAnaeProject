@@ -1,0 +1,72 @@
+@model IEnumerable<AnaeLogiciel.Models.OccurenceActivite>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_LayoutGlobalProject";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DateDebutPrevision)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateFinPrevision)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Budget)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FinishedOrNot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Activite)
+            </th>
+            <th>
+                Avancement
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateDebutPrevision)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateFinPrevision)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Budget)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FinishedOrNot)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Projet.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Activite.Nom)
+            </td>
+            <td>
+                @item.Avancement %
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

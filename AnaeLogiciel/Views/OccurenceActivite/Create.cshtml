@@ -1,0 +1,58 @@
+@model AnaeLogiciel.Models.OccurenceActivite
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "_LayoutGlobalProject";
+}
+
+<h1>Create</h1>
+
+@ViewBag.messageerreur
+
+<br>
+
+<h4>ActiviteProjet</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IdProjet" class="control-label"></label>
+                <select asp-for="IdProjet" class ="form-control" asp-items="ViewBag.IdProjet"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdActivite" class="control-label"></label>
+                <select asp-for="IdActivite" class ="form-control" asp-items="ViewBag.IdActivite"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateDebutPrevision" class="control-label"></label>
+                <input asp-for="DateDebutPrevision" type="date" class="form-control" />
+                <span asp-validation-for="DateDebutPrevision" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateFinPrevision" class="control-label"></label>
+                <input asp-for="DateFinPrevision" type="date" class="form-control" />
+                <span asp-validation-for="DateFinPrevision" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Budget" class="control-label"></label>
+                <input asp-for="Budget" class="form-control" />
+                <span asp-validation-for="Budget" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="FinishedOrNot" /> @Html.DisplayNameFor(model => model.FinishedOrNot)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

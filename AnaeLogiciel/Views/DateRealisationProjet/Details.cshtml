@@ -1,0 +1,37 @@
+@model AnaeLogiciel.Models.DateRealisationProjet
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "_LayoutGlobalProject";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>DateRealisationProjet</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateDebutRealisation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateDebutRealisation)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateFinRealisation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateFinRealisation)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Projet)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Projet.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,32 @@
+﻿@{
+    Layout = "_LayoutGlobalProject";
+    TechnicienSite tc = ViewData["techniciensite"] as TechnicienSite;
+    int idsite = ViewBag.idsite;
+}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Indicateur</th>
+        <th>Quantite Demande</th>
+        <th>Quantite a effectuer</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+            <tr>
+                @using (Html.BeginForm("InsertionRapportTechnicienSite", controllerName: "My", FormMethod.Post))
+                {    
+                    <td>@tc.TypeIndicateur.Nom</td>
+                    <td>@tc.Target</td>
+                    <td><input type="text" name="targeteffectue"></td>
+                    <td><input type="date" name="dateaction"></td>
+                    <td>
+                        <input type="hidden" name="idsite" value="@idsite">
+                        <input type="hidden" name="idindicateur" value="@tc.IdIndicateur">
+                        <input type="submit" value="attribuer">
+                    </td>
+                }
+            </tr>
+    </tbody>
+</table>

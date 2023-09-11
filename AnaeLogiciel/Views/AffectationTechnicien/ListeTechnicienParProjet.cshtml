@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "_LayoutGlobalProject";
+    List<TechnicienProjet> liste = ViewData["listetechnicienprojet"] as List<TechnicienProjet>;
+    List<OccurenceActivite> listeoccurence = ViewData["listeoccurence"] as List<OccurenceActivite>;
+}
+
+<h2>LISTE TECHNICIEN AFFECTES</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th>Activite</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>@using (Html.BeginForm("VersPageTravailTechnicien", controllerName: "My", FormMethod.Post)){
+    @foreach (var v in liste)
+                {
+                    <input type="hidden" name="idtechnicien" value="@v.Technicien.Id">
+                    <tr>
+                        <td>
+                            @v.Technicien.Email
+                        </td>
+                        <td>
+                            <select name="idoccurence" id="idoccurence">
+                                @foreach (var z in listeoccurence)
+                                {
+                                    <option value="@z.Id">@z.Activite.Nom</option>
+                                }
+                            </select>
+                        </td>
+                        <td><input type="submit" value="Attribuer Travail"></td>
+                    </tr>
+                }
+    }
+    </tbody>
+</table>

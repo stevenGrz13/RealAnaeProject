@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    int idoccurence = ViewBag.idoccurence;
+    int idtechnicien = ViewBag.idtechnicien;
+    DateOnly dateaction = ViewBag.dateaction;
+    int idsourcedeverification = ViewBag.idsourcedeverification;
+}
+
+<h2>Photo</h2>
+
+<form asp-controller="InsertionSources" asp-action="insertionPhoto" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="idoccurence" value="@idoccurence">
+    <input type="hidden" name="idtechnicien" value="@idtechnicien">
+    <input type="hidden" name="dateaction" value="@dateaction">
+    <input type="hidden" name="idsourcedeverification" value="@idsourcedeverification">
+    <div class="form-group">
+        <input type="file" name="imageFile" class="form-control" accept="image/*" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>

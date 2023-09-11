@@ -1,0 +1,325 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = AnaeLogiciel
+build_property.RootNamespace = AnaeLogiciel
+build_property.ProjectDir = C:\Users\STEVEN\Documents\GitHub\AnaeProject\AnaeLogiciel\AnaeLogiciel\
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\STEVEN\Documents\GitHub\AnaeProject\AnaeLogiciel\AnaeLogiciel
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Areas/Identity/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Activite/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdGVcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Activite/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdGVcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Activite/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdGVcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Activite/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdGVcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Activite/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWN0aXZpdGVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Admin/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Admin/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Admin/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Admin/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Admin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/AffectationTechnicien/ListeTechnicienParProjet.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWZmZWN0YXRpb25UZWNobmljaWVuXExpc3RlVGVjaG5pY2llblBhclByb2pldC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/AffectationTechnicien/PageAffectation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWZmZWN0YXRpb25UZWNobmljaWVuXFBhZ2VBZmZlY3RhdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/AffectationTechnicien/PageAjoutTravailTechnicien.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWZmZWN0YXRpb25UZWNobmljaWVuXFBhZ2VBam91dFRyYXZhaWxUZWNobmljaWVuLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/AffectationTechnicien/PageTravailTechnicien.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWZmZWN0YXRpb25UZWNobmljaWVuXFBhZ2VUcmF2YWlsVGVjaG5pY2llbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/DateRealisationProjet/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0ZVJlYWxpc2F0aW9uUHJvamV0XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/DateRealisationProjet/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0ZVJlYWxpc2F0aW9uUHJvamV0XERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/DateRealisationProjet/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0ZVJlYWxpc2F0aW9uUHJvamV0XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/DateRealisationProjet/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0ZVJlYWxpc2F0aW9uUHJvamV0XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/DateRealisationProjet/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGF0ZVJlYWxpc2F0aW9uUHJvamV0XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Employe/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Employe/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZVxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Employe/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Employe/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Employe/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/FrontOffice/Acceuil.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnJvbnRPZmZpY2VcQWNjZXVpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/FrontTechnicien/AcceuilTech.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnJvbnRUZWNobmljaWVuXEFjY2V1aWxUZWNoLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/FrontTechnicien/PageIndicateurTechnicien.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnJvbnRUZWNobmljaWVuXFBhZ2VJbmRpY2F0ZXVyVGVjaG5pY2llbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/FrontTechnicien/PageInsertionRapportSurSite.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnJvbnRUZWNobmljaWVuXFBhZ2VJbnNlcnRpb25SYXBwb3J0U3VyU2l0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/FrontTechnicien/SiteTech.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnJvbnRUZWNobmljaWVuXFNpdGVUZWNoLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/OccurenceActivite/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT2NjdXJlbmNlQWN0aXZpdGVcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/OccurenceActivite/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT2NjdXJlbmNlQWN0aXZpdGVcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/OccurenceActivite/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT2NjdXJlbmNlQWN0aXZpdGVcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/OccurenceActivite/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT2NjdXJlbmNlQWN0aXZpdGVcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/OccurenceActivite/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT2NjdXJlbmNlQWN0aXZpdGVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/OccurenceActivite/InsertionActiviteProjet.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT2NjdXJlbmNlQWN0aXZpdGVcSW5zZXJ0aW9uQWN0aXZpdGVQcm9qZXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/OccurenceActivite/RealIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT2NjdXJlbmNlQWN0aXZpdGVcUmVhbEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/PagesSourceDeVerification/AcceuilAjout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnZXNTb3VyY2VEZVZlcmlmaWNhdGlvblxBY2NldWlsQWpvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/PagesSourceDeVerification/insertionBondereception.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnZXNTb3VyY2VEZVZlcmlmaWNhdGlvblxpbnNlcnRpb25Cb25kZXJlY2VwdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/PagesSourceDeVerification/insertionEtatdepaiement.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnZXNTb3VyY2VEZVZlcmlmaWNhdGlvblxpbnNlcnRpb25FdGF0ZGVwYWllbWVudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/PagesSourceDeVerification/insertionFichedepresence.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnZXNTb3VyY2VEZVZlcmlmaWNhdGlvblxpbnNlcnRpb25GaWNoZWRlcHJlc2VuY2UuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/PagesSourceDeVerification/insertionPhoto.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnZXNTb3VyY2VEZVZlcmlmaWNhdGlvblxpbnNlcnRpb25QaG90by5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/PagesSourceDeVerification/insertionRapport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFnZXNTb3VyY2VEZVZlcmlmaWNhdGlvblxpbnNlcnRpb25SYXBwb3J0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Projet/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamV0XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Projet/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamV0XERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Projet/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamV0XERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Projet/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamV0XEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Projet/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamV0XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Shared/_LayoutTechnicien.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRUZWNobmljaWVuLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Site/AttributionSiteTechnicien.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2l0ZVxBdHRyaWJ1dGlvblNpdGVUZWNobmljaWVuLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Site/InsertionSite.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2l0ZVxJbnNlcnRpb25TaXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Site/ListeSite.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2l0ZVxMaXN0ZVNpdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/SourceDeVerification/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU291cmNlRGVWZXJpZmljYXRpb25cQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/SourceDeVerification/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU291cmNlRGVWZXJpZmljYXRpb25cRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/SourceDeVerification/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU291cmNlRGVWZXJpZmljYXRpb25cRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/SourceDeVerification/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU291cmNlRGVWZXJpZmljYXRpb25cRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/SourceDeVerification/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU291cmNlRGVWZXJpZmljYXRpb25cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Technicien/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVjaG5pY2llblxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Technicien/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVjaG5pY2llblxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Technicien/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVjaG5pY2llblxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Technicien/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVjaG5pY2llblxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Technicien/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVjaG5pY2llblxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/TraitementIndicateur/AvecDate/InsertionAssociationIndicateur.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaXRlbWVudEluZGljYXRldXJcQXZlY0RhdGVcSW5zZXJ0aW9uQXNzb2NpYXRpb25JbmRpY2F0ZXVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/TraitementIndicateur/SansDate/InsertionAssociationIndicateur.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaXRlbWVudEluZGljYXRldXJcU2Fuc0RhdGVcSW5zZXJ0aW9uQXNzb2NpYXRpb25JbmRpY2F0ZXVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/TypeIndicateur/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHlwZUluZGljYXRldXJcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/TypeIndicateur/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHlwZUluZGljYXRldXJcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/TypeIndicateur/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHlwZUluZGljYXRldXJcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/TypeIndicateur/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHlwZUluZGljYXRldXJcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/TypeIndicateur/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHlwZUluZGljYXRldXJcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/STEVEN/Documents/GitHub/AnaeProject/AnaeLogiciel/AnaeLogiciel/Views/Shared/_LayoutGlobalProject.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRHbG9iYWxQcm9qZWN0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = b-1lt5k2oi89
