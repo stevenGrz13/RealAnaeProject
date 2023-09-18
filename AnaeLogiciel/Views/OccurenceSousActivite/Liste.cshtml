@@ -1,22 +1,18 @@
 ﻿@{
     Layout = "_LayoutGlobalProject";
+    int idoccurenceactivite = ViewBag.idoccurenceactivite;
     List<OccurenceSousActivite> liste = ViewData["listeoccurencesousactivite"] as List<OccurenceSousActivite>;
-    int idactivite = 0;
-    if (liste.Count > 0)
-    {
-        idactivite = liste[0].IdOccurenceActivite;
-    }
 }
 
 <h2>Liste Sous Activites</h2>
 <br>
 
-<form action="OccurenceSousActivite/VersInsertionOccurenceSousActivite">
-    <input type="hidden" name="idoccurenceactivite" value="@idactivite">
+<form action="/OccurenceSousActivite/VersInsertionOccurenceSousActivite">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
     <input type="submit" value="ajouter nouvelle">
 </form>
 
-<table>
+<table class="table">
     <thead>
     <tr>
         <th>Nom</th>

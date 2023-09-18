@@ -20,9 +20,11 @@
                 <td>@v.Activite.Nom</td>
                 <td>@v.Avancement %</td>
                 <form action="/OccurenceActivite/Details">
+                    <input type="hidden" name="idoccurenceactivite" value="@v.Id">
                     <td><input type="submit" value="details"></td>
                 </form>
                 <form action="/OccurenceSousActivite/ListeOccurenceSousActivite">
+                    <input type="hidden" name="idoccurenceactivite" value="@v.Id">
                     <td><input type="submit" value="vers sous activite"></td>
                 </form>
             </tr>

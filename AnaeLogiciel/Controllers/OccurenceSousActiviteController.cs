@@ -1,4 +1,5 @@
 ﻿using AnaeLogiciel.Data;
+using AnaeLogiciel.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,7 @@ public class OccurenceSousActiviteController : Controller
 
     public IActionResult ListeOccurenceSousActivite(int idoccurenceactivite)
     {
+        ViewBag.idoccurenceactivite = idoccurenceactivite;
         ViewData["listeoccurencesousactivite"] = _context.OccurenceSousActivite
             .Include(a => a.SousActivite)
             .Where(a => a.IdOccurenceActivite == idoccurenceactivite).ToList();
@@ -23,6 +25,22 @@ public class OccurenceSousActiviteController : Controller
 
     public IActionResult VersInsertionOccurenceSousActivite(int idoccurenceactivite)
     {
-        return View("~/Views/OccurenceSousActivite/Liste.cshtml");
+        ViewBag.idoccurenceactivite = idoccurenceactivite;
+        ViewData["listesousactivite"] = _context.SousActivite.ToList();
+        return View("~/Views/OccurenceSousActivite/Insertion.cshtml");
+    }
+
+    public void Create(int idoccurenceactivite, int idsousactivite, string budget, DateOnly datedebut, DateOnly datefin)
+    {
+        OccurenceSousActivite osc = new OccurenceSousActivite()
+        {
+            IdOccurenceActivite = idoccurenceactivite,
+            IdSousActivite = idsousactivite,
+            Budget = Double.Parse(budget),
+            DateDebut = datedebut,
+            DateFin = datefin
+        };
+        _context.Add(osc);
+        _context.SaveChanges();
     }
 }

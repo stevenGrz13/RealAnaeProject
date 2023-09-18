@@ -1,4 +1,26 @@
 ﻿@{
     ViewBag.Title = "title";
+    int idoccurenceactivite = ViewBag.idoccurenceactivite;
     Layout = "_LayoutGlobalProject";
+    List<SousActivite> liste = ViewData["listesousactivite"] as List<SousActivite>;
 }
+
+<form action="/OccurenceSousActivite/Create">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    Choisir Sous Activite:
+    <br>
+    <select name="idsousactivite" id="idsousactivite">
+        @foreach (var v in liste)
+        {
+            <option value="@v.Id">@v.Nom</option>
+        }
+    </select>
+    <br>
+    <input type="date" name="datedebut" placeholder="Date Debut">
+    <br>
+    <input type="date" name="datefin" placeholder="Date Fin">
+    <br>
+    <input type="text" name="budget" placeholder="Budget">
+    <br>
+    <input type="submit" value="ajouter">
+</form>

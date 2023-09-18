@@ -51,6 +51,7 @@ public class OccurenceActiviteController : Controller
     public IActionResult Details(int idoccurenceactivite)
     {
         ViewData["occurenceactivite"] = _context.OccurenceActivite
+            .Include(a => a.Activite)
             .First(a => a.Id == idoccurenceactivite);
         return View("~/Views/OccurenceActivite/Details.cshtml");
     }

@@ -31,8 +31,8 @@ public class OccurenceSousActivite
     [Column("avancement")]
     public double Avancement { get; set; }
     
-    [ForeignKey("IdOccurenceResultat")]
-    public virtual OccurenceResultat? OccurenceResultat { get; set; }
+    [ForeignKey("IdOccurenceActivite")]
+    public virtual OccurenceActivite? OccurenceActivite { get; set; }
     
     [ForeignKey("IdSousActivite")]
     public virtual SousActivite? SousActivite { get; set;  }
