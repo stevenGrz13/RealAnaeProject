@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "_LayoutGlobalProject";
+    List<OccurenceSousActivite> liste = ViewData["listeoccurencesousactivite"] as List<OccurenceSousActivite>;
+    int idactivite = 0;
+    if (liste.Count > 0)
+    {
+        idactivite = liste[0].IdOccurenceActivite;
+    }
+}
+
+<h2>Liste Sous Activites</h2>
+<br>
+
+<form action="OccurenceSousActivite/VersInsertionOccurenceSousActivite">
+    <input type="hidden" name="idoccurenceactivite" value="@idactivite">
+    <input type="submit" value="ajouter nouvelle">
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in liste)
+        {
+            <tr>
+                <td>@v.SousActivite.Nom</td>
+                <td><input type="submit" value="details"></td>
+            </tr>
+        }
+    </tbody>
+</table>

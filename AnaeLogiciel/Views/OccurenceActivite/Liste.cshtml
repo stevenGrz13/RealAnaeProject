@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    List<OccurenceActivite> liste = ViewData["listeoccurenceactivite"] as List<OccurenceActivite>;
+}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Activite</th>
+        <th>Avancement</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in liste)
+        {
+            <tr>
+                <td>@v.Activite.Nom</td>
+                <td>@v.Avancement %</td>
+                <form action="/OccurenceActivite/Details">
+                    <td><input type="submit" value="details"></td>
+                </form>
+                <form action="/OccurenceSousActivite/ListeOccurenceSousActivite">
+                    <td><input type="submit" value="vers sous activite"></td>
+                </form>
+            </tr>
+        }
+    </tbody>
+</table>

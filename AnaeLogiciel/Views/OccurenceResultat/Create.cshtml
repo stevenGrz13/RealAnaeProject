@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "_LayoutGlobalProject";
+    int idprojet = ViewBag.idprojet;
+    List<Resultat> liste = ViewData["listeresultat"] as List<Resultat>;
+}
+
+<h2>Inserer Resultat</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th></th>
+    </tr>
+    </thead>
+    <form action="/Resultat/InsertionOccurenceResultat">
+        <input type="hidden" name="idprojet" value="@idprojet">
+        <tbody>
+        @foreach (var v in liste)
+        {
+            <tr>
+                <td>@v.Nom</td>
+                <td><input type="checkbox" name="idresultat" value="@v.Id"></td>
+            </tr>
+        }
+        <input type="submit" value="inserer">
+        </tbody>
+    </form>
+</table>

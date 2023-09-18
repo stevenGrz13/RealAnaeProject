@@ -56,13 +56,15 @@ namespace AnaeLogiciel.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Email,Pass")] Technicien technicien)
+        public async Task<IActionResult> Create([Bind("Id,Email,Pass,Token,isAffected")] Technicien technicien)
         {
-            string token = Fonction.Fonction.GenerateToken();
-            technicien.Token = token;
-            _context.Add(technicien);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                _context.Add(technicien);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(technicien);
         }
 
         // GET: Technicien/Edit/5
@@ -86,39 +88,34 @@ namespace AnaeLogiciel.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Email,Pass")] Technicien technicien)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Email,Pass,Token,isAffected")] Technicien technicien)
         {
             if (id != technicien.Id)
             {
                 return NotFound();
             }
 
-            try
+            if (ModelState.IsValid)
             {
-                    var technicienExist = await _context.Technicien.FindAsync(id);
-                    if (technicienExist == null)
+                try
+                {
+                    _context.Update(technicien);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TechnicienExists(technicien.Id))
                     {
                         return NotFound();
                     }
-
-                    technicienExist.Email = technicien.Email;
-                    technicienExist.Pass = technicien.Pass;
-                    
-                    _context.Update(technicien);
-                    await _context.SaveChangesAsync();
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TechnicienExists(technicien.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            } 
-            return RedirectToAction(nameof(Index));
+            return View(technicien);
         }
 
         // GET: Technicien/Delete/5
@@ -161,86 +158,6 @@ namespace AnaeLogiciel.Controllers
         private bool TechnicienExists(int id)
         {
           return (_context.Technicien?.Any(e => e.Id == id)).GetValueOrDefault();
-        }
-
-        public IActionResult ListeProjetTechnicien()
-        {
-            int idtechnicien = Int32.Parse(HttpContext.Session.GetString("idtechnicien"));
-            List<Projet> liste = new List<Projet>();
-            List<TechProj> listetechproj = _context.TechProj
-                .Where(a => a.IdTechnicien == idtechnicien).ToList();
-            foreach (var v in listetechproj)
-            {
-                Projet projet = _context
-                    .Projet.First(a => a.Id == v.IdProjet);
-                if (!liste.Contains(projet))
-                {
-                    liste.Add(projet);
-                }
-            }
-            ViewData["listeprojet"] = liste;
-            foreach (var v in liste)
-            {
-                Console.WriteLine("BLA="+v.Nom);
-            }
-            ViewBag.projet = "Mes projets";
-            return View("~/Views/FrontTechnicien/AcceuilTech.cshtml");
-        }
-
-        public IActionResult ListeSiteTechnicien()
-        {
-            int idtechnicien = Int32.Parse(HttpContext.Session.GetString("idtechnicien"));
-            List<Site> liste = new List<Site>();
-            List<TechnicienSite> listetechsite = _context.TechnicienSite
-                .Where(a => a.IdTechnicien == idtechnicien).ToList();
-            foreach (var v in listetechsite)
-            {
-                Site site = _context.Site
-                    .Include(z => z.Commune)
-                    .Include(z => z.District)
-                    .Include(z => z.Region)
-                    .First(a => a.Id == v.IdSite);
-                if (!liste.Contains(site))
-                {
-                    liste.Add(site);
-                }
-            }
-            ViewData["listesite"] = liste;
-            return View("~/Views/FrontTechnicien/SiteTech.cshtml");
-        }
-
-        public void versPageInsertionSite(int idoccurence, string target, int idtypeindicateur ,int idsite, int idtechnicien)
-        {
-            double realtarget = Double.Parse(target);
-            TechnicienSite ts = new TechnicienSite()
-            {
-                IdSite = idsite,
-                IdTechnicien = idtechnicien,
-                IdIndicateur = idtypeindicateur,
-                IdOccurence = idoccurence,
-                Target = realtarget
-            };
-            _context.Add(ts);
-            _context.SaveChanges();
-            List<TechnicienSite> liste = _context
-                .TechnicienSite
-                .Include(z => z.TypeIndicateur)
-                .Where(a => a.IdSite == idsite).ToList();
-            ViewBag.idsite = idsite;
-            ViewBag.idtechnicien = idtechnicien;
-            ViewData["listetechsite"] = liste;
-            // return View("~/Views/FrontTechnicien/PageInsertionRapportSurSite.cshtml");
-        }
-
-        public IActionResult versTouteLesSites()
-        {
-            List<Site> listesite = _context.Site
-                .Include(a => a.Commune)
-                .Include(a => a.District)
-                .Include(a => a.Region)
-                .ToList();
-            ViewData["listesite"] = listesite; 
-            return View("~/Views/Site/ListeSite.cshtml");
         }
     }
 }

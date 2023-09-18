@@ -193,21 +193,6 @@ namespace AnaeLogiciel.Controllers
                     }
                 }   
             }
-            if (idtypeuser == 3)
-            {
-                List<Technicien> liste = _context.Technicien.ToList();
-                foreach (var v in liste)
-                {
-                    if (v.Email == email && v.Pass == pass)
-                    {
-                        HttpContext.Session.SetString("idemploye",v.Id+"");
-                        Console.WriteLine("makato amle page frontofficeacceuil");
-                        HttpContext.Session.SetString("idtechnicien",v.Id+"");
-                        HttpContext.Session.SetString("emailtechnicien",v.Email+"");
-                        return View("~/Views/FrontTechnicien/AcceuilTech.cshtml");  
-                    }
-                }   
-            }
             ViewBag.message = "verifiez vos informations de connexion";
             return View("~/Views/Home/Index.cshtml"); 
         }

@@ -1,8 +1,6 @@
 ﻿@using Newtonsoft.Json
 @{
     Layout = "_LayoutGlobalProject";
-    int idtechnicien = ViewBag.idtechnicien;
-    int idoccurence = ViewBag.idoccurence;
     List<Region> listeregion = ViewData["listeregion"] as List<Region>;
     List<District> listedistrict = ViewData["listedistrict"] as List<District>;
     List<Commune> listecommune = ViewData["listecommune"] as List<Commune>;
@@ -11,9 +9,8 @@
 <h3>AJOUTER SITE</h3>
 <br>
 
-@using (Html.BeginForm("NewSite", controllerName: "My", FormMethod.Post))
+@using (Html.BeginForm("", controllerName: "", FormMethod.Post))
            {
-               <input type="hidden" name="idoccurence" value="@idoccurence">
                @:Description du site: <br>
                <input type="text" name="libelle"><br>
                <select id="region" name="region">
@@ -36,7 +33,6 @@
                        <option value="@v.Id" data-district-id="@v.IdDistrict">@v.Nom</option>   
                    }
                </select>
-               <input type="hidden" name="idtechnicien" value="@idtechnicien">
                <input type="submit" value="Inserer">
            }
 <script>

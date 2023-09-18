@@ -17,15 +17,7 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<AnaeLogiciel.Models.Activite> Activite { get; set; } = default!;
     public DbSet<AnaeLogiciel.Models.SourceDeVerification> SourceDeVerification { get; set; } = default!;
     public DbSet<AnaeLogiciel.Models.TypeIndicateur> TypeIndicateur { get; set; } = default!;
-    public DbSet<AnaeLogiciel.Models.OccurenceActivite> ActiviteProjet { get; set; } = default!;
     public DbSet<AnaeLogiciel.Models.DateRealisationProjet> DateRealisationProjet { get; set; } = default!;
-    public DbSet<AnaeLogiciel.Models.AssociationIndicateurActivite> IndicateurActiviteProjet { get; set; } = default!;
-    
-    public DbSet<AnaeLogiciel.Models.OccurenceSourceDeVerification> ActiviteProjetSourceDeVerification { get; set; } = default!;
-    
-    public DbSet<AnaeLogiciel.Models.OccurenceSourceDeVerificationAvecDate> ActiviteProjetSourceDeVerificationAvecDate { get; set; } = default!;
-    
-    public DbSet<AnaeLogiciel.Models.TechnicienProjet> TechnicienProjet { get; set; } = default!;
     
     public DbSet<AnaeLogiciel.Models.Province> Province { get; set; } = default!;
     
@@ -34,12 +26,17 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<AnaeLogiciel.Models.District> District { get; set; } = default!;
     
     public DbSet<AnaeLogiciel.Models.Commune> Commune { get; set; } = default!;
+    public DbSet<AnaeLogiciel.Models.Partenaire> Partenaire { get; set; } = default!;
+    public DbSet<AnaeLogiciel.Models.SousActivite> SousActivite { get; set; } = default!;
+    public DbSet<AnaeLogiciel.Models.Composant> Composant { get; set; } = default!;
+    public DbSet<AnaeLogiciel.Models.Resultat> Resultat { get; set; } = default!;
+    public DbSet<AnaeLogiciel.Models.Bailleur> Bailleur { get; set; } = default!;
     
-    public DbSet<AnaeLogiciel.Models.Site> Site { get; set; } = default!;
+    public DbSet<AnaeLogiciel.Models.ProjetComposant> ProjetComposant { get; set; } = default!;
     
-    public DbSet<AnaeLogiciel.Models.TechnicienSite> TechnicienSite { get; set; } = default!;
+    public DbSet<AnaeLogiciel.Models.OccurenceResultat> OccurenceResultat { get; set; } = default!;
     
-    public DbSet<AnaeLogiciel.Models.RapportTechnicienSite> RapportTechnicienSite { get; set; } = default!;
-    public DbSet<AnaeLogiciel.Models.ViewSite> ViewSite { get; set; } = default!;
-    public DbSet<AnaeLogiciel.Models.TechProj> TechProj { get; set; } = default!;
+    public DbSet<AnaeLogiciel.Models.OccurenceActivite> OccurenceActivite { get; set; } = default!;
+    
+    public DbSet<AnaeLogiciel.Models.OccurenceSousActivite> OccurenceSousActivite { get; set; } = default!;
 }

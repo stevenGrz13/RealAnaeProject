@@ -2,40 +2,36 @@
 
 @{
     ViewData["Title"] = "Create";
-    Layout = "_LayoutGlobalProject";
+    List<Bailleur> liste = ViewData["listebailleur"] as List<Bailleur>;
+    List<Composant> listec = ViewData["listecomposant"] as List<Composant>;
 }
 
-<h3>Nouveau Projet</h3>
-
-<h4>Projet</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Nom" class="control-label"></label>
-                <input asp-for="Nom" class="form-control" />
-                <span asp-validation-for="Nom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateDebutPrevision" class="control-label"></label>
-                <input asp-for="DateDebutPrevision" class="form-control" type="date" />
-                <span asp-validation-for="DateDebutPrevision" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateFinPrevision" class="control-label"></label>
-                <input asp-for="DateFinPrevision" class="form-control" type="date" />
-                <span asp-validation-for="DateFinPrevision" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<form method="post" action="/Projet/CreateProjet">
+<input type="text" name="nom" placeholder="Nom">
+<br>
+<input type="text" name="details" placeholder="Details">
+<br>
+<input type="date" name="datedebut" placeholder="Date Debut">
+<br>
+<input type="date" name="datefin" placeholder="Date Fin">
+<br>
+<input type="text" name="budget" placeholder="Budget">
+<br>
+Choisir Bailleur:
+<select name="idbailleur" id="idbailleur">
+    @foreach (var v in liste)
+    {
+        <option value="@v.Id">@v.Nom</option>
+    }
+</select>
+<br>
+Choisir Composants:
+<br>
+    @foreach (var v in listec)
+    {
+        @v.Nom<input type="checkbox" name="idcomposant" value="@v.Id"><br>
+    }
+<br>
+<input type="submit" name="inserer">
+</form>
 

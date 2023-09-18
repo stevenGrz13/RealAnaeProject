@@ -39,26 +39,68 @@ drop table activite cascade;
 drop table sourcedeverification cascade;
 drop table typeindicateur cascade;
 drop table occurenceactivite cascade;
-drop table associationindicateuractivite cascade;
-drop table associationindicateuractiviteavecdate cascade;
 drop table daterealisationprojet cascade;
-drop table occurencesourcedeverification cascade;
-drop table occurencesourcedeverificationavecdate cascade; 
-drop table technicienprojet cascade; 
-drop table site cascade;
-drop table techniciensite cascade; 
-drop table rapporttechniciensite cascade;
+drop table projetcomposant cascade;
+drop table occurenceactivite cascade;
+drop table occurencesousactivite cascade;
+drop table occurenceresultat cascade;
+drop table sousactivite cascade; 
+drop table partenaire cascade; 
+drop table composant cascade;
+drop table bailleur cascade; 
+drop table resultat cascade; 
+drop table sitesousactivite cascade;
+drop table siteactivite cascade; 
+
+create table resultat(
+    id serial not null,
+    nom varchar(500) not null,
+    primary key(id) 
+);
+
+create table partenaire(
+    id serial not null,
+    nom varchar(500) not null,
+    primary key(id) 
+);
+
+insert into partenaire(nom) values ('ONU');
+insert into partenaire(nom) values ('UNESCO');
+insert into partenaire(nom) values ('UNICEF');
+
+create table composant(
+    id serial not null,
+    nom varchar(500) not null,
+    primary key(id) 
+);
+
+insert into composant(nom) values ('composant 1');
+insert into composant(nom) values ('composant 2');
+insert into composant(nom) values ('composant 3');
+
+create table bailleur(
+    id serial not null,
+    nom varchar(500) not null,
+    primary key(id) 
+);
+
+insert into bailleur(nom) values ('bailleur 1');
+insert into bailleur(nom) values ('bailleur 2');
+insert into bailleur(nom) values ('bailleur 3');
 
 create table projet(
     id serial not null,
     nom varchar(500) not null,
+    details varchar(500) not null,
     datedebutprevision date not null,
     datefinprevision date not null,
     finishedornot boolean default false,
-    primary key(id)  
-); --
-
-alter table projet add column avancement decimal(20,2) default 0;
+    idbailleur int not null,
+    avancement decimal(20,2) not null default 0,
+    budget decimal(20,2) not null,
+    primary key(id),
+    foreign key(idbailleur) references bailleur(id) 
+); 
 
 create table activite(
     id serial not null,
@@ -69,6 +111,17 @@ create table activite(
 insert into activite(nom) values ('Diagnostic au niveau des COBAS');
 insert into activite(nom) values ('Reunion information au niveau des COBAS');
 insert into activite(nom) values ('Envoi liste des beneficiaires finaux');
+
+create table sousactivite(
+    id serial not null,
+    nom varchar(500) not null,
+    primary key(id)
+);
+
+insert into sousactivite(nom) values ('sous activite 1');
+insert into sousactivite(nom) values ('sous activite 2');
+insert into sousactivite(nom) values ('sous activite 3');
+insert into sousactivite(nom) values ('sous activite 4');
 
 create table sourcedeverification(
     id serial not null,
@@ -93,22 +146,6 @@ insert into typeindicateur(nom) values ('formation');
 insert into typeindicateur(nom) values ('pourcentage homme');
 insert into typeindicateur(nom) values ('pourcentage femme');
 
-create table occurenceactivite(
-    id serial not null,
-    idprojet int not null,
-    idactivite int not null,
-    datedebutprevision date not null,
-    datefinprevision date not null,
-    budget decimal(20,2) not null,
-    finishedornot boolean default false,
-    primary key(id),
-    foreign key(idprojet) references projet(id),
-    foreign key(idactivite) references activite(id)
-); --
-
-alter table occurenceactivite add column
-avancement decimal(20,2);
-
 create table daterealisationprojet(
     id serial not null,
     idprojet int not null,
@@ -116,64 +153,11 @@ create table daterealisationprojet(
     datefinrealisation date not null,
     primary key(id),
     foreign key(idprojet) references projet(id)
-); --
+); 
 
-create table associationindicateuractivite(
+create table siteactivite(
     id serial not null,
-    idoccurence int not null,
-    idtypeindicateur int not null,
-    quantitedemande decimal(20,2) not null,
-    finishedornot boolean default false,
-    foreign key(idtypeindicateur) references typeindicateur(id),
-    foreign key(idoccurence) references occurenceactivite(id)
-); --
-
--- create table associationindicateuractiviteavecdate(
---     id serial not null,
---     idtechnicien int not null,
---     idtypeindicateur int not null,
---     idoccurence int not null,
---     quantiteeffectue decimal(20,2) not null,
---     dateaction date not null,
---     foreign key(idtypeindicateur) references typeindicateur(id),
---     foreign key(idtechnicien) references technicien(id),
---     foreign key(idoccurence) references occurenceactivite(id)
--- ); --
-
-create table occurencesourcedeverification(
-    id serial not null,
-    idoccurence int not null,
-    idsourcedeverification int not null,
-    primary key(id),
-    foreign key(idoccurence) references occurenceactivite(id),
-    foreign key(idsourcedeverification) references sourcedeverification(id)                                       
-); --
-
-create table occurencesourcedeverificationavecdate(
-    id serial not null,
-    idoccurence int not null,
-    idtechnicien int not null,
-    idsourcedeverification int not null,
-    dateaction date not null,
-    fichier varchar(500) not null,
-    primary key(id),
-    foreign key(idoccurence) references occurenceactivite(id),
-    foreign key(idtechnicien) references technicien(id),
-    foreign key(idsourcedeverification) references sourcedeverification(id)                                    
-); --
-
-create table technicienprojet(
-    id serial not null,
-    idtechnicien int not null,
-    idprojet int not null,
-    primary key(id),
-    isFinished boolean not null default false,
-    foreign key(idtechnicien) references technicien(id),
-    foreign key(idprojet) references projet(id)
-);
-
-create table site(
-    id serial not null,
+    idocurenceactivite int not null,
     libelle varchar(500) not null,
     idcommune int not null,
     iddistrict int not null,
@@ -181,45 +165,107 @@ create table site(
     primary key(id),
     foreign key(idcommune) references commune(id),
     foreign key(iddistrict) references district(id),
-    foreign key(idregion) references region(id)
+    foreign key(idregion) references region(id),
+    foreign key(idocurenceactivite) references occurenceactivite(id)
 );
 
-create table techniciensite(
+create table sitesousactivite(
+                                 id serial not null,
+                                 idoccurencesousactivite int not null,
+                                 libelle varchar(500) not null,
+                                 idcommune int not null,
+                                 iddistrict int not null,
+                                 idregion int not null,
+                                 primary key(id),
+                                 foreign key(idcommune) references commune(id),
+                                 foreign key(iddistrict) references district(id),
+                                 foreign key(idregion) references region(id),
+                                 foreign key(idoccurencesousactivite) references occurencesousactivite
+);
+
+create table occurenceresultat(
     id serial not null,
-    idoccurence int not null,
-    idsite int not null,
-    idtechnicien int not null,
-    idindicateur int not null,
-    target decimal(20,2) not null,
+    idprojet int not null,
+    idresultat int not null,
+    avancement decimal(20,2) not null default 0,
     primary key(id),
-    foreign key(idsite) references site(id),
-    foreign key(idtechnicien) references technicien(id),
-    foreign key(idindicateur) references typeindicateur(id),
-    foreign key(idoccurence) references occurenceactivite(id)
+    foreign key(idprojet) references projet(id),
+    foreign key(idresultat) references resultat(id)
 );
 
-create table rapporttechniciensite(
+create table occurenceactivite(
+    id serial not null,     
+    idoccurenceresultat int not null,
+    idactivite int not null,
+    budget decimal(20,2) not null,
+    datedebut date not null,
+    datefin date not null,
+    avancement decimal(20,2) not null default 0,
+    primary key(id),
+    foreign key(idoccurenceresultat) references occurenceresultat(id),
+    foreign key(idactivite) references activite(id)
+);
+
+create table occurencesousactivite(
     id serial not null,
-    idoccurence int not null,
-    idsite int not null,
-    idtechnicien int not null,
-    idindicateur int not null,
-    targeteffectue decimal(20,2) not null,
-    dateaction date not null,
+    idoccurenceactivite int not null,
+    idsousactivite int not null,
+    budget decimal(20,2) not null,
+    datedebut date not null,
+    datefin date not null,
+    avancement decimal(20,2) not null default 0,
     primary key(id),
-    foreign key(idsite) references site(id),
-    foreign key(idtechnicien) references technicien(id),
-    foreign key(idindicateur) references typeindicateur(id),
-    foreign key(idoccurence) references occurenceactivite(id)
+    foreign key(idoccurenceactivite) references occurenceactivite(id),
+    foreign key(idsousactivite) references sousactivite(id)
 );
 
-create or replace view viewsite as
-select o.idactivite, o.idprojet, a.idoccurence, a.idtypeindicateur, a.quantitedemande from associationindicateuractivite a join occurenceactivite o
-on a.idoccurence = o.id;
+create table occurenceactiviteindicateur(
+                                            id serial not null,
+                                            idoccurenceactivite int not null,
+                                            idindicateur int not null,
+                                            target decimal(20,2) not null,
+                                            primary key(id),
+                                            foreign key(idoccurenceactivite) references occurenceactivite(id),
+                                            foreign key(idindicateur) references typeindicateur(id)
+);
 
-create or replace view techproj as
-select v.idoccurence,v.idprojet,t.idtechnicien from viewsite v join 
-technicienprojet t on v.idprojet=t.idprojet;
+create table occurencesousactiviteindicateur(
+                                            id serial not null,
+                                            idoccurencesousactivite int not null,
+                                            idindicateur int not null,
+                                            target decimal(20,2) not null,
+                                            primary key(id),
+                                            foreign key(idoccurencesousactivite) references occurencesousactivite(id),
+                                            foreign key(idindicateur) references typeindicateur(id)
+);
+
+create table projetcomposant(
+    id serial not null,
+    idprojet int not null,
+    idcomposant int not null,
+    primary key(id),
+    foreign key(idprojet) references projet(id),
+    foreign key(idcomposant) references composant(id)
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -20,86 +20,79 @@ namespace AnaeLogiciel.Controllers
         }
 
         // GET: Projet
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            List<Projet> projets = _context.Projet.ToList();
-            foreach (var v in projets)
-            {
-                double avancement = 0;
-                List<OccurenceActivite> listeoccurence = _context.ActiviteProjet
-                    .Where(a => a.IdProjet == v.Id).ToList();
-                foreach (var z in listeoccurence)
-                {
-                    avancement += z.Avancement;
-                }
-
-                double realavancement = avancement / listeoccurence.Count;
-
-                if (Double.IsNaN(realavancement))
-                {
-                    v.Avancement = 0;
-                }
-                else
-                {
-                    v.Avancement = realavancement;   
-                }
-
-                _context.SaveChanges();
-                
-                if (v.Avancement>=100)
-                {
-                    v.FinishedOrNot = true;
-                }
-                else
-                {
-                    v.FinishedOrNot = false;
-                }
-                
-                _context.SaveChanges();
-            }
-            return _context.Projet != null ? 
-                          View(projets) :
-                          Problem("Entity set 'ApplicationDbContext.Projet'  is null.");
+            ViewData["listeprojet"] = _context.Projet
+                .Include(a => a.Bailleur)
+                .ToList();
+            return View();
         }
 
         // GET: Projet/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? idprojet)
         {
-            if (id == null || _context.Projet == null)
+            if (idprojet == null || _context.Projet == null)
             {
                 return NotFound();
             }
 
             var projet = await _context.Projet
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .Include(p => p.Bailleur)
+                .FirstOrDefaultAsync(m => m.Id == idprojet);
             if (projet == null)
             {
                 return NotFound();
             }
 
+            ViewData["listeoccurenceresultat"] = _context.OccurenceResultat
+                .Include(a => a.Resultat)
+                .Where(a => a.IdProjet == idprojet).ToList();
+            
+            List<ProjetComposant> liste = _context.ProjetComposant
+                .Include(a => a.Composant)
+                .Where(a => a.IdProjet == idprojet).ToList();
+            ViewData["listecomposant"] = liste;
+            
             return View(projet);
         }
 
         // GET: Projet/Create
         public IActionResult Create()
         {
+            ViewData["listebailleur"] = _context.Bailleur.ToList();
+            ViewData["listecomposant"] = _context.Composant.ToList();
             return View();
         }
 
-        // POST: Projet/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nom,DateDebutPrevision,DateFinPrevision")] Projet projet)
+        public IActionResult CreateProjet(string nom, string details, DateOnly datedebut, DateOnly datefin, int idbailleur, List<int> idcomposant, string budget)
         {
-            if (ModelState.IsValid)
+            Projet projet = new Projet()
             {
-                _context.Add(projet);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                Nom = nom,
+                Details = details,
+                DateDebutPrevision = datedebut,
+                DateFinPrevision = datefin,
+                IdBailleur = idbailleur,
+                Budget = Double.Parse(budget)
+            };
+            _context.Add(projet);
+            _context.SaveChanges();
+            Projet np = _context.Projet.First(a => a == projet);
+            foreach (var v in idcomposant)
+            {
+                ProjetComposant pr = new ProjetComposant()
+                {
+                    IdProjet = np.Id,
+                    IdComposant = v
+                };
+                _context.ProjetComposant.Add(pr);
             }
-            return View(projet);
+            
+            _context.SaveChanges();
+            ViewData["listeprojet"] = _context.Projet
+                .Include(a => a.Bailleur)
+                .ToList();
+            return View("Index");
         }
 
         // GET: Projet/Edit/5
@@ -115,6 +108,7 @@ namespace AnaeLogiciel.Controllers
             {
                 return NotFound();
             }
+            ViewData["IdBailleur"] = new SelectList(_context.Bailleur, "Id", "Nom", projet.IdBailleur);
             return View(projet);
         }
 
@@ -123,7 +117,7 @@ namespace AnaeLogiciel.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,DateDebutPrevision,DateFinPrevision")] Projet projet)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,DateDebutPrevision,DateFinPrevision,FinishedOrNot,Avancement,Details,IdBailleur")] Projet projet)
         {
             if (id != projet.Id)
             {
@@ -150,6 +144,7 @@ namespace AnaeLogiciel.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["IdBailleur"] = new SelectList(_context.Bailleur, "Id", "Nom", projet.IdBailleur);
             return View(projet);
         }
 
@@ -162,6 +157,7 @@ namespace AnaeLogiciel.Controllers
             }
 
             var projet = await _context.Projet
+                .Include(p => p.Bailleur)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (projet == null)
             {

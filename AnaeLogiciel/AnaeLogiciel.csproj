@@ -91,6 +91,33 @@
       <_ContentIncludedByDefault Remove="Views\ActiviteProjetSourceDeVerificationAvecDate\Index.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Technicien\Create.cshtml" />
       <_ContentIncludedByDefault Remove="Views\PageLogin\Login.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\AffectationTechnicien\ListeTechnicienParProjet.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\AffectationTechnicien\PageAffectation.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\AffectationTechnicien\PageAjoutTravailTechnicien.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\AffectationTechnicien\PageTravailTechnicien.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\FrontTechnicien\AcceuilTech.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\FrontTechnicien\PageIndicateurTechnicien.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\FrontTechnicien\PageInsertionRapportSurSite.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\FrontTechnicien\SiteTech.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\OccurenceActivite\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\OccurenceActivite\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\OccurenceActivite\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\OccurenceActivite\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\OccurenceActivite\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\OccurenceActivite\InsertionActiviteProjet.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\OccurenceActivite\RealIndex.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\TraitementIndicateur\AvecDate\InsertionAssociationIndicateur.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\TraitementIndicateur\SansDate\InsertionAssociationIndicateur.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Technicien\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Technicien\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Technicien\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Technicien\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PagesSourceDeVerification\AcceuilAjout.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PagesSourceDeVerification\insertionBondereception.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PagesSourceDeVerification\insertionEtatdepaiement.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PagesSourceDeVerification\insertionFichedepresence.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PagesSourceDeVerification\insertionPhoto.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PagesSourceDeVerification\insertionRapport.cshtml" />
     </ItemGroup>
 
     <ItemGroup>
@@ -119,6 +146,23 @@
       <UpToDateCheckInput Remove="Views\IndicateurActiviteProjet\Details.cshtml" />
       <UpToDateCheckInput Remove="Views\IndicateurActiviteProjet\Edit.cshtml" />
       <UpToDateCheckInput Remove="Views\IndicateurActiviteProjet\Index.cshtml" />
+      <UpToDateCheckInput Remove="Views\Technicien\Create.cshtml" />
+      <UpToDateCheckInput Remove="Views\Projet\Create.cshtml" />
+      <UpToDateCheckInput Remove="Views\Projet\Delete.cshtml" />
+      <UpToDateCheckInput Remove="Views\Projet\Details.cshtml" />
+      <UpToDateCheckInput Remove="Views\Projet\Edit.cshtml" />
+      <UpToDateCheckInput Remove="Views\Projet\Index.cshtml" />
+      <UpToDateCheckInput Remove="Views\Projet\Create.cshtml" />
+      <UpToDateCheckInput Remove="Views\Projet\Delete.cshtml" />
+      <UpToDateCheckInput Remove="Views\Projet\Details.cshtml" />
+      <UpToDateCheckInput Remove="Views\Projet\Edit.cshtml" />
+      <UpToDateCheckInput Remove="Views\Projet\Index.cshtml" />
+
+
+
+
+
+
 
 
     </ItemGroup>

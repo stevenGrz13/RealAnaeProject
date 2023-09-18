@@ -1,55 +1,21 @@
-@model AnaeLogiciel.Models.OccurenceActivite
-
-@{
-    ViewData["Title"] = "Details";
+﻿@{
+    ViewBag.Title = "title";
     Layout = "_LayoutGlobalProject";
+    OccurenceActivite oc = ViewData["occurenceactivite"] as OccurenceActivite;
 }
 
-<h1>Details</h1>
+<h3>@oc.Activite.Nom</h3>
+<br>
+Budget:
+@oc.Budget
+<br>
+Date Debut:
+@oc.DateDebut
+<br>
+Date Fin:
+@oc.DateFin
+<br>
+Avancement:
+@oc.Avancement
 
-<div>
-    <h4>ActiviteProjet</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateDebutPrevision)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateDebutPrevision)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateFinPrevision)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateFinPrevision)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Budget)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Budget)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FinishedOrNot)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FinishedOrNot)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Projet)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Projet.Nom)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Activite)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Activite.Nom)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+

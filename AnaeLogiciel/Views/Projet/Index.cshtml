@@ -2,75 +2,43 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "_LayoutGlobalProject";
+    List<Projet> liste = new List<Projet>();
+    if (ViewData["listeprojet"] != null)
+    {
+        liste = ViewData["listeprojet"] as List<Projet>;
+    }
 }
 
-<h3>Les Projets</h3>
-
-<link rel="stylesheet" href="css/site.css">
+<h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Creer nouveau projet</a>
+    <a asp-action="Create">Create New</a>
 </p>
+
 <table class="table">
     <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nom)
-            </th>
-            <th>Avancement</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
+    <tr>
+        <th>Nom</th>
+        <th>Avancement</th>
+        <th></th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nom)
-            </td>
-            <td>
-                <div class="progress-bar">
-                    <div class="filler" style="width: @item.Avancement%;"></div>
-                </div>
-            </td>
-            <td>
-                @using (Html.BeginForm("RealIndex", controllerName: "OccurenceActivite", FormMethod.Post))
-                {   
-                    <input type="hidden" name="idprojet" value="@item.Id">   
-                    <input type="submit" value="VERS ACTIVITES">
-                }
-            </td>
-            <td>
-                @using (Html.BeginForm("AjouterActivite", controllerName: "OccurenceActivite", FormMethod.Post))
-                {   
-                    <input type="hidden" name="idprojet" value="@item.Id">   
-                    <input type="submit" value="AJOUTER ACTIVITE">
-                }
-            </td>
-            <td>
-                @using (Html.BeginForm("versAffectationTechnicien", controllerName: "My", FormMethod.Post))
-                {   
-                    <input type="hidden" name="idprojet" value="@item.Id">   
-                    <input type="submit" value="AFFECTER DES TECHNICIENS">
-                }
-            </td>
-            <td>
-                @using (Html.BeginForm("VoirListeTechnicien", controllerName: "My", FormMethod.Post))
-                {   
-                    <input type="hidden" name="idprojet" value="@item.Id">   
-                    <input type="submit" value="VOIR LES TECHNICIENS AFFECTEES">
-                }
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> 
-            </td>
-        </tr>
-}
+        @foreach (var v in liste)
+        {
+            <tr>
+                <td>@v.Nom</td>
+                <td>@v.Avancement %</td>
+                <form action="/Projet/Details">
+                    <input type="hidden" name="idprojet" value="@v.Id">
+                    <td><input type="submit" value="details"></td>
+                </form>
+                <form action="/Resultat/VersOccurenceResultat">
+                    <input type="hidden" name="idprojet" value="@v.Id">
+                    <td><input type="submit" value="ajout resultat"></td>
+                </form>
+            </tr>
+        }
     </tbody>
 </table>

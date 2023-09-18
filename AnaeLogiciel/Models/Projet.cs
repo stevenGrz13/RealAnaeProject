@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AnaeLogiciel.Models;
@@ -24,4 +25,17 @@ public class Projet
     
     [Column("avancement")]
     public double Avancement { get; set; }
+    
+    [Column("details")]
+    public string Details { get; set; }
+    
+    [Column("idbailleur")]
+    [DisplayName("bailleur")]
+    public int IdBailleur { get; set; }
+    
+    [Column("budget")]
+    public double Budget { get; set; }
+    
+    [ForeignKey("IdBailleur")]
+    public virtual Bailleur? Bailleur { get; set; }
 }

@@ -11,32 +11,29 @@ public class OccurenceActivite
     [Column("id")]
     public int Id { get; set; }
     
-    [Column("idprojet")]
-    [DisplayName("projet")]
-    public int IdProjet { get; set; }
+    [Column("idoccurenceresultat")]
+    [DisplayName("occurenceresultat")]
+    public int IdOccurenceResultat { get; set; }
     
     [Column("idactivite")]
     [DisplayName("activite")]
     public int IdActivite { get; set; }
     
-    [Column("datedebutprevision")]
-    public DateOnly DateDebutPrevision { get; set; }
-    
-    [Column("datefinprevision")]
-    public DateOnly DateFinPrevision { get; set; }
-    
     [Column("budget")]
     public double Budget { get; set; }
     
-    [Column("finishedornot")]
-    public bool FinishedOrNot { get; set; }
+    [Column("datedebut")]
+    public DateOnly DateDebut { get; set; }
+    
+    [Column("datefin")]
+    public DateOnly DateFin { get; set; }
     
     [Column("avancement")]
     public double Avancement { get; set; }
     
-    [ForeignKey("IdProjet")]
-    public virtual Projet? Projet { get; set; }
+    [ForeignKey("IdOccurenceResultat")]
+    public virtual OccurenceResultat? OccurenceResultat { get; set; }
     
     [ForeignKey("IdActivite")]
-    public virtual Activite? Activite { get; set; }
+    public virtual Activite? Activite { get; set;  }
 }
