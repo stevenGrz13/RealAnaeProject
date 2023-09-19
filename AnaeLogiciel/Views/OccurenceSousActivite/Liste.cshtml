@@ -16,6 +16,8 @@
     <thead>
     <tr>
         <th>Nom</th>
+        <th>Avancement</th>
+        <th></th>
         <th></th>
     </tr>
     </thead>
@@ -24,7 +26,17 @@
         {
             <tr>
                 <td>@v.SousActivite.Nom</td>
-                <td><input type="submit" value="details"></td>
+                <td>@v.Avancement %</td>
+                <form action="/OccurenceSousActivite/VersDetailsOccurenceSousActivite">
+                    <input type="hidden" name="idoccurencesousactivite" value="@v.Id">
+                    <td><input type="submit" value="details"></td>
+                </form>
+                <td>
+                    <form action="/IndicateurSousActivite/VersInsertionSousActiviteIndicateur">
+                        <input type="hidden" name="idoccurencesousactivite" value="@v.Id">
+                        <input type="submit" value="ajouter indicateur">
+                    </form>
+                </td>
             </tr>
         }
     </tbody>

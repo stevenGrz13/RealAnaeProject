@@ -2,6 +2,8 @@
     ViewBag.Title = "title";
     Layout = "_LayoutGlobalProject";
     OccurenceActivite oc = ViewData["occurenceactivite"] as OccurenceActivite;
+    List<OccurenceActiviteIndicateur> liste = ViewData["listeoccurenceactiviteindicateur"] as List<OccurenceActiviteIndicateur>;
+    List<SiteActivite> listesite = ViewData["listesiteoccurenceactivite"] as List<SiteActivite>;
 }
 
 <h3>@oc.Activite.Nom</h3>
@@ -18,4 +20,71 @@ Date Fin:
 Avancement:
 @oc.Avancement
 
+<br>edefefefe
+<form action="/IndicateurActivite/VersInsertionActiviteIndicateur">
+    <input type="hidden" name="idoccurenceactivite" value="@oc.Id">
+    <input type="submit" value="ajouter indicateur">
+</form>
 
+<br>
+<h4>Target Indicateurs</h4>
+<br>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Indicateur</th>
+        <th>Target</th>
+    </tr>    
+    </thead>
+    <tbody>
+    @foreach (var v in liste)
+    {
+        <tr>
+            <td>@v.TypeIndicateur.Nom</td>
+            <td>@v.Target</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<br>
+
+<form action="/SiteActivite/VersInsertionSiteActivite">
+    <input type="hidden" name="idoccurenceactivite" value="@oc.Id">
+    <input type="submit" value="ajouter sites">
+</form>
+
+<br>
+
+<h3>Liste Sites</h3>
+
+<br>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Libelle</th>
+        <th>Commune</th>
+        <th>District</th>
+        <th>Region</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in listesite)
+        {
+            <tr>
+                <td>@v.Libelle</td>
+                <td>@v.Commune.Nom</td>
+                <td>@v.District.Libelle</td>
+                <td>@v.Region.Nom</td>
+                <td>
+                    <form action="">
+                        <input type="submit" value="details">
+                        <input type="hidden" name="idsiteactivite" value="@v.Id">
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

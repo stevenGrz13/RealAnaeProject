@@ -31,6 +31,7 @@ namespace AnaeLogiciel.Controllers
         // GET: Projet/Details/5
         public async Task<IActionResult> Details(int? idprojet)
         {
+            HttpContext.Session.SetInt32("idprojet",idprojet.GetValueOrDefault());
             if (idprojet == null || _context.Projet == null)
             {
                 return NotFound();
@@ -44,6 +45,13 @@ namespace AnaeLogiciel.Controllers
                 return NotFound();
             }
 
+            List<TechnicienProjet> tc = _context
+                .TechnicienProjet
+                .Include(a => a.Technicien)
+                .Where(a => a.IdProjet == idprojet).ToList();
+
+            ViewData["listetechnicien"] = tc;
+            
             ViewData["listeoccurenceresultat"] = _context.OccurenceResultat
                 .Include(a => a.Resultat)
                 .Where(a => a.IdProjet == idprojet).ToList();
@@ -189,6 +197,46 @@ namespace AnaeLogiciel.Controllers
         private bool ProjetExists(int id)
         {
           return (_context.Projet?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        public async Task<IActionResult> AffectationTechnicien(List<int> idtechnicien)
+        {
+            int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
+            var projet = await _context.Projet
+                .Include(p => p.Bailleur)
+                .FirstOrDefaultAsync(m => m.Id == idprojet);
+            foreach (var v in idtechnicien)
+            {
+                TechnicienProjet tp = new TechnicienProjet()
+                {
+                    IdProjet = idprojet,
+                    IdTechnicien = v
+                };
+                _context.Add(tp);   
+            }
+            _context.SaveChanges();
+            List<TechnicienProjet> tc = _context
+                .TechnicienProjet
+                .Include(a => a.Technicien)
+                .Where(a => a.IdProjet == idprojet).ToList();
+
+            ViewData["listetechnicien"] = tc;
+            
+            ViewData["listeoccurenceresultat"] = _context.OccurenceResultat
+                .Include(a => a.Resultat)
+                .Where(a => a.IdProjet == idprojet).ToList();
+            
+            List<ProjetComposant> liste = _context.ProjetComposant
+                .Include(a => a.Composant)
+                .Where(a => a.IdProjet == idprojet).ToList();
+            ViewData["listecomposant"] = liste;
+            return RedirectToAction("Index", "Projet", new { projet });
+        }
+        
+        public IActionResult VersAffectationTechnicien()
+        {
+            ViewData["listetechnicien"] = _context.Technicien.ToList();
+            return View("AffectationTechnicien");
         }
     }
 }

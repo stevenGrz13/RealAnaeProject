@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    List<TypeIndicateur> liste = ViewData["listeindicateur"] as List<TypeIndicateur>;
+    int idoccurenceactivite = ViewBag.idoccurenceactivite;
+}
+
+<h3>Insertion Indicateur</h3>
+<br>
+
+<form action="/IndicateurActivite/Create">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <select name="idindicateur" id="idindicateur">
+        @foreach (var v in liste)
+        {
+            <option value="@v.Id">@v.Nom</option>
+        }
+    </select>
+    <br>
+    <input type="text" name="target" placeholder="Target">
+    <br>
+    <input type="submit">
+</form>

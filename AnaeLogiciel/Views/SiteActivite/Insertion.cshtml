@@ -1,0 +1,86 @@
+﻿@using Newtonsoft.Json
+@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    int idoccurenceactivite = ViewBag.idoccurenceactivite;
+    List<Commune> listecommune = ViewData["listecommune"] as List<Commune>;
+    List<District> listedistrict = ViewData["listedistrict"] as List<District>;
+    List<Region> listeregion = ViewData["listeregion"] as List<Region>;
+}
+
+<h2>Insertion Site</h2>
+<br>
+
+@using (Html.BeginForm("Create", controllerName: "SiteActivite", FormMethod.Post))
+           {
+               <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">               
+               @:Description du site: <br>
+               <input type="text" name="libelle"><br>
+               <select id="region" name="region">
+                   @foreach (var v in listeregion)
+                   {
+                       <option value="@v.Id">@v.Nom</option>   
+                   }
+               </select>
+
+               <select id="district" onchange="filterDistricts(this.value)" name="district">
+                   @foreach (var v in listedistrict)
+                   {
+                       <option value="@v.Id" data-region-id="@v.IdRegion">@v.Libelle</option>   
+                   }
+               </select>
+
+               <select id="commune" onchange="filterCommunes(this.value)" name="commune">
+                   @foreach (var v in listecommune)
+                   {
+                       <option value="@v.Id" data-district-id="@v.IdDistrict">@v.Nom</option>   
+                   }
+               </select>
+               <input type="submit" value="Inserer">
+           }
+<script>
+    var regionsData = @Html.Raw(JsonConvert.SerializeObject(listeregion));
+    var districtsData = @Html.Raw(JsonConvert.SerializeObject(listedistrict));
+    var communesData = @Html.Raw(JsonConvert.SerializeObject(listecommune));
+
+    function filterDistricts(regionId) {
+        var districts = document.getElementById("district");
+        var options = districts.options;
+
+        for (var i = 0; i < options.length; i++) {
+            var option = options[i];
+
+            if (option.dataset.regionId != regionId) {
+                option.hidden = true;
+            } else {
+                option.hidden = false;
+            }
+        }
+    }
+
+    function filterCommunes(districtId) {
+        var communes = document.getElementById("commune");
+        var options = communes.options;
+    
+        for (var i = 0; i < options.length; i++) {
+            var option = options[i];
+    
+            if (option.dataset.districtId != districtId) { // Utilisez "data-commune-id"
+                option.hidden = true;
+            } else {
+                option.hidden = false;
+            }
+        }
+    }
+    
+    document.getElementById("region").addEventListener("change", function() {
+        var regionId = this.value;
+        filterDistricts(regionId);
+    });
+
+    document.getElementById("district").addEventListener("change", function() {
+        var districtId = this.value;
+        filterCommunes(districtId);
+    });
+    
+</script>

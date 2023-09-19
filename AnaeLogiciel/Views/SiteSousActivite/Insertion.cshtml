@@ -1,16 +1,19 @@
 ﻿@using Newtonsoft.Json
 @{
+    ViewBag.Title = "title";
     Layout = "_LayoutGlobalProject";
-    List<Region> listeregion = ViewData["listeregion"] as List<Region>;
-    List<District> listedistrict = ViewData["listedistrict"] as List<District>;
+    int idoccurencesousactivite = ViewBag.idoccurencesousactivite;
     List<Commune> listecommune = ViewData["listecommune"] as List<Commune>;
+    List<District> listedistrict = ViewData["listedistrict"] as List<District>;
+    List<Region> listeregion = ViewData["listeregion"] as List<Region>;
 }
 
-<h3>AJOUTER SITE</h3>
+<h2>Insertion Site</h2>
 <br>
 
-@using (Html.BeginForm("", controllerName: "", FormMethod.Post))
+@using (Html.BeginForm("Create", controllerName: "SiteSousActivite", FormMethod.Post))
            {
+               <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">               
                @:Description du site: <br>
                <input type="text" name="libelle"><br>
                <select id="region" name="region">

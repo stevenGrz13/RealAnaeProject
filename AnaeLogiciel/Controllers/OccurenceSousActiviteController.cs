@@ -43,4 +43,20 @@ public class OccurenceSousActiviteController : Controller
         _context.Add(osc);
         _context.SaveChanges();
     }
+
+    public IActionResult VersDetailsOccurenceSousActivite(int idoccurencesousactivite)
+    {
+        ViewBag.idoccurencesousactivite = idoccurencesousactivite;
+        ViewData["listesiteoccurencesousactivite"] = _context.SiteSousActivite
+            .Include(a => a.Commune)
+            .Include(a => a.Region)
+            .Include(a => a.District)
+            .Where(a => a.IdOccurenceSousActivite == idoccurencesousactivite).ToList();
+        ViewData["listeoccurencesousactivite"] = _context
+            .OccurenceSousActiviteIndicateur
+            .Include(a => a.TypeIndicateur)
+            .Where(a => a.IdOccurenceSousActivite == idoccurencesousactivite)
+            .ToList();
+        return View("~/Views/OccurenceSousActivite/Details.cshtml");
+    }
 }

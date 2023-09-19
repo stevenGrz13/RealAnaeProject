@@ -50,9 +50,25 @@ public class OccurenceActiviteController : Controller
 
     public IActionResult Details(int idoccurenceactivite)
     {
+        List<OccurenceActiviteIndicateur> liste = _context.OccurenceActiviteIndicateur
+            .Include(a => a.TypeIndicateur)
+            .Where(a => a.IdOccurenceActivite == idoccurenceactivite).ToList();
+        ViewData["listeoccurenceactiviteindicateur"] = liste;
         ViewData["occurenceactivite"] = _context.OccurenceActivite
             .Include(a => a.Activite)
-            .First(a => a.Id == idoccurenceactivite);
+            .FirstOrDefault(a => a.Id == idoccurenceactivite);
+        ViewData["listesiteoccurenceactivite"] = _context.SiteActivite
+            .Include(a => a.Commune)
+            .Include(a => a.District)
+            .Include(a => a.Region)
+            .Where(a => a.IdOccurenceActivite == idoccurenceactivite).ToList();
         return View("~/Views/OccurenceActivite/Details.cshtml");
+    }
+
+    public IActionResult VersInsertionIndicateurActivite(int idoccurenceactivite)
+    {
+        ViewData["listeindicateur"] = _context.TypeIndicateur.ToList();
+        ViewBag.idoccurenceactivite = idoccurenceactivite;
+        return View("~/Views/ActiviteIndicateur/Insertion.cshtml");
     }
 }

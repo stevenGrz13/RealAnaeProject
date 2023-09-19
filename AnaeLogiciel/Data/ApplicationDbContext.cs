@@ -39,4 +39,18 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<AnaeLogiciel.Models.OccurenceActivite> OccurenceActivite { get; set; } = default!;
     
     public DbSet<AnaeLogiciel.Models.OccurenceSousActivite> OccurenceSousActivite { get; set; } = default!;
+    
+    public DbSet<AnaeLogiciel.Models.SiteActivite> SiteActivite { get; set; } = default!;
+    
+    public DbSet<AnaeLogiciel.Models.SiteSousActivite> SiteSousActivite { get; set; } = default!;
+    
+    public DbSet<AnaeLogiciel.Models.OccurenceActiviteIndicateur> OccurenceActiviteIndicateur { get; set; } = default!;
+    
+    public DbSet<AnaeLogiciel.Models.OccurenceSousActiviteIndicateur> OccurenceSousActiviteIndicateur { get; set; } = default!;
+
+    public DbSet<AnaeLogiciel.Models.IndicateurTechnicienSiteSousActivite> IndicateurTechnicienSiteSousActivite { get; set; } = default!;
+    
+    public DbSet<AnaeLogiciel.Models.IndicateurTechnicienSiteActivite> IndicateurTechnicienSiteActivite { get; set; } = default!;
+
+    public DbSet<AnaeLogiciel.Models.TechnicienProjet> TechnicienProjet { get; set; } = default!;
 }

@@ -248,11 +248,38 @@ create table projetcomposant(
     foreign key(idcomposant) references composant(id)
 );
 
+create table indicateurtechniciensiteactivite(
+    id serial not null,
+    idsiteactivite int not null,
+    idindicateur int not null,
+    idtechnicien int not null,
+    target real not null,
+    primary key(id),
+    foreign key(idsiteactivite) references siteactivite(id),
+    foreign key(idindicateur) references typeindicateur(id),
+    foreign key(idtechnicien) references technicien(id)
+);
 
+create table indicateurtechniciensitesousactivite(
+    id serial not null,
+    idsitesousactivite int not null,
+    idindicateur int not null,
+    idtechnicien int not null,
+    target real not null,
+    primary key(id),
+    foreign key(idsitesousactivite) references sitesousactivite(id),
+    foreign key(idindicateur) references typeindicateur(id),
+    foreign key(idtechnicien) references technicien(id)
+);
 
-
-
-
+create table technicienprojet(
+    id serial not null,
+    idprojet int not null,
+    idtechnicien int not null,
+    primary key(id),
+    foreign key(idprojet) references projet(id),
+    foreign key(idtechnicien) references technicien(id)
+);
 
 
 

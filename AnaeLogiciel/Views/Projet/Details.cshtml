@@ -4,6 +4,7 @@
     ViewData["Title"] = "Details";
     List<ProjetComposant> liste = ViewData["listecomposant"] as List<ProjetComposant>;
     List<OccurenceResultat> lister = ViewData["listeoccurenceresultat"] as List<OccurenceResultat>;
+    List<TechnicienProjet> listet = ViewData["listetechnicien"] as List<TechnicienProjet>;
 }
 
 <h1>Details</h1>
@@ -58,6 +59,29 @@
 </div>
 <br>
 
+<form action="/Projet/VersAffectationTechnicien">
+    <input type="submit" value="Affecter techniciens">
+</form>
+
+<br>
+<h3>Techniciens</h3>
+<br>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Nom</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var v in listet)
+    {
+        <tr>
+            <td>@v.Technicien.Email</td>
+        </tr>   
+    }
+    </tbody>
+</table>
+<br>
 <h3>Composants:</h3>
 <br>
 

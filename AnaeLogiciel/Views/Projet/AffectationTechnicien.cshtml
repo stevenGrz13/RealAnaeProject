@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    List<Technicien> liste = ViewData["listetechnicien"] as List<Technicien>;
+}
+
+<h2>Affectation</h2>
+
+<br>
+
+<form action="/Projet/AffectationTechnicien">
+    @foreach (var v in liste)
+    {   
+        @v.Email
+        <input type="checkbox" name="idtechnicien" value="@v.Id">   
+        <br>
+    }
+    <input type="submit" value="Valider">
+</form>
