@@ -52,11 +52,16 @@ public class OccurenceSousActiviteController : Controller
             .Include(a => a.Region)
             .Include(a => a.District)
             .Where(a => a.IdOccurenceSousActivite == idoccurencesousactivite).ToList();
-        ViewData["listeoccurencesousactivite"] = _context
+        ViewData["listeoccurencesousactiviteindicateur"] = _context
             .OccurenceSousActiviteIndicateur
             .Include(a => a.TypeIndicateur)
             .Where(a => a.IdOccurenceSousActivite == idoccurencesousactivite)
             .ToList();
+        return View("~/Views/OccurenceSousActivite/Details.cshtml");
+    }
+
+    public IActionResult VersDetailsSousActiviteSite(int idsitesousactivite)
+    {
         return View("~/Views/OccurenceSousActivite/Details.cshtml");
     }
 }

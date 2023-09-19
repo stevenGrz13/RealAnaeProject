@@ -2,9 +2,9 @@
     ViewBag.Title = "title";
     Layout = "_LayoutGlobalProject";
     List<TechnicienProjet> liste = ViewData["listetechnicien"] as List<TechnicienProjet>;
-    List<OccurenceActiviteIndicateur> listeindic = ViewData["listeindicateur"] as List<OccurenceActiviteIndicateur>;
-    int idsiteactivite = ViewBag.idsiteactivite;
-    List<IndicateurTechnicienSiteActivite> listetech = ViewData["indicateurtechniciensiteactivite"] as List<IndicateurTechnicienSiteActivite>;
+    List<OccurenceSousActiviteIndicateur> listeindic = ViewData["listeindicateur"] as List<OccurenceSousActiviteIndicateur>;
+    int idsitesousactivite = ViewBag.idsiteactivite;
+    List<IndicateurTechnicienSiteSousActivite> listetech = ViewData["indicateurtechniciensitesousactivite"] as List<IndicateurTechnicienSiteSousActivite>;
 }
 
 <h2>Detail Site</h2>
@@ -20,14 +20,14 @@
     </tr>
     </thead>
     <tbody>
-        @foreach (var v in listetech)
-        {
-            <tr>
-                <td>@v.Technicien.Email</td>
-                <td>@v.TypeIndicateur.Nom</td>
-                <td>@v.Target</td>
-            </tr>   
-        }
+    @foreach (var v in listetech)
+    {
+        <tr>
+            <td>@v.Technicien.Email</td>
+            <td>@v.TypeIndicateur.Nom</td>
+            <td>@v.Target</td>
+        </tr>   
+    }
     </tbody>
 </table>
 
@@ -35,7 +35,7 @@
 <h3>Donner Travail</h3>
 <br>
 
-<form action="/SiteActivite/CreateWithIndicateur">
+<form action="/SiteSousActivite/CreateWithIndicateur">
     <select name="idtechnicien" id="idtechnicien">
         @foreach (var v in liste)
         {
@@ -49,6 +49,6 @@
         }
     </select>
     <input type="text" name="target">
-    <input type="hidden" name="idsiteactivite" value="@idsiteactivite">
+    <input type="hidden" name="idsitesousactivite" value="@idsitesousactivite">
     <input type="submit" value="attribuer">
 </form>
