@@ -42,6 +42,7 @@
         <th>District</th>
         <th>Region</th>
         <th></th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -53,8 +54,16 @@
                 <td>@v.District.Libelle</td>
                 <td>@v.Region.Nom</td>
                 <td>
-                    <form action="">
+                    <form action="/OccurenceSousActivite/VersDetailsSiteSousActivite/">
+                        <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+                        <input type="hidden" name="idsitesousactivite" value="@v.Id">
                         <input type="submit" value="details">
+                    </form>
+                </td>
+                <td>
+                    <form action="/BackOfficeSousActivite/VersListeRapportSousActivite">
+                        <input type="hidden" name="idsitesousactivite" value="@v.Id">
+                        <input type="submit" value="liste rapport">
                     </form>
                 </td>
             </tr>

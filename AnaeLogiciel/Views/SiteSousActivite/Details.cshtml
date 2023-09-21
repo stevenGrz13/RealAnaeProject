@@ -3,7 +3,7 @@
     Layout = "_LayoutGlobalProject";
     List<TechnicienProjet> liste = ViewData["listetechnicien"] as List<TechnicienProjet>;
     List<OccurenceSousActiviteIndicateur> listeindic = ViewData["listeindicateur"] as List<OccurenceSousActiviteIndicateur>;
-    int idsitesousactivite = ViewBag.idsiteactivite;
+    int idsitesousactivite = ViewBag.idsitesousactivite;
     List<IndicateurTechnicienSiteSousActivite> listetech = ViewData["indicateurtechniciensitesousactivite"] as List<IndicateurTechnicienSiteSousActivite>;
 }
 
@@ -17,6 +17,8 @@
         <th>Technicien</th>
         <th>Indicateur</th>
         <th>Target</th>
+        <th></th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -26,6 +28,17 @@
             <td>@v.Technicien.Email</td>
             <td>@v.TypeIndicateur.Nom</td>
             <td>@v.Target</td>
+            <td>
+                <form action="/BackOfficeSousActivite/VersRapportSousActivite">
+                    <input type="hidden" name="idtechnicien" value="@v.IdTechnicien">
+                    <input type="hidden" name="idindicateur" value="@v.IdIndicateur">
+                    <input type="hidden" name="idsitesousactivite" value="@idsitesousactivite">
+                    <input type="submit" value="rapport">
+                </form>
+            </td>
+            <td>
+                <input type="submit" value="liste rapport">
+            </td>
         </tr>   
     }
     </tbody>

@@ -17,9 +17,50 @@ public class OccurenceSousActiviteController : Controller
     public IActionResult ListeOccurenceSousActivite(int idoccurenceactivite)
     {
         ViewBag.idoccurenceactivite = idoccurenceactivite;
-        ViewData["listeoccurencesousactivite"] = _context.OccurenceSousActivite
+        List<OccurenceSousActivite> listes = _context.OccurenceSousActivite
             .Include(a => a.SousActivite)
             .Where(a => a.IdOccurenceActivite == idoccurenceactivite).ToList();
+        foreach (var v in listes)
+        {
+            List<OccurenceSousActiviteIndicateur> liste = _context.OccurenceSousActiviteIndicateur
+                .Include(a => a.TypeIndicateur)
+                .Where(a => a.IdOccurenceSousActivite == v.Id).ToList();
+            double[] table = new double[liste.Count];
+            for (int i = 0; i < table.Length; i++)
+            {   
+                var element = _context.VCalculRapportSousActivite
+                    .FirstOrDefault(a => a.IdOccurenceSousActivite == v.Id && a.IdIndicateur == liste[i].IdIndicateur);
+
+                if (element != null)
+                {
+                    double somme = element.Somme;
+                    table[i] = (somme * 100) / liste[i].Target;
+                }
+                else
+                {
+                    table[i] = 0;
+                } 
+            }
+
+            double moyenne = 0;
+            for (int i = 0; i < table.Length; i++)
+            {
+                moyenne += table[i];
+            }
+
+            moyenne = moyenne / table.Length;
+            if (Double.IsNaN(moyenne))
+            {
+                moyenne = 0;
+            }
+            ViewData["listeoccurenceactiviteindicateur"] = liste;
+            OccurenceSousActivite oc = _context.OccurenceSousActivite
+                .Include(a => a.SousActivite)
+                .First(a => a.Id == idoccurenceactivite);
+            oc.Avancement = moyenne;
+            _context.SaveChanges();
+        }
+        ViewData["listeoccurencesousactivite"] = listes;
         return View("~/Views/OccurenceSousActivite/Liste.cshtml");
     }
 
@@ -60,8 +101,24 @@ public class OccurenceSousActiviteController : Controller
         return View("~/Views/OccurenceSousActivite/Details.cshtml");
     }
 
-    public IActionResult VersDetailsSousActiviteSite(int idsitesousactivite)
+    public IActionResult VersDetailsSiteSousActivite(int idsitesousactivite, int idoccurencesousactivite)
     {
-        return View("~/Views/OccurenceSousActivite/Details.cshtml");
+        int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
+        ViewBag.idsitesousactivite = idsitesousactivite;
+        ViewData["listetechnicien"] = _context
+            .TechnicienProjet
+            .Include(a => a.Technicien)
+            .Where(a => a.IdProjet == idprojet).ToList();
+        ViewData["listeindicateur"] = _context
+            .OccurenceSousActiviteIndicateur
+            .Include(a => a.TypeIndicateur)
+            .Where(a => a.IdOccurenceSousActivite == idoccurencesousactivite)
+            .ToList();
+        ViewData["indicateurtechniciensitesousactivite"] = _context
+            .IndicateurTechnicienSiteSousActivite
+            .Include(a => a.TypeIndicateur)
+            .Where(a => a.IdSiteSousActivite == idsitesousactivite)
+            .ToList();
+        return View("~/Views/SiteSousActivite/Details.cshtml");
     }
 }

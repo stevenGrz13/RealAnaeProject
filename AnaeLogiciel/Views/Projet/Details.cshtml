@@ -32,16 +32,10 @@
             @Html.DisplayFor(model => model.DateFinPrevision)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FinishedOrNot)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FinishedOrNot)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Avancement)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Avancement)
+            @Html.DisplayFor(model => model.Avancement) %
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Details)
@@ -54,6 +48,12 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Bailleur.Nom)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Budget)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Budget) Ar
         </dd>
     </dl>
 </div>
@@ -109,6 +109,7 @@
     <thead>
     <tr>
         <th>Nom</th>
+        <th>Avancement</th>
         <th></th>
         <th></th>
     </tr>
@@ -118,6 +119,7 @@
         {
             <tr>
                 <td>@v.Resultat.Nom</td>
+                <td>@v.Avancement %</td>
                 <form action="/OccurenceActivite/ListeOccurenceActivites">
                     <input type="hidden" name="idoccurenceresultat" value="@v.Id">
                     <td><input type="submit" value="liste activites"></td>

@@ -53,10 +53,41 @@ public class OccurenceActiviteController : Controller
         List<OccurenceActiviteIndicateur> liste = _context.OccurenceActiviteIndicateur
             .Include(a => a.TypeIndicateur)
             .Where(a => a.IdOccurenceActivite == idoccurenceactivite).ToList();
+        double[] table = new double[liste.Count];
+        for (int i = 0; i < table.Length; i++)
+        {   
+            var element = _context.VCalculRapportActivite
+                .FirstOrDefault(a => a.IdOccurenceActivite == idoccurenceactivite && a.IdIndicateur == liste[i].IdIndicateur);
+
+            if (element != null)
+            {
+                double somme = element.Somme;
+                table[i] = (somme * 100) / liste[i].Target;
+            }
+            else
+            {
+                table[i] = 0;
+            } 
+        }
+
+        double moyenne = 0;
+        for (int i = 0; i < table.Length; i++)
+        {
+            moyenne += table[i];
+        }
+
+        moyenne = moyenne / table.Length;
+        if (Double.IsNaN(moyenne))
+        {
+            moyenne = 0;
+        }
         ViewData["listeoccurenceactiviteindicateur"] = liste;
-        ViewData["occurenceactivite"] = _context.OccurenceActivite
+        OccurenceActivite oc = _context.OccurenceActivite
             .Include(a => a.Activite)
-            .FirstOrDefault(a => a.Id == idoccurenceactivite);
+            .First(a => a.Id == idoccurenceactivite);
+        oc.Avancement = moyenne;
+        _context.SaveChanges();
+        ViewData["occurenceactivite"] = oc;
         ViewData["listesiteoccurenceactivite"] = _context.SiteActivite
             .Include(a => a.Commune)
             .Include(a => a.District)

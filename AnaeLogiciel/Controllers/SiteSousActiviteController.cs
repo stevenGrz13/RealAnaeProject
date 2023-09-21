@@ -73,7 +73,7 @@ public class SiteSousActiviteController : Controller
         return View("~/Views/SiteSousActivite/Details.cshtml");
     }
 
-    public IActionResult CreateWithIndicateur(int idsitesousactivite, int idindicateur, int idtechnicien, string target)
+    public void CreateWithIndicateur(int idsitesousactivite, int idindicateur, int idtechnicien, string target)
     {
         ViewData["indicateurtechniciensitesousactivite"] = _context.IndicateurTechnicienSiteSousActivite
             .Include(a => a.TypeIndicateur)
@@ -89,21 +89,21 @@ public class SiteSousActiviteController : Controller
         };
         _context.Add(ic);
         _context.SaveChangesAsync();
-        SiteSousActivite st = _context.SiteSousActivite
-            .First(a => a.Id == idsitesousactivite);
-        List<OccurenceSousActiviteIndicateur> liste = _context
-            .OccurenceSousActiviteIndicateur
-            .Include(a => a.TypeIndicateur)
-            .Where(a => a.IdOccurenceSousActivite == st.IdOccurenceSousActivite)
-            .ToList();
-        ViewData["listeindicateur"] = liste;
-        int idpprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
-        ViewBag.idsitesousactivite = idsitesousactivite;
-        ViewData["listetechnicien"] = _context
-            .TechnicienProjet
-            .Include(a => a.Technicien)
-            .Where(a => a.IdProjet == idpprojet).ToList();
-        ViewBag.idsiteactivite = idsitesousactivite;
-        return View("~/Views/SiteSousActivite/Details.cshtml");
+        // SiteSousActivite st = _context.SiteSousActivite
+        //     .First(a => a.Id == idsitesousactivite);
+        // List<OccurenceSousActiviteIndicateur> liste = _context
+        //     .OccurenceSousActiviteIndicateur
+        //     .Include(a => a.TypeIndicateur)
+        //     .Where(a => a.IdOccurenceSousActivite == st.IdOccurenceSousActivite)
+        //     .ToList();
+        // ViewData["listeindicateur"] = liste;
+        // int idpprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
+        // ViewBag.idsitesousactivite = idsitesousactivite;
+        // ViewData["listetechnicien"] = _context
+        //     .TechnicienProjet
+        //     .Include(a => a.Technicien)
+        //     .Where(a => a.IdProjet == idpprojet).ToList();
+        // ViewBag.idsiteactivite = idsitesousactivite;
+        // return View("~/Views/SiteSousActivite/Details.cshtml");
     }
 }

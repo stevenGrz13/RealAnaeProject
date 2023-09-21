@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    Technicien t = ViewData["technicien"] as Technicien;
+    SiteSousActivite st = ViewData["sitesousactivite"] as SiteSousActivite;
+    TypeIndicateur tp = ViewData["indicateur"] as TypeIndicateur;
+}
+
+<h4>Site: @st.Libelle</h4>
+<br>
+Technicien: @t.Email
+<br>
+Indicateur: @tp.Nom
+<br>
+
+<form action="/BackOfficeSousActivite/Create">
+    <input type="hidden" name="idsitesousactivite" value="@st.Id">
+    <input type="hidden" name="idtechnicien" value="@t.Id">
+    <input type="hidden" name="idindicateur" value="@tp.Id">
+    <input type="text" name="quantite" placeholder="Quantite">
+    <br>
+    <input type="date" name="dateaction">
+    <br>
+    <input type="submit" value="inserer">
+</form>

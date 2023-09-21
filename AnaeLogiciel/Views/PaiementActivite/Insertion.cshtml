@@ -1,0 +1,102 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    int idoccurenceactivite = ViewBag.idoccurenceactivite;
+    List<TechnicienProjet> listetech = ViewData["listetechnicien"] as List<TechnicienProjet>;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        h3 {
+            font-size: 24px;
+            margin: 0 0 20px;
+        }
+
+        form {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        select,
+        input[type="text"],
+        input[type="date"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        select:focus,
+        input[type="text"]:focus,
+        input[type="date"]:focus {
+            border-color: #333;
+        }
+
+        input[type="submit"] {
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[required] {
+            border-color: #e74c3c;
+        }
+
+        input[required]:focus {
+            border-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <h3>Insertion État de Paiement</h3>
+
+    <form action="/PaiementActivite/Create">
+        <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+        
+        <label for="idtechnicien">Sélectionner un technicien :</label>
+        <select name="idtechnicien" id="idtechnicien" required>
+            @foreach (var v in listetech)
+            {
+                <option value="@v.IdTechnicien">@v.Technicien.Email</option>
+            }
+        </select>
+        
+        <label for="motif">Motif :</label>
+        <input type="text" name="motif" placeholder="Motif" required>
+        
+        <label for="montant">Montant :</label>
+        <input type="text" name="montant" placeholder="Montant" required>
+        
+        <label for="dateaction">Date d'action :</label>
+        <input type="date" name="dateaction" required>
+        
+        <input type="submit" value="Insérer">
+    </form>
+</body>
+</html>

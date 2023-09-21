@@ -11,6 +11,7 @@
         <th>Avancement</th>
         <th></th>
         <th></th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -26,6 +27,10 @@
                 <form action="/OccurenceSousActivite/ListeOccurenceSousActivite">
                     <input type="hidden" name="idoccurenceactivite" value="@v.Id">
                     <td><input type="submit" value="vers sous activite"></td>
+                </form>
+                <form action="/PaiementActivite/VersListePaiementActivite">
+                    <input type="hidden" name="idoccurenceactivite" value="@v.Id">
+                    <td><input type="submit" value="etat de paiement"></td>
                 </form>
             </tr>
         }

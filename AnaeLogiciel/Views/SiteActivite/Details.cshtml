@@ -17,6 +17,8 @@
         <th>Technicien</th>
         <th>Indicateur</th>
         <th>Target</th>
+        <th></th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -26,6 +28,14 @@
                 <td>@v.Technicien.Email</td>
                 <td>@v.TypeIndicateur.Nom</td>
                 <td>@v.Target</td>
+                <td>
+                    <form action="/BackOfficeActivite/VersRapportActivite">
+                        <input type="hidden" name="idtechnicien" value="@v.IdTechnicien">
+                        <input type="hidden" name="idsiteactivite" value="@idsiteactivite">
+                        <input type="hidden" name="idindicateur" value="@v.IdIndicateur">
+                        <input type="submit" value="rapport">
+                    </form>
+                </td>
             </tr>   
         }
     </tbody>

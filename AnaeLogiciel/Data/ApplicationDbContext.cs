@@ -53,4 +53,20 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<AnaeLogiciel.Models.IndicateurTechnicienSiteActivite> IndicateurTechnicienSiteActivite { get; set; } = default!;
 
     public DbSet<AnaeLogiciel.Models.TechnicienProjet> TechnicienProjet { get; set; } = default!;
+    
+    public DbSet<AnaeLogiciel.Models.RapportIndicateurActivite> RapportIndicateurActivite { get; set; } = default!;
+    
+    public DbSet<AnaeLogiciel.Models.RapportIndicateurSousActivite> RapportIndicateurSousActivite { get; set; } = default!;
+    
+    public DbSet<AnaeLogiciel.Models.VCalculRapportActivite> VCalculRapportActivite { get; set; } = default!;
+    
+    public DbSet<AnaeLogiciel.Models.VCalculRapportSousActivite> VCalculRapportSousActivite { get; set; } = default!;
+
+    public DbSet<AnaeLogiciel.Models.VAvancementResultat> VAvancementResultat { get; set; } = default!;
+    
+    public DbSet<AnaeLogiciel.Models.VAvancementProjet> VAvancementProjet { get; set; } = default!;
+
+    public DbSet<AnaeLogiciel.Models.PaiementOccurenceSousActivite> PaiementOccurenceSousActivite { get; set; } = default!;
+    
+    public DbSet<AnaeLogiciel.Models.PaiementOccurenceActivite> PaiementOccurenceActivite { get; set; } = default!;
 }

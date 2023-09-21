@@ -22,9 +22,25 @@ namespace AnaeLogiciel.Controllers
         // GET: Projet
         public IActionResult Index()
         {
-            ViewData["listeprojet"] = _context.Projet
+            List<Projet> liste = _context.Projet
                 .Include(a => a.Bailleur)
                 .ToList();
+            foreach (var v in liste)
+            {
+                VAvancementProjet vp = _context.VAvancementProjet
+                    .FirstOrDefault(a => a.IdProjet == v.Id);
+                if (vp != null)
+                {
+                    v.Avancement = vp.Avancement;
+                }
+                else
+                {
+                    v.Avancement = 0;
+                }
+            }
+
+            _context.SaveChanges();
+            ViewData["listeprojet"] = liste;
             return View();
         }
 
@@ -52,9 +68,26 @@ namespace AnaeLogiciel.Controllers
 
             ViewData["listetechnicien"] = tc;
             
-            ViewData["listeoccurenceresultat"] = _context.OccurenceResultat
+            List<OccurenceResultat> listeor = _context.OccurenceResultat
                 .Include(a => a.Resultat)
                 .Where(a => a.IdProjet == idprojet).ToList();
+
+            foreach (var v in listeor)
+            {
+                var element = _context.VAvancementResultat
+                    .FirstOrDefault(a => a.IdResultat == v.Id);
+                if (element != null)
+                {
+                    v.Avancement = element.Avancement;
+                }
+                else
+                {
+                    v.Avancement = 0;
+                }
+            }
+
+            _context.SaveChanges();
+            ViewData["listeoccurenceresultat"] = listeor;
             
             List<ProjetComposant> liste = _context.ProjetComposant
                 .Include(a => a.Composant)
