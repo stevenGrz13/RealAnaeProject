@@ -38,6 +38,13 @@ public class PaiementSousActiviteController : Controller
         ViewBag.total = total;
         ViewBag.budget = os.Budget;
         ViewBag.reste = reste;
+        string messageerreur = "";
+        if (reste < 0)
+        {
+            messageerreur = "attention budget deja depassee";
+        }
+
+        ViewBag.messageerreur = messageerreur;
         return View("~/Views/PaiementSousActivite/Liste.cshtml");
     }
 
@@ -86,6 +93,13 @@ public class PaiementSousActiviteController : Controller
         ViewBag.total = total;
         ViewBag.budget = os.Budget;
         ViewBag.reste = reste;
+        string messageerreur = "";
+        if (reste < 0)
+        {
+            messageerreur = "attention budget deja depassee";
+        }
+
+        ViewBag.messageerreur = messageerreur;
         return View("~/Views/PaiementSousActivite/Liste.cshtml");
     }
 }

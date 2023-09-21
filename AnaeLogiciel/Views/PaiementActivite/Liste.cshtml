@@ -73,6 +73,11 @@
         p {
             margin: 0;
         }
+        
+        .error-message {
+                color: red;
+            }
+            
     </style>
 </head>
 <body>
@@ -111,6 +116,8 @@
 
         <p>Budget: <span class="total">@budget Ar</span></p>
         <p>Reste: <span class="total">@reste Ar</span></p>
+        <p><strong><span class="error-message">@ViewBag.messageerreur</span></strong></p>
+        
     </div>
 </body>
 </html>
