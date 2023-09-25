@@ -60,7 +60,10 @@ drop table rapportindicateuractivite cascade;
 drop table rapportindicateursousactivite cascade;
 drop table paiementoccurencesousactivite cascade;
 drop table paiementoccurenceactivite cascade; 
-
+drop table occurenceactivitesource cascade;
+drop table occurencesousactivitesource cascade;
+drop table occurenceactivitesourcetechnicien cascade;
+drop table occurencesousactivitesourcetechnicien cascade;
 
 create table resultat(
     id serial not null,
@@ -371,10 +374,55 @@ create table paiementoccurencesousactivite(
     foreign key(idtechnicien) references technicien(id)
 );
 
+create table occurenceactivitesource(
+    id serial not null,
+    idoccurenceactivite int not null,
+    idsource int not null,
+    primary key(id),
+    foreign key(idoccurenceactivite) references occurenceactivite(id),
+    foreign key(idsource) references sourcedeverification(id)
+);
 
+create table occurenceactivitesourcetechnicien(
+    id serial not null,
+    idoccurenceactivite int not null,
+    idsource int not null,
+    idtechnicien int not null,
+    lienfichier varchar(500) not null,
+    dateaction date not null,
+    primary key(id),
+    foreign key(idoccurenceactivite) references occurenceactivite(id),
+    foreign key(idsource) references sourcedeverification(id),
+    foreign key(idtechnicien) references technicien(id)
+);
 
+create table occurencesousactivitesource(
+    id serial not null,
+    idoccurencesousactivite int not null,
+    idsource int not null,
+    primary key(id),
+    foreign key(idoccurencesousactivite) references occurencesousactivite(id),
+    foreign key(idsource) references sourcedeverification(id)  
+);
 
+create table occurencesousactivitesourcetechnicien(
+    id serial not null,
+    idoccurencesousactivite int not null,
+    idsource int not null,
+    idtechnicien int not null,
+    lienfichier varchar(500) not null,
+    dateaction date not null,
+    primary key(id),
+    foreign key(idoccurencesousactivite) references occurencesousactivite(id),
+    foreign key(idsource) references sourcedeverification(id),
+    foreign key(idtechnicien) references technicien(id)
+);
 
+create or replace view vLienActiviteSousActivite as
+select oa.id idoccurenceactivite, os.id idoccurencesousactivite, os.avancement from occurenceactivite oa join 
+occurencesousactivite os on oa.id = os.idoccurenceactivite;
+
+select * from vLienActiviteSousActivite where idoccurenceactivite = 1;
 
 
 

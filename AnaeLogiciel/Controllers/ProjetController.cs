@@ -13,10 +13,12 @@ namespace AnaeLogiciel.Controllers
     public class ProjetController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly SmtpConfig _smtpConfig;
 
-        public ProjetController(ApplicationDbContext context)
+        public ProjetController(ApplicationDbContext context, SmtpConfig smtpConfig)
         {
             _context = context;
+            _smtpConfig = smtpConfig;
         }
 
         // GET: Projet
@@ -37,8 +39,17 @@ namespace AnaeLogiciel.Controllers
                 {
                     v.Avancement = 0;
                 }
-            }
+                _context.SaveChanges();
+                if (v.Avancement == 50)
+                {
+                    Fonction.Fonction.EnvoyerEmail(_smtpConfig,"razafimahefasteven130102@gmail.com","travisjamesmdg7713@gmail.com","Avancement a 50%","Le projet "+v.Nom+" avance a 50%");
+                }
 
+                if (v.Avancement >= 100)
+                {
+                    Fonction.Fonction.EnvoyerEmail(_smtpConfig,"razafimahefasteven130102@gmail.com","travisjamesmdg7713@gmail.com","Avancement a 100%","Le projet "+v.Nom+" avance a 100%");
+                }
+            }
             _context.SaveChanges();
             ViewData["listeprojet"] = liste;
             return View();

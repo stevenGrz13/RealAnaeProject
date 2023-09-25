@@ -77,15 +77,51 @@ public class OccurenceActiviteController : Controller
         }
 
         moyenne = moyenne / table.Length;
+
+        List<VLienActiviteSousActivite> lien = _context.VLienActiviteSousActivite
+            .Where(a => a.IdOccurenceActivite == idoccurenceactivite)
+            .ToList();
+
+        double newmoyenne = 0;
+        
+        if (lien != null)
+        {
+            newmoyenne = 0;
+            if (lien.Count > 0)
+            {
+                foreach (var z in lien)
+                {
+                    newmoyenne += z.Avancement;
+                }
+
+                newmoyenne = newmoyenne / lien.Count;
+            }   
+        }
+        
         if (Double.IsNaN(moyenne))
         {
             moyenne = 0;
         }
+
+        if (Double.IsNaN(newmoyenne))
+        {
+            newmoyenne = 0;
+        }
+        
         ViewData["listeoccurenceactiviteindicateur"] = liste;
         OccurenceActivite oc = _context.OccurenceActivite
             .Include(a => a.Activite)
             .First(a => a.Id == idoccurenceactivite);
-        oc.Avancement = moyenne;
+
+        if (lien == null)
+        {
+            oc.Avancement = moyenne;    
+        }
+        else
+        {
+            oc.Avancement = (moyenne + newmoyenne) / 2;
+        }
+        
         _context.SaveChanges();
         ViewData["occurenceactivite"] = oc;
         ViewData["listesiteoccurenceactivite"] = _context.SiteActivite

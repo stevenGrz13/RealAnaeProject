@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    int idtechnicien = ViewBag.idtechnicien;
+    List<OccurenceSousActiviteSource> liste = ViewData["listesource"] as List<OccurenceSousActiviteSource>;
+    int idoccurencesousactivite = ViewBag.idoccurencesousactivite;
+}
+
+<h3>Choisir Source de Verification</h3>
+
+<br>
+<form action="/SousActiviteSourceTechnicien/Create">
+    <input type="hidden" name="idtechnicien" value="@idtechnicien">
+    <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+    <select name="idsource" id="idsource">
+        @foreach (var v in liste)
+        {
+            <option value="@v.IdSource">@v.SourceDeVerification.Nom</option>   
+        }
+    </select>
+    <br>
+    <input type="date" name="dateaction">
+    <br>
+    <input type="text" name="lienfichier" placeholder="Lien Fichier">
+    <br>
+    <input type="submit" value="ajouter">
+</form>

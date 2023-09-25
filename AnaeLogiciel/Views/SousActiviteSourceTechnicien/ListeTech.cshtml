@@ -1,0 +1,40 @@
+﻿@using Swashbuckle.AspNetCore.SwaggerGen
+@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    List<OccurenceSousActiviteSourceTechnicien> liste = ViewData["listesourcetech"] as List<OccurenceSousActiviteSourceTechnicien>;
+    string nomtechnicien = ViewBag.nomtechnicien;
+    int idtechnicien = ViewBag.idtechnicien;
+    int idoccurencesousactivite = ViewBag.idoccurencesousactivite;
+}
+
+<h2>Liste Rapport de @nomtechnicien</h2>
+<br>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Source de verification</th>
+        <th>Lien</th>
+        <th>Date</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var v in liste)
+    {
+        <tr>
+            <td>@v.SourceDeVerification.Nom</td>
+            <td>@v.LienFichier</td>
+            <td>@v.DateAction</td>
+        </tr>   
+    }
+    </tbody>
+</table>
+<br>
+<form action="/SousActiviteSourceTechnicien/VersInsertion">
+    <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+    <input type="hidden" name="idtechnicien" value="@idtechnicien">
+    <input type="submit" value="ajouter nouvelle">
+</form>
+<br>

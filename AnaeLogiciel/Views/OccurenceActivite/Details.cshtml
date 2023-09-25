@@ -6,72 +6,72 @@
     List<SiteActivite> listesite = ViewData["listesiteoccurenceactivite"] as List<SiteActivite>;
 }
 
-<h3>@oc.Activite.Nom</h3>
-<br>
-Budget:
-@oc.Budget
-<br>
-Date Debut:
-@oc.DateDebut
-<br>
-Date Fin:
-@oc.DateFin
-<br>
-Avancement:
-@oc.Avancement
+<div class="container mt-5">
+    <h3>@oc.Activite.Nom</h3>
+    <br>
+    <div class="row">
+        <div class="col-md-3">
+            <strong>Budget:</strong>
+            <p>@oc.Budget</p>
+        </div>
+        <div class="col-md-3">
+            <strong>Date Début:</strong>
+            <p>@oc.DateDebut</p>
+        </div>
+        <div class="col-md-3">
+            <strong>Date Fin:</strong>
+            <p>@oc.DateFin</p>
+        </div>
+        <div class="col-md-3">
+            <strong>Avancement:</strong>
+            <p>@oc.Avancement %</p>
+        </div>
+    </div>
 
-<br>edefefefe
-<form action="/IndicateurActivite/VersInsertionActiviteIndicateur">
-    <input type="hidden" name="idoccurenceactivite" value="@oc.Id">
-    <input type="submit" value="ajouter indicateur">
-</form>
+    <form action="/IndicateurActivite/VersInsertionActiviteIndicateur">
+        <input type="hidden" name="idoccurenceactivite" value="@oc.Id">
+        <button type="submit" class="btn btn-primary mt-2">Ajouter indicateur</button>
+    </form>
 
-<br>
-<h4>Target Indicateurs</h4>
-<br>
-<table class="table">
-    <thead>
-    <tr>
-        <th>Indicateur</th>
-        <th>Target</th>
-    </tr>    
-    </thead>
-    <tbody>
-    @foreach (var v in liste)
-    {
+    <br>
+    <h4 class="mt-4">Target Indicateurs</h4>
+    <table class="table">
+        <thead>
         <tr>
-            <td>@v.TypeIndicateur.Nom</td>
-            <td>@v.Target</td>
+            <th>Indicateur</th>
+            <th>Target</th>
         </tr>
-    }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        @foreach (var v in liste)
+        {
+            <tr>
+                <td>@v.TypeIndicateur.Nom</td>
+                <td>@v.Target</td>
+            </tr>
+        }
+        </tbody>
+    </table>
 
-<br>
+    <form action="/SiteActivite/VersInsertionSiteActivite">
+        <input type="hidden" name="idoccurenceactivite" value="@oc.Id">
+        <button type="submit" class="btn btn-primary mt-2">Ajouter sites</button>
+    </form>
 
-<form action="/SiteActivite/VersInsertionSiteActivite">
-    <input type="hidden" name="idoccurenceactivite" value="@oc.Id">
-    <input type="submit" value="ajouter sites">
-</form>
+    <h3 class="mt-4">Liste Sites</h3>
 
-<br>
-
-<h3>Liste Sites</h3>
-
-<br>
-
-<table class="table">
-    <thead>
-    <tr>
-        <th>Libelle</th>
-        <th>Commune</th>
-        <th>District</th>
-        <th>Region</th>
-        <th></th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Libelle</th>
+            <th>Commune</th>
+            <th>District</th>
+            <th>Region</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
         @foreach (var v in listesite)
         {
             <tr>
@@ -81,17 +81,22 @@ Avancement:
                 <td>@v.Region.Nom</td>
                 <td>
                     <form action="/SiteActivite/VersDetailsSiteActivite">
-                        <input type="submit" value="details">
                         <input type="hidden" name="idsiteactivite" value="@v.Id">
+                        <button type="submit" class="btn btn-link">Détails</button>
                     </form>
                 </td>
                 <td>
                     <form action="/BackOfficeActivite/VersListeRapportActivite">
                         <input type="hidden" name="idsiteactivite" value="@v.Id">
-                        <input type="submit" value="liste rapport">
+                        <button type="submit" class="btn btn-link">Liste rapport</button>
                     </form>
                 </td>
             </tr>
         }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
+<form action="/ActiviteSourceDeVerification/VersListe">
+    <input type="hidden" name="idoccurenceactivite" value="@oc.Id">
+    <input type="submit" value="Source de Verification">
+</form>

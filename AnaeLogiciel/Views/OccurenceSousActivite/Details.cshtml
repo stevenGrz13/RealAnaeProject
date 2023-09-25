@@ -6,15 +6,18 @@
     List<OccurenceSousActiviteIndicateur> listeindic = ViewData["listeoccurencesousactiviteindicateur"] as List<OccurenceSousActiviteIndicateur>;
 }
 
-<br>
-<h3>Target Indicateur</h3>
-<br>
-<table class="table">
-    <thead>
-    <tr>Indicateur</tr>
-    <tr>Target</tr>
-    </thead>
-    <tbody>
+<div class="container mt-5">
+    <br>
+    <h3>Target Indicateur</h3>
+    <br>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Indicateur</th>
+            <th>Target</th>
+        </tr>
+        </thead>
+        <tbody>
         @foreach (var v in listeindic)
         {
             <tr>
@@ -22,30 +25,30 @@
                 <td>@v.Target</td>
             </tr>
         }
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
-<br>
-<form action="/SiteSousActivite/VersInsertionSiteSousActivite">
-    <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
-    <input type="submit" value="inserer nouvelle site">
-</form>
-<br>
-<h3>Liste Site</h3>
-<br>
+    <form action="/SiteSousActivite/VersInsertionSiteSousActivite">
+        <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+        <button type="submit" class="btn btn-primary mt-2">Insérer Nouveau Site</button>
+    </form>
 
-<table class="table">
-    <thead>
-    <tr>
-        <th>Libelle</th>
-        <th>Commune</th>
-        <th>District</th>
-        <th>Region</th>
-        <th></th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
+    <br>
+    <h3 class="mt-4">Liste des Sites</h3>
+    <br>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Libellé</th>
+            <th>Commune</th>
+            <th>District</th>
+            <th>Région</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
         @foreach (var v in liste)
         {
             <tr>
@@ -57,16 +60,22 @@
                     <form action="/OccurenceSousActivite/VersDetailsSiteSousActivite/">
                         <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
                         <input type="hidden" name="idsitesousactivite" value="@v.Id">
-                        <input type="submit" value="details">
+                        <button type="submit" class="btn btn-link">Détails</button>
                     </form>
                 </td>
                 <td>
                     <form action="/BackOfficeSousActivite/VersListeRapportSousActivite">
                         <input type="hidden" name="idsitesousactivite" value="@v.Id">
-                        <input type="submit" value="liste rapport">
+                        <button type="submit" class="btn btn-link">Liste Rapport</button>
                     </form>
                 </td>
             </tr>
         }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
+<br>
+<form action="/SousActiviteSourceDeVerification/VersListe">
+    <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+    <input type="submit" value="Source de verification">
+</form>

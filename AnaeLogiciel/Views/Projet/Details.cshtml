@@ -7,133 +7,106 @@
     List<TechnicienProjet> listet = ViewData["listetechnicien"] as List<TechnicienProjet>;
 }
 
-<h1>Details</h1>
+<div class="container mt-5">
+    <h1 class="mb-4">Détails du Projet</h1>
 
-<div>
-    <h4>Projet</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nom)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nom)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateDebutPrevision)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateDebutPrevision)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateFinPrevision)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateFinPrevision)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Avancement)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Avancement) %
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Details)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Details)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Bailleur)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Bailleur.Nom)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Budget)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Budget) Ar
-        </dd>
-    </dl>
-</div>
-<br>
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Projet</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-3">Nom</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Nom)</dd>
+                <dt class="col-sm-3">Date de Début</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.DateDebutPrevision)</dd>
+                <dt class="col-sm-3">Date de Fin</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.DateFinPrevision)</dd>
+                <dt class="col-sm-3">Avancement</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Avancement) %</dd>
+                <dt class="col-sm-3">Détails</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Details)</dd>
+                <dt class="col-sm-3">Bailleur</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Bailleur.Nom)</dd>
+                <dt class="col-sm-3">Budget</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Budget) Ar</dd>
+            </dl>
+        </div>
 
-<form action="/Projet/VersAffectationTechnicien">
-    <input type="submit" value="Affecter techniciens">
-</form>
+        <div class="col-md-6">
+            <form action="/Projet/VersAffectationTechnicien">
+                <button type="submit" class="btn btn-primary mt-4">Affecter techniciens</button>
+            </form>
+            <h3 class="mt-4">Techniciens</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var v in listet)
+                    {
+                        <tr>
+                            <td>@v.Technicien.Email</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-<br>
-<h3>Techniciens</h3>
-<br>
-<table class="table">
-    <thead>
-    <tr>
-        <th>Nom</th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var v in listet)
-    {
-        <tr>
-            <td>@v.Technicien.Email</td>
-        </tr>   
-    }
-    </tbody>
-</table>
-<br>
-<h3>Composants:</h3>
-<br>
-
-<table class="table">
-    <thead>
-    <tr>
-        <th>Nom</th>
-    </tr>
-    </thead>
-    <tbody>
-        @foreach (var v in liste)
-        {
+    <h3 class="mt-4">Composants</h3>
+    <table class="table">
+        <thead>
             <tr>
-                <td>@v.Composant.Nom</td>
+                <th>Nom</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var v in liste)
+            {
+                <tr>
+                    <td>@v.Composant.Nom</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-<br>
-<h3>Resultats:</h3>
-<br>
-
-<table class="table">
-    <thead>
-    <tr>
-        <th>Nom</th>
-        <th>Avancement</th>
-        <th></th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-        @foreach (var v in lister)
-        {
+    <h3 class="mt-4">Résultats</h3>
+    <table class="table">
+        <thead>
             <tr>
-                <td>@v.Resultat.Nom</td>
-                <td>@v.Avancement %</td>
-                <form action="/OccurenceActivite/ListeOccurenceActivites">
-                    <input type="hidden" name="idoccurenceresultat" value="@v.Id">
-                    <td><input type="submit" value="liste activites"></td>
-                </form>
-                <form action="/OccurenceActivite/VersInsertionOccurenceActivite">
-                    <input type="hidden" name="idoccurenceresultat" value="@v.Id">
-                    <td><input type="submit" value="ajouter activite"></td>
-                </form>
+                <th>Nom</th>
+                <th>Avancement</th>
+                <th></th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
-<br>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+        </thead>
+        <tbody>
+            @foreach (var v in lister)
+            {
+                <tr>
+                    <td>@v.Resultat.Nom</td>
+                    <td>@v.Avancement %</td>
+                    <td>
+                        <form action="/OccurenceActivite/ListeOccurenceActivites">
+                            <input type="hidden" name="idoccurenceresultat" value="@v.Id">
+                            <button type="submit" class="btn btn-link">Liste activités</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/OccurenceActivite/VersInsertionOccurenceActivite">
+                            <input type="hidden" name="idoccurenceresultat" value="@v.Id">
+                            <button type="submit" class="btn btn-link">Ajouter activité</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Éditer</a>
+        <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
+    </div>
 </div>

@@ -49,6 +49,7 @@ public class OccurenceSousActiviteController : Controller
             }
 
             moyenne = moyenne / table.Length;
+            Console.WriteLine("LENGTH="+table.Length);
             if (Double.IsNaN(moyenne))
             {
                 moyenne = 0;

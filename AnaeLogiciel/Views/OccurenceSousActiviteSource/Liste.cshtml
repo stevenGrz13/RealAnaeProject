@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    List<OccurenceSousActiviteSource> liste = ViewData["listesource"] as List<OccurenceSousActiviteSource>;
+    int idoccurencesousactivite = ViewBag.idoccurencesousactivite;
+}
+
+<br>
+<form action="/SousActiviteSourceDeVerification/VersInsertion">
+    <input type="submit" value="ajouter nouvelle">
+    <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+</form>
+
+<br>
+
+<form action="/SousActiviteSourceTechnicien/VersListeRapport">
+    <input type="submit" value="vers liste techniciens">
+    <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+</form>
+<br>
+
+
+<h3>Les Source de verifications</h3>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Source</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var v in liste)
+    {
+        <tr>
+            <td>@v.SourceDeVerification.Nom</td>
+        </tr>
+    }
+    </tbody>
+</table>

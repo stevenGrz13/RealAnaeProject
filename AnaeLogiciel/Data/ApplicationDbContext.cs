@@ -69,4 +69,14 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<AnaeLogiciel.Models.PaiementOccurenceSousActivite> PaiementOccurenceSousActivite { get; set; } = default!;
     
     public DbSet<AnaeLogiciel.Models.PaiementOccurenceActivite> PaiementOccurenceActivite { get; set; } = default!;
+    
+    public DbSet<AnaeLogiciel.Models.OccurenceActiviteSource> OccurenceActiviteSource { get; set; } = default!;
+    
+    public DbSet<AnaeLogiciel.Models.OccurenceSousActiviteSource> OccurenceSousActiviteSource { get; set; } = default!;
+    
+    public DbSet<AnaeLogiciel.Models.OccurenceActiviteSourceTechnicien> OccurenceActiviteSourceTechnicien { get; set; } = default!;
+    
+    public DbSet<AnaeLogiciel.Models.OccurenceSousActiviteSourceTechnicien> OccurenceSousActiviteSourceTechnicien { get; set; } = default!;
+
+    public DbSet<AnaeLogiciel.Models.VLienActiviteSousActivite> VLienActiviteSousActivite { get; set; } = default!;
 }

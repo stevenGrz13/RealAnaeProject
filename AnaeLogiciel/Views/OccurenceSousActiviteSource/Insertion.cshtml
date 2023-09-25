@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    int idoccurencesousactivite = ViewBag.idoccurencesousactivite;
+    List<SourceDeVerification> liste = ViewData["listeverification"] as List<SourceDeVerification>;
+}
+
+<h2>Choisir source de verification</h2>
+
+<form action="/SousActiviteSourceDeVerification/Create">
+    @foreach (var v in liste)
+    {
+        @v.Nom
+        <input type="checkbox" name="idsource" value="@v.Id">    
+        <br>
+        <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+    }
+    <input type="submit" value="ajouter">
+</form>

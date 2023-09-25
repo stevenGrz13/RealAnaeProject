@@ -5,16 +5,27 @@
     int idoccurencesousactivite = ViewBag.idoccurencesousactivite;
 }
 
-<form action="/IndicateurSousActivite/Create">
-    <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
-    <select name="idindicateur" id="idindicateur">
-        @foreach (var v in liste)
-        {
-            <option value="@v.Id">@v.Nom</option>
-        }
-    </select>
+<div class="container mt-5">
+    <h3>Insertion Indicateur pour Sous-Activité</h3>
     <br>
-    <input type="text" name="target" placeholder="Target">
-    <br>
-    <input type="submit">
-</form>
+    <form action="/IndicateurSousActivite/Create">
+        <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+
+        <div class="form-group">
+            <label for="idindicateur">Sélectionnez un indicateur</label>
+            <select class="form-control" id="idindicateur" name="idindicateur">
+                @foreach (var v in liste)
+                {
+                    <option value="@v.Id">@v.Nom</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="target">Target</label>
+            <input type="text" class="form-control" id="target" name="target" placeholder="Target">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Ajouter Indicateur</button>
+    </form>
+</div>
