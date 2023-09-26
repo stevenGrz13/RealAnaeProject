@@ -59,6 +59,16 @@ public class OccurenceSousActiviteController : Controller
                 .Include(a => a.SousActivite)
                 .First(a => a.Id == idoccurenceactivite);
             oc.Avancement = moyenne;
+            DateOnly datenow = Fonction.Fonction.getDateNow();
+
+            if ((oc.Avancement < 100) && oc.DateFin < datenow)
+            {
+                oc.Couleur = "text-danger";
+            }
+            else
+            {
+                oc.Couleur = "text-success";
+            }
             _context.SaveChanges();
         }
         ViewData["listeoccurencesousactivite"] = listes;

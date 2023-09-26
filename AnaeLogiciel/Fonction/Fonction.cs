@@ -133,4 +133,13 @@ public class Fonction
             Directory.CreateDirectory(dossierOccurencePath);
         }
     }
+
+    public static DateOnly getDateNow()
+    {
+        DateTime currentDate = DateTime.Now;
+
+        DateTime dateOnly = currentDate.Date;
+
+        return DateOnly.FromDateTime(dateOnly);
+    }
 }

@@ -31,6 +31,9 @@ public class OccurenceSousActivite
     [Column("avancement")]
     public double Avancement { get; set; }
     
+    [NotMapped]
+    public string Couleur { get; set; }
+    
     [ForeignKey("IdOccurenceActivite")]
     public virtual OccurenceActivite? OccurenceActivite { get; set; }
     

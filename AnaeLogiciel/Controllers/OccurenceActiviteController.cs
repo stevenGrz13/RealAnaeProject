@@ -121,8 +121,20 @@ public class OccurenceActiviteController : Controller
         {
             oc.Avancement = (moyenne + newmoyenne) / 2;
         }
+
+        DateOnly datenow = Fonction.Fonction.getDateNow();
+
+        if ((oc.Avancement < 100) && oc.DateFin < datenow)
+        {
+            oc.Couleur = "text-danger";
+        }
+        else
+        {
+            oc.Couleur = "text-success";
+        }
         
         _context.SaveChanges();
+        
         ViewData["occurenceactivite"] = oc;
         ViewData["listesiteoccurenceactivite"] = _context.SiteActivite
             .Include(a => a.Commune)
