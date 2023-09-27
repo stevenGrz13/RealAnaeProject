@@ -64,6 +64,7 @@ drop table occurenceactivitesource cascade;
 drop table occurencesousactivitesource cascade;
 drop table occurenceactivitesourcetechnicien cascade;
 drop table occurencesousactivitesourcetechnicien cascade;
+drop table devise cascade;
 
 create table resultat(
     id serial not null,
@@ -105,6 +106,17 @@ insert into bailleur(nom) values ('BlackRock');
 insert into bailleur(nom) values ('Banque Mondial');
 insert into bailleur(nom) values ('BNI');
 
+create table devise(
+                       id serial not null,
+                       nom varchar(500) not null,
+                       value real not null,
+                       primary key(id)
+);
+
+insert into devise(nom,value) values ('Euro',4900);
+insert into devise(nom,value) values ('Dollar',4500);
+insert into devise(nom,value) values ('Ariary',1);
+
 create table projet(
     id serial not null,
     nom varchar(500) not null,
@@ -115,8 +127,10 @@ create table projet(
     idbailleur int not null,
     avancement decimal(20,2) not null default 0,
     budget decimal(20,2) not null,
+    iddevise int not null,
     primary key(id),
-    foreign key(idbailleur) references bailleur(id) 
+    foreign key(idbailleur) references bailleur(id),
+    foreign key(iddevise) references devise(id)
 ); 
 
 create table activite(

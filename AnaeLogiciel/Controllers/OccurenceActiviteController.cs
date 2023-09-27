@@ -93,9 +93,8 @@ public class OccurenceActiviteController : Controller
                 {
                     newmoyenne += z.Avancement;
                 }
-
-                newmoyenne = newmoyenne / lien.Count;
             }   
+            newmoyenne = newmoyenne / lien.Count;
         }
         
         if (Double.IsNaN(moyenne))

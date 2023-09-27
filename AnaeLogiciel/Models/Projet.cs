@@ -29,6 +29,10 @@ public class Projet
     [Column("details")]
     public string Details { get; set; }
     
+    [Column("iddevise")]
+    [DisplayName("devise")]
+    public int IdDevise { get; set; }
+    
     [Column("idbailleur")]
     [DisplayName("bailleur")]
     public int IdBailleur { get; set; }
@@ -38,4 +42,7 @@ public class Projet
     
     [ForeignKey("IdBailleur")]
     public virtual Bailleur? Bailleur { get; set; }
+    
+    [ForeignKey("IdDevise")]
+    public virtual Devise? Devise { get; set; }
 }

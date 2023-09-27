@@ -9,7 +9,7 @@
 <h3>Choisir Source de Verification</h3>
 
 <br>
-<form action="/ActiviteSourceTechnicien/Create">
+<form method="post" action="/ActiviteSourceTechnicien/Create">
     <input type="hidden" name="idtechnicien" value="@idtechnicien">
     <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
     <select name="idsource" id="idsource">
@@ -23,5 +23,5 @@
     <br>
     <input type="text" name="lienfichier" placeholder="Lien Fichier">
     <br>
-    <input type="submit" value="ajouter">
+    <input type="submit" value="Inserer">
 </form>

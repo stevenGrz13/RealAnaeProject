@@ -111,13 +111,15 @@ namespace AnaeLogiciel.Controllers
         // GET: Projet/Create
         public IActionResult Create()
         {
+            ViewData["listedevise"] = _context.Devise.ToList();
             ViewData["listebailleur"] = _context.Bailleur.ToList();
             ViewData["listecomposant"] = _context.Composant.ToList();
             return View();
         }
 
-        public IActionResult CreateProjet(string nom, string details, DateOnly datedebut, DateOnly datefin, int idbailleur, List<int> idcomposant, string budget)
+        public IActionResult CreateProjet(string nom, string details, DateOnly datedebut, DateOnly datefin, int idbailleur, List<int> idcomposant, string budget, int iddevise)
         {
+            Devise devise = _context.Devise.First(a => a.Id == iddevise);
             Projet projet = new Projet()
             {
                 Nom = nom,
@@ -125,7 +127,8 @@ namespace AnaeLogiciel.Controllers
                 DateDebutPrevision = datedebut,
                 DateFinPrevision = datefin,
                 IdBailleur = idbailleur,
-                Budget = Double.Parse(budget)
+                IdDevise = iddevise,
+                Budget = devise.Value*Double.Parse(budget)
             };
             _context.Add(projet);
             _context.SaveChanges();

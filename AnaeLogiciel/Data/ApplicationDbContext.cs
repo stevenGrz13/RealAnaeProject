@@ -79,4 +79,6 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<AnaeLogiciel.Models.OccurenceSousActiviteSourceTechnicien> OccurenceSousActiviteSourceTechnicien { get; set; } = default!;
 
     public DbSet<AnaeLogiciel.Models.VLienActiviteSousActivite> VLienActiviteSousActivite { get; set; } = default!;
+
+    public DbSet<AnaeLogiciel.Models.Devise> Devise { get; set; } = default!;
 }
