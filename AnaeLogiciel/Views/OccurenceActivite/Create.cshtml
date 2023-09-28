@@ -4,6 +4,8 @@
     List<Activite> liste = ViewData["listeactivite"] as List<Activite>;
 }
 
+<p style="color: red;">@ViewBag.messageerreur</p>
+
 <form action="/OccurenceActivite/Create">
     <input type="hidden" name="idoccurenceresultat" value="@idoccurenceresultat">
     Choisir Activite:

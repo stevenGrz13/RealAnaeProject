@@ -65,6 +65,23 @@ drop table occurencesousactivitesource cascade;
 drop table occurenceactivitesourcetechnicien cascade;
 drop table occurencesousactivitesourcetechnicien cascade;
 drop table devise cascade;
+drop table partenairetechnique cascade;
+drop table projetpartenairetechnique cascade;
+drop table partieprenante cascade;
+drop table partieprenanteoccurenceactivite cascade;
+drop table prolongementprojet cascade;
+drop table prolongementbudgetoccurenceactivite cascade;
+drop table prolongementbudgetprojet cascade;
+
+create table partieprenante(
+    id serial not null,
+    nom varchar(500) not null,
+    primary key(id)
+);
+
+insert into partieprenante(nom) values ('premier partie');
+insert into partieprenante(nom) values ('deuxieme partie');
+insert into partieprenante(nom) values ('troisieme partie');
 
 create table resultat(
     id serial not null,
@@ -120,6 +137,7 @@ insert into devise(nom,value) values ('Ariary',1);
 create table projet(
     id serial not null,
     nom varchar(500) not null,
+    sigle varchar(500) not null,
     details varchar(500) not null,
     datedebutprevision date not null,
     datefinprevision date not null,
@@ -128,10 +146,30 @@ create table projet(
     avancement decimal(20,2) not null default 0,
     budget decimal(20,2) not null,
     iddevise int not null,
+    reference int not null,
     primary key(id),
     foreign key(idbailleur) references bailleur(id),
     foreign key(iddevise) references devise(id)
 ); 
+
+create table partenairetechnique(
+    id serial not null,
+    nom varchar(500) not null,
+    primary key(id) 
+);
+
+insert into partenairetechnique(nom) values ('premier partenaire');
+insert into partenairetechnique(nom) values ('second partenaire');
+insert into partenairetechnique(nom) values ('troisieme partenaire');
+
+create table projetpartenairetechnique(
+    id serial not null,
+    idprojet int not null,
+    idpartenairetechnique int not null,
+    primary key(id),
+    foreign key(idpartenairetechnique) references partenairetechnique(id),
+    foreign key(idprojet) references projet(id)
+);
 
 create table activite(
     id serial not null,
@@ -207,6 +245,15 @@ create table occurenceactivite(
     primary key(id),
     foreign key(idoccurenceresultat) references occurenceresultat(id),
     foreign key(idactivite) references activite(id)
+);
+
+create table partieprenanteoccurenceactivite(
+    id serial not null,
+    idoccurenceactivite int not null,
+    idpartieprenante int not null,
+    primary key(id),
+    foreign key(idoccurenceactivite) references occurenceactivite(id),
+    foreign key(idpartieprenante) references partieprenante(id)
 );
 
 create table occurencesousactivite(
@@ -353,7 +400,6 @@ from rapportindicateursousactivite r
 join sitesousactivite s on r.idsitesousactivite = s.id group by
 idoccurencesousactivite, idindicateur;
 
-
 select * from vcalculrapportactivite where idoccurenceactivite = 1 and idindicateur = 1;
 
 create or replace view vAvancementresultat as
@@ -437,6 +483,31 @@ select oa.id idoccurenceactivite, os.id idoccurencesousactivite, os.avancement f
 occurencesousactivite os on oa.id = os.idoccurenceactivite;
 
 select * from vLienActiviteSousActivite where idoccurenceactivite = 1;
+
+create table prolongementprojet(
+    id serial not null,
+    idprojet int not null,
+    datefin date not null,
+    primary key(id),
+    foreign key(idprojet) references projet(id)
+);
+
+create table prolongementbudgetoccurenceactivite(
+    id serial not null,
+    idoccurenceactivite int not null,
+    budget real not null,
+    primary key(id),
+    foreign key(idoccurenceactivite) references occurenceactivite(id)
+);
+
+create table prolongementbudgetprojet(
+    id serial not null,
+    idprojet int not null,
+    budget real not null,
+    primary key(id),
+    foreign key(idprojet) references projet(id)
+);
+
 
 
 

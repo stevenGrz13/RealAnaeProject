@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    int idprojet = ViewBag.idprojet;
+    List<ProlongementProjet> liste = ViewData["listeprolongement"] as List<ProlongementProjet>;
+    List<ProlongementBudgetProjet> listebudget = ViewData["listeprolongementbudget"] as List<ProlongementBudgetProjet>;
+}
+
+<h3>Prolongement Budgetaire</h3>
+<br>
+<table class="table">
+    <thead>
+    <tr>
+        <th></th>
+        <th>Montant</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var v in listebudget)
+    {
+        <tr>
+            <td>@v.Id</td>
+            <td>@v.Budget Ar</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<br>
+<h3>Prolongement Temporelle</h3>
+<br>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th></th>
+        <th>Nouvelle Date Fin</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var v in liste)
+    {
+        <tr>
+            <td>@v.Id</td>
+            <td>@v.DateFin</td>
+        </tr>
+    }
+    </tbody>
+</table>
+<br>
+
+<form action="/Prolongement/VersInsertionBudgetaire">
+    <input type="hidden" name="idprojet" value="@idprojet">
+    <button type="submit" class="btn btn-secondary">Prolonger Budgetairement</button>
+    <br>
+</form>
+
+<br>
+
+<form action="/Prolongement/VersInsertionTemporelle">
+    <input type="hidden" name="idprojet" value="@idprojet">
+    <button type="submit" class="btn btn-secondary">Prolonger Temporellement</button>
+    <br>
+</form>

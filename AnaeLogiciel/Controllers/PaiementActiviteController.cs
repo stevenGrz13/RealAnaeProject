@@ -16,12 +16,22 @@ public class PaiementActiviteController : Controller
 
     public IActionResult VersListePaiementActivite(int idoccurenceactivite)
     {
+        double totalprolongement = 0;
+        List<ProlongementBudgetOccurenceActivite> listeprolongement = _context
+            .ProlongementBudgetOccurenceActivite
+            .Where(a => a.IdOccurenceActivite == idoccurenceactivite)
+            .ToList();
+        foreach (var v in listeprolongement)
+        {
+            totalprolongement += v.Budget;
+        }
         List<PaiementOccurenceActivite> liste = _context
             .PaiementOccurenceActivite
             .Include(a => a.Technicien)
             .Where(a => a.IdOccurenceActivite == idoccurenceactivite)
             .ToList();
         ViewData["listepaiement"] = liste;
+        ViewData["listeprolongement"] = listeprolongement;
         ViewBag.idoccurenceactivite = idoccurenceactivite;
         OccurenceActivite os = _context.OccurenceActivite
             .First(a => a.Id == idoccurenceactivite);
@@ -33,7 +43,7 @@ public class PaiementActiviteController : Controller
             total += v.Montant;
         }
 
-        reste = os.Budget - total;
+        reste = (os.Budget+totalprolongement) - total;
         ViewBag.total = total;
         ViewBag.budget = os.Budget;
         ViewBag.reste = reste;

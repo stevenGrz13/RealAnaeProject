@@ -40,6 +40,12 @@ public class Projet
     [Column("budget")]
     public double Budget { get; set; }
     
+    [Column("sigle")]
+    public string Sigle { get; set; }
+    
+    [Column("reference")]
+    public int Reference { get; set; }
+    
     [ForeignKey("IdBailleur")]
     public virtual Bailleur? Bailleur { get; set; }
     

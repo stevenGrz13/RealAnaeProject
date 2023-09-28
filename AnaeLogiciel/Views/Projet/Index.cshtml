@@ -15,10 +15,14 @@
     <a asp-action="Create">Create New</a>
 </p>
 
+<p style="color: red;">@ViewBag.messageerreur</p>
+
 <table class="table">
     <thead>
     <tr>
-        <th>Nom</th>
+        <th>Sigle</th>
+        <th>Debut Prevision</th>
+        <th>Fin Prevision</th>
         <th>Avancement</th>
         <th></th>
         <th></th>
@@ -28,7 +32,9 @@
         @foreach (var v in liste)
         {
             <tr>
-                <td>@v.Nom</td>
+                <td>@v.Sigle</td>
+                <td>@v.DateDebutPrevision</td>
+                <td>@v.DateFinPrevision</td>
                 <td>@v.Avancement %</td>
                 <form action="/Projet/Details">
                     <input type="hidden" name="idprojet" value="@v.Id">

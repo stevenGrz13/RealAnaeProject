@@ -104,50 +104,81 @@ namespace AnaeLogiciel.Controllers
                 .Include(a => a.Composant)
                 .Where(a => a.IdProjet == idprojet).ToList();
             ViewData["listecomposant"] = liste;
+
+            ViewData["listepartenaire"] = _context.ProjetPartenaireTechnique
+                .Include(a => a.PartenaireTechnique)
+                .Where(a => a.IdProjet == idprojet)
+                .ToList();
             
             return View(projet);
         }
 
         // GET: Projet/Create
-        public IActionResult Create()
+        public IActionResult Create(string messageerreur)
         {
+            ViewBag.messageerreur = messageerreur;
             ViewData["listedevise"] = _context.Devise.ToList();
             ViewData["listebailleur"] = _context.Bailleur.ToList();
             ViewData["listecomposant"] = _context.Composant.ToList();
             return View();
         }
 
-        public IActionResult CreateProjet(string nom, string details, DateOnly datedebut, DateOnly datefin, int idbailleur, List<int> idcomposant, string budget, int iddevise)
+        public IActionResult CreateProjet(int reference, string sigle,string nom, string details, DateOnly datedebut, DateOnly datefin, int idbailleur, List<int> idcomposant, string budget, int iddevise)
         {
-            Devise devise = _context.Devise.First(a => a.Id == iddevise);
-            Projet projet = new Projet()
+            string messageerreur = "";
+            try
             {
-                Nom = nom,
-                Details = details,
-                DateDebutPrevision = datedebut,
-                DateFinPrevision = datefin,
-                IdBailleur = idbailleur,
-                IdDevise = iddevise,
-                Budget = devise.Value*Double.Parse(budget)
-            };
-            _context.Add(projet);
-            _context.SaveChanges();
-            Projet np = _context.Projet.First(a => a == projet);
-            foreach (var v in idcomposant)
-            {
-                ProjetComposant pr = new ProjetComposant()
-                {
-                    IdProjet = np.Id,
-                    IdComposant = v
-                };
-                _context.ProjetComposant.Add(pr);
+                Double.Parse(budget);
             }
+            catch (Exception e)
+            {
+                messageerreur += "- montant invalide -";
+            }
+
+            if (!Fonction.Fonction.SecureDate(datedebut, datefin))
+            {
+                messageerreur += "- dates invalide -";
+            }
+
+            if (messageerreur == "")
+            {
+                Devise devise = _context.Devise.First(a => a.Id == iddevise);
+                Projet projet = new Projet()
+                {
+                    Nom = nom,
+                    Details = details,
+                    DateDebutPrevision = datedebut,
+                    DateFinPrevision = datefin,
+                    IdBailleur = idbailleur,
+                    IdDevise = iddevise,
+                    Budget = devise.Value*Double.Parse(budget),
+                    Sigle = sigle,
+                    Reference = reference
+                };
+                _context.Add(projet);
+                _context.SaveChanges();
+                Projet np = _context.Projet.First(a => a == projet);
+                foreach (var v in idcomposant)
+                {
+                    ProjetComposant pr = new ProjetComposant()
+                    {
+                        IdProjet = np.Id,
+                        IdComposant = v
+                    };
+                    _context.ProjetComposant.Add(pr);
+                }
             
-            _context.SaveChanges();
-            ViewData["listeprojet"] = _context.Projet
-                .Include(a => a.Bailleur)
-                .ToList();
-            return View("Index");
+                _context.SaveChanges();
+                ViewData["listeprojet"] = _context.Projet
+                    .Include(a => a.Bailleur)
+                    .ToList();
+                return View("Index");
+            }
+            else
+            {
+                ViewBag.messageerreur = messageerreur;
+                return RedirectToAction("Create", new {messageerreur = messageerreur});
+            }
         }
 
         // GET: Projet/Edit/5
@@ -284,6 +315,29 @@ namespace AnaeLogiciel.Controllers
         {
             ViewData["listetechnicien"] = _context.Technicien.ToList();
             return View("AffectationTechnicien");
+        }
+
+        public IActionResult VersInsertionPartenaireTechnique(int idprojet)
+        {
+            ViewBag.idprojet = idprojet;
+            ViewData["listepartenaire"] = _context.PartenaireTechnique.ToList();
+            return View("PageInsertionPartenaireTechnique");
+        }
+
+        public IActionResult InsertionPartenaire(List<int> idpartenaire, int idprojet)
+        {
+            foreach (var v in idpartenaire)
+            {
+                ProjetPartenaireTechnique pt = new ProjetPartenaireTechnique()
+                {
+                    IdProjet = idprojet,
+                    IdPartenaireTechnique = v
+                };
+                _context.Add(pt);
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction("Details", new { idprojet = idprojet });
         }
     }
 }

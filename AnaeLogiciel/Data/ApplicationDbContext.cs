@@ -81,4 +81,21 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<AnaeLogiciel.Models.VLienActiviteSousActivite> VLienActiviteSousActivite { get; set; } = default!;
 
     public DbSet<AnaeLogiciel.Models.Devise> Devise { get; set; } = default!;
+    
+    public DbSet<AnaeLogiciel.Models.PartenaireTechnique> PartenaireTechnique { get; set; } = default!;
+    
+    public DbSet<AnaeLogiciel.Models.ProjetPartenaireTechnique> ProjetPartenaireTechnique { get; set; } = default!;
+    
+    public DbSet<AnaeLogiciel.Models.PartiePrenante> Partieprenante { get; set; } = default!;
+    
+    public DbSet<AnaeLogiciel.Models.PartiePrenanteOccurenceActivite> PartiePrenanteOccurenceActivite { get; set; } = default!;
+
+    
+    public DbSet<AnaeLogiciel.Models.ProlongementBudgetProjet> ProlongementBudgetProjet { get; set; } = default!;
+    
+
+    public DbSet<AnaeLogiciel.Models.ProlongementProjet> ProlongementProjet { get; set; } = default!;
+    
+    
+    public DbSet<AnaeLogiciel.Models.ProlongementBudgetOccurenceActivite> ProlongementBudgetOccurenceActivite { get; set; } = default!;
 }

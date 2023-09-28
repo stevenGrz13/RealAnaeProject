@@ -4,6 +4,7 @@
     OccurenceActivite oc = ViewData["occurenceactivite"] as OccurenceActivite;
     List<OccurenceActiviteIndicateur> liste = ViewData["listeoccurenceactiviteindicateur"] as List<OccurenceActiviteIndicateur>;
     List<SiteActivite> listesite = ViewData["listesiteoccurenceactivite"] as List<SiteActivite>;
+    List<PartiePrenanteOccurenceActivite> listep = ViewData["listepartieprenante"] as List<PartiePrenanteOccurenceActivite>;
 }
 
 <div class="container mt-5">
@@ -99,7 +100,31 @@
         </tbody>
     </table>
 </div>
+<br>
+
+<h3 class="mt-4">Partie Prennantes</h3>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Nom</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var v in listep)
+    {
+        <tr>
+            <td>@v.PartiePrenante.Nom</td>
+        </tr>
+    }
+    </tbody>
+</table>
+<form action="/OccurenceActivite/VersInsertionPartiePrenante">
+    <input type="hidden" name="idoccurenceactivite" value="@oc.Id">
+    <button type="submit" class="btn btn-primary mt-2">Ajouter partie prenantes</button>
+</form>
+
+<br>
 <form action="/ActiviteSourceDeVerification/VersListe">
     <input type="hidden" name="idoccurenceactivite" value="@oc.Id">
-    <input type="submit" value="Source de Verification">
+    <button type="submit" class="btn btn-primary mt-2">Source de Verification</button>
 </form>

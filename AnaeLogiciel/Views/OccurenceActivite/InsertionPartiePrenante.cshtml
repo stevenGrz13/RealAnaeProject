@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    List<PartiePrenante> liste = ViewData["listepartieprenante"] as List<PartiePrenante>;
+    int idoccurenceactivite = ViewBag.idoccurenceactivite;
+}
+
+<h3>Liste Partie Prenante</h3>
+<br>
+<form action="/OccurenceActivite/InsertionPartiePrenante">
+    @foreach (var v in liste)
+    {
+        <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+        @v.Nom
+        <input type="checkbox" name="idpartieprenante" value="@v.Id"><br> 
+    }
+    <input type="submit" value="ajouter">
+</form>

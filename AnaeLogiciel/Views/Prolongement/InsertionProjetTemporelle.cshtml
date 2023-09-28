@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    int idprojet = ViewBag.idprojet;
+}
+
+<form action="/Prolongement/CreateTempsProjet">
+    <input type="hidden" name="idprojet" value="@idprojet">
+    <h4>Choisir la nouvelle date</h4>
+    <br>
+    <input type="date" name="datefin">
+    <br>
+    <input type="submit" value="ajouter">
+</form>

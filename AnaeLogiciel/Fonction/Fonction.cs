@@ -142,4 +142,32 @@ public class Fonction
 
         return DateOnly.FromDateTime(dateOnly);
     }
+
+    public static bool SecureDate(DateOnly debut, DateOnly fin)
+    {
+        bool res = true;
+        if (fin < debut)
+        {
+            res = false;
+        }
+        return res;
+    }
+    
+    public static bool SecureDates(DateOnly debut1, DateOnly fin1, DateOnly debut2, DateOnly fin2)
+    {
+        bool res = true;
+        
+        if (debut2 >= debut1 && fin2 <= fin1)
+        {
+            res = true;
+        }
+        else
+        {
+            res = false;
+        }
+        
+        res = SecureDate(debut1,fin2);
+        
+        return res;
+    }
 }

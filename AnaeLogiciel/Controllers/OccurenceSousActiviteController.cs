@@ -57,7 +57,7 @@ public class OccurenceSousActiviteController : Controller
             ViewData["listeoccurenceactiviteindicateur"] = liste;
             OccurenceSousActivite oc = _context.OccurenceSousActivite
                 .Include(a => a.SousActivite)
-                .First(a => a.Id == idoccurenceactivite);
+                .First(a => a.Id == v.Id);
             oc.Avancement = moyenne;
             DateOnly datenow = Fonction.Fonction.getDateNow();
 
@@ -82,18 +82,44 @@ public class OccurenceSousActiviteController : Controller
         return View("~/Views/OccurenceSousActivite/Insertion.cshtml");
     }
 
-    public void Create(int idoccurenceactivite, int idsousactivite, string budget, DateOnly datedebut, DateOnly datefin)
+    public IActionResult Create(int idoccurenceactivite, int idsousactivite, string budget, DateOnly datedebut, DateOnly datefin)
     {
-        OccurenceSousActivite osc = new OccurenceSousActivite()
+        string messageerreur = "";
+        OccurenceActivite oc = _context.OccurenceActivite
+            .First(a => a.Id == idoccurenceactivite);
+        try
         {
-            IdOccurenceActivite = idoccurenceactivite,
-            IdSousActivite = idsousactivite,
-            Budget = Double.Parse(budget),
-            DateDebut = datedebut,
-            DateFin = datefin
-        };
-        _context.Add(osc);
-        _context.SaveChanges();
+            Double.Parse(budget);
+        }
+        catch (Exception e)
+        {
+            messageerreur += "- montant invalide -";
+        }
+        
+        if((!Fonction.Fonction.SecureDates(oc.DateDebut,oc.DateFin,datedebut,datefin))||(Fonction.Fonction.SecureDate(datedebut,datefin)))
+        {
+            messageerreur += "- dates invalide -";
+        }
+
+        if (messageerreur == "")
+        {
+            OccurenceSousActivite osc = new OccurenceSousActivite()
+            {
+                IdOccurenceActivite = idoccurenceactivite,
+                IdSousActivite = idsousactivite,
+                Budget = Double.Parse(budget),
+                DateDebut = datedebut,
+                DateFin = datefin
+            };
+            _context.Add(osc);
+            _context.SaveChanges();
+            return RedirectToAction("ListeOccurenceSousActivite", new {idoccurenceactivite = idoccurenceactivite});
+        }
+        else
+        {
+            ViewBag.messageerreur = messageerreur;
+            return RedirectToAction("VersInsertionOccurenceSousActivite", new {idoccurenceactivite = idoccurenceactivite});
+        }
     }
 
     public IActionResult VersDetailsOccurenceSousActivite(int idoccurencesousactivite)

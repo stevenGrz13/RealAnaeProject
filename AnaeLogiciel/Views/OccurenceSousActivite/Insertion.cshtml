@@ -5,6 +5,8 @@
     List<SousActivite> liste = ViewData["listesousactivite"] as List<SousActivite>;
 }
 
+<p style="color: red;">@ViewBag.messageerreur</p>
+
 <form action="/OccurenceSousActivite/Create">
     <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
     Choisir Sous Activite:

@@ -5,27 +5,27 @@
     List<ProjetComposant> liste = ViewData["listecomposant"] as List<ProjetComposant>;
     List<OccurenceResultat> lister = ViewData["listeoccurenceresultat"] as List<OccurenceResultat>;
     List<TechnicienProjet> listet = ViewData["listetechnicien"] as List<TechnicienProjet>;
+    List<ProjetPartenaireTechnique> listep = ViewData["listepartenaire"] as List<ProjetPartenaireTechnique>;
 }
 
 <div class="container mt-5">
-    <h1 class="mb-4">Détails du Projet</h1>
+    <h1 class="mb-4">Détails du Projet "@Model.Nom"</h1>
 
     <div class="row">
         <div class="col-md-6">
-            <h4>Projet</h4>
             <hr />
             <dl class="row">
-                <dt class="col-sm-3">Nom</dt>
-                <dd class="col-sm-9">@Html.DisplayFor(model => model.Nom)</dd>
-                <dt class="col-sm-3">Date de Début</dt>
+                <dt class="col-sm-3">Sigle</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Sigle)</dd>
+                <dt class="col-sm-3">Début</dt>
                 <dd class="col-sm-9">@Html.DisplayFor(model => model.DateDebutPrevision)</dd>
-                <dt class="col-sm-3">Date de Fin</dt>
+                <dt class="col-sm-3">Fin</dt>
                 <dd class="col-sm-9">@Html.DisplayFor(model => model.DateFinPrevision)</dd>
                 <dt class="col-sm-3">Avancement</dt>
                 <dd class="col-sm-9">@Html.DisplayFor(model => model.Avancement) %</dd>
                 <dt class="col-sm-3">Détails</dt>
                 <dd class="col-sm-9">@Html.DisplayFor(model => model.Details)</dd>
-                <dt class="col-sm-3">Bailleur</dt>
+                <dt class="col-sm-3">Partenaire Financier</dt>
                 <dd class="col-sm-9">@Html.DisplayFor(model => model.Bailleur.Nom)</dd>
                 <dt class="col-sm-3">Budget</dt>
                 <dd class="col-sm-9">@Html.DisplayFor(model => model.Budget) Ar</dd>
@@ -104,7 +104,38 @@
             }
         </tbody>
     </table>
-
+        
+    <br>
+    
+    <h3 class="mt-4">Partenaires Technique</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nom</th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (var v in listep)
+            {
+                <tr>
+                    <td>@v.PartenaireTechnique.Nom</td>
+                </tr>   
+            }
+        </tbody>
+    </table>
+    
+    <br>
+    <form action="/Prolongement/VersListeProlongementProjet">
+        <input type="hidden" name="idprojet" value="@Model.Id">
+        <button type="submit" class="btn btn-secondary">Tableau de Bord Budgetaire</button>
+    </form>
+    <br>
+    
+    <form action="/Projet/VersInsertionPartenaireTechnique">
+        <input type="hidden" name="idprojet" value="@Model.Id">
+        <button type="submit" class="btn btn-secondary">Ajouter partenaire technique</button>
+    </form>
+    <br>
     <div>
         <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Éditer</a>
         <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
