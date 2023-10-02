@@ -77,6 +77,10 @@ public class OccurenceSousActiviteController : Controller
 
     public IActionResult VersInsertionOccurenceSousActivite(int idoccurenceactivite)
     {
+        if (TempData["messageerreur"] != null)
+        {
+            ViewBag.messageerreur = TempData["messageerreur"].ToString();
+        }
         ViewBag.idoccurenceactivite = idoccurenceactivite;
         ViewData["listesousactivite"] = _context.SousActivite.ToList();
         return View("~/Views/OccurenceSousActivite/Insertion.cshtml");
@@ -96,7 +100,7 @@ public class OccurenceSousActiviteController : Controller
             messageerreur += "- montant invalide -";
         }
         
-        if((!Fonction.Fonction.SecureDates(oc.DateDebut,oc.DateFin,datedebut,datefin))||(Fonction.Fonction.SecureDate(datedebut,datefin)))
+        if((!Fonction.Fonction.SecureDates(oc.DateDebut,oc.DateFin,datedebut,datefin))||(!Fonction.Fonction.SecureDate(datedebut,datefin)))
         {
             messageerreur += "- dates invalide -";
         }
@@ -117,7 +121,7 @@ public class OccurenceSousActiviteController : Controller
         }
         else
         {
-            ViewBag.messageerreur = messageerreur;
+            TempData["messageerreur"] = messageerreur;
             return RedirectToAction("VersInsertionOccurenceSousActivite", new {idoccurenceactivite = idoccurenceactivite});
         }
     }

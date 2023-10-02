@@ -176,7 +176,6 @@ namespace AnaeLogiciel.Controllers
             }
             else
             {
-                ViewBag.messageerreur = messageerreur;
                 return RedirectToAction("Create", new {messageerreur = messageerreur});
             }
         }
@@ -308,7 +307,7 @@ namespace AnaeLogiciel.Controllers
                 .Include(a => a.Composant)
                 .Where(a => a.IdProjet == idprojet).ToList();
             ViewData["listecomposant"] = liste;
-            return RedirectToAction("Index", "Projet", new { projet });
+            return RedirectToAction("Details",new {idprojet = idprojet});
         }
         
         public IActionResult VersAffectationTechnicien()
@@ -339,5 +338,10 @@ namespace AnaeLogiciel.Controllers
             _context.SaveChanges();
             return RedirectToAction("Details", new { idprojet = idprojet });
         }
+
+        public IActionResult RetourVersDetails(int idprojet)
+        {
+            return RedirectToAction("Details", new { idprojet = idprojet });
+        } 
     }
 }

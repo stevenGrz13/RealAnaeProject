@@ -18,6 +18,10 @@ public class OccurenceActiviteController : Controller
 
     public IActionResult VersInsertionOccurenceActivite(int idoccurenceresultat)
     {
+        if (TempData["messageerreur"] != null)
+        {
+            ViewBag.messageerreur = TempData["messageerreur"].ToString();
+        }
         ViewBag.idoccurenceresultat = idoccurenceresultat;
         ViewData["listeactivite"] = _context.Activite.ToList();
         return View("~/Views/OccurenceActivite/Create.cshtml");
@@ -57,11 +61,12 @@ public class OccurenceActiviteController : Controller
             ViewData["listeprojet"] = _context.Projet
                 .Include(a => a.Bailleur)
                 .ToList();
-            return View("~/Views/Projet/Index.cshtml");
+            return RedirectToAction("ListeOccurenceActivites", new {idoccurenceresultat = idoccurenceresultat});
         }
         else
         {
             ViewBag.messageerreur = messageerreur;
+            TempData["messageerreur"] = messageerreur;
             return RedirectToAction("VersInsertionOccurenceActivite", new {idoccurenceresultat = idoccurenceresultat});
         }
     }
@@ -208,6 +213,11 @@ public class OccurenceActiviteController : Controller
         }
 
         _context.SaveChanges();
+        return RedirectToAction("Details", new { idoccurenceactivite = idoccurenceactivite });
+    }
+
+    public IActionResult RetourVersDetailsOccurenceActivite(int idoccurenceactivite)
+    {
         return RedirectToAction("Details", new { idoccurenceactivite = idoccurenceactivite });
     }
 }

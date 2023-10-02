@@ -2,6 +2,7 @@
     ViewBag.Title = "title";
     Layout = "_LayoutGlobalProject";
     List<OccurenceActivite> liste = ViewData["listeoccurenceactivite"] as List<OccurenceActivite>;
+    int idprojet = Context.Session.GetInt32("idprojet").GetValueOrDefault();
 }
 
 <div class="container mt-5">
@@ -9,40 +10,47 @@
 
     <table class="table mt-3">
         <thead>
-            <tr>
-                <th>Activité</th>
-                <th>Avancement</th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
+        <tr>
+            <th>Activité</th>
+            <th>Avancement</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
         </thead>
         <tbody>
-            @foreach (var v in liste)
-            {
-                <tr>
-                    <td>@v.Activite.Nom</td>
-                    <td>@v.Avancement %</td>
-                    <td>
-                        <form action="/OccurenceActivite/Details">
-                            <input type="hidden" name="idoccurenceactivite" value="@v.Id">
-                            <button type="submit" class="btn btn-link">Détails</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="/OccurenceSousActivite/ListeOccurenceSousActivite">
-                            <input type="hidden" name="idoccurenceactivite" value="@v.Id">
-                            <button type="submit" class="btn btn-link">Vers Sous-Activité</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="/PaiementActivite/VersListePaiementActivite">
-                            <input type="hidden" name="idoccurenceactivite" value="@v.Id">
-                            <button type="submit" class="btn btn-link">Execution budgetaire</button>
-                        </form>
-                    </td>
-                </tr>
-            }
+        @foreach (var v in liste)
+        {
+            <tr>
+                <td>@v.Activite.Nom</td>
+                <td>@v.Avancement %</td>
+                <td>
+                    <form action="/OccurenceActivite/Details">
+                        <input type="hidden" name="idoccurenceactivite" value="@v.Id">
+                        <button type="submit" class="btn btn-link">Détails</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/OccurenceSousActivite/ListeOccurenceSousActivite">
+                        <input type="hidden" name="idoccurenceactivite" value="@v.Id">
+                        <button type="submit" class="btn btn-link">Vers Sous-Activité</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/PaiementActivite/VersListePaiementActivite">
+                        <input type="hidden" name="idoccurenceactivite" value="@v.Id">
+                        <button type="submit" class="btn btn-link">Execution budgetaire</button>
+                    </form>
+                </td>
+            </tr>
+        }
         </tbody>
     </table>
 </div>
+
+<br>
+
+<form action="/Projet/RetourVersDetails">
+    <input type="hidden" name="idprojet" value="@idprojet">
+    <button type="submit" class="btn btn-secondary">Retour Vers Details Projet</button>
+</form>

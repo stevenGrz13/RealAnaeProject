@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+}
+
+<h2>Choisir le quel vous voulez exporter</h2>
+
+
+<form action="/ExportPDF/VersMainPage">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Contenus</th>
+            <th>Execution Budgetaire</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Resultats</td>
+            <td><input type="checkbox" name="resultat" value="1"></td>
+            <td><input type="checkbox" name="budgetresultat" value="1"></td>
+        </tr>
+        <tr>
+            <td>Activites</td>
+            <td><input type="checkbox" name="activite" value="1"></td>
+            <td><input type="checkbox" name="budgetactivite" value="1"></td>
+        </tr>
+        <tr>
+            <td>Sous Activites</td>
+            <td><input type="checkbox" name="sousactivite" value="1"></td>
+            <td><input type="checkbox" name="budgetsousactivite" value="1"></td>
+        </tr>
+        </tbody>
+    </table>
+    <button type="submit">Voir Apercu</button>
+</form>

@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    int idoccurenceactivite = ViewBag.idoccurenceactivite;
+}
+
+<h2>Insertion Prolongement Budgetaire</h2>
+
+<br>
+
+<form action="/Prolongement/CreateOccurenceActiviteBudget">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <input type="text" name="budget" placeholder="Budget">
+    <br>
+    <button type="submit">Ajouter</button>
+</form>

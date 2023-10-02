@@ -72,6 +72,7 @@ drop table partieprenanteoccurenceactivite cascade;
 drop table prolongementprojet cascade;
 drop table prolongementbudgetoccurenceactivite cascade;
 drop table prolongementbudgetprojet cascade;
+drop table prolongementoccurenceactivite cascade; 
 
 create table partieprenante(
     id serial not null,
@@ -507,6 +508,14 @@ create table prolongementbudgetprojet(
     primary key(id),
     foreign key(idprojet) references projet(id)
 );
+
+create table prolongementoccurenceactivite(
+    id serial not null,
+    idoccurenceactivite int not null,
+    datefin date not null,
+    primary key(id) 
+);
+
 
 
 

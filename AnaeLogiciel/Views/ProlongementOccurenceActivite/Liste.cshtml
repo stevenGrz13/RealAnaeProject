@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    List<ProlongementBudgetOccurenceActivite> listebudget = ViewData["listeprolongementbudgetaire"] as List<ProlongementBudgetOccurenceActivite>;
+    List<ProlongementOccurenceActivite> liste = ViewData["listeprolongement"] as List<ProlongementOccurenceActivite>;
+    int idoccurenceactivite = ViewBag.idoccurenceactivite;
+}
+
+<h3>Liste prolongement temporelle</h3>
+<br>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Nouvelle Date Fin</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var v in liste)
+    {
+        <tr>
+            <td>@v.DateFin</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<br>
+
+<h3>Liste prolongement budgetaire</h3>
+<br>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Montant</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var v in listebudget)
+    {
+        <tr>
+            <td>@v.Budget Ar</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<br>
+
+<form action="/Prolongement/VersInsertionOccurenceActiviteTemps">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <button type="submit" class="btn btn-secondary">Prolonger Temporellement</button>
+</form>
+
+<br>
+
+<form action="/Prolongement/VersInsertionOccurenceActiviteBudget">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <button type="submit" class="btn btn-secondary">Prolonger Budgetairement</button>
+</form>
+
+<br>
+
+<form action="/OccurenceActivite/RetourVersDetailsOccurenceActivite">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <button type="submit" class="btn btn-secondary">Retour vers Details</button>
+</form>

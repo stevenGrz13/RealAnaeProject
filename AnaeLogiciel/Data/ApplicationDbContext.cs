@@ -98,4 +98,7 @@ public class ApplicationDbContext : IdentityDbContext
     
     
     public DbSet<AnaeLogiciel.Models.ProlongementBudgetOccurenceActivite> ProlongementBudgetOccurenceActivite { get; set; } = default!;
+    
+    
+    public DbSet<AnaeLogiciel.Models.ProlongementOccurenceActivite> ProlongementOccurenceActivite { get; set; } = default!;
 }

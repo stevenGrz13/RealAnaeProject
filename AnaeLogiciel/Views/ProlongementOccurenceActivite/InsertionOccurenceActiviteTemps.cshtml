@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    int idoccurenceactivite = ViewBag.idoccurenceactivite;
+}
+
+<h2>Insertion Prolongement Temporelle</h2>
+
+<br>
+
+<form action="/Prolongement/CreateOccurenceActiviteTemps">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <input type="date" name="datefin">
+    <br>
+    <button type="submit">Ajouter</button>
+</form>
