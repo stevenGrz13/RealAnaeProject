@@ -16,6 +16,9 @@ public class OccurenceSousActiviteController : Controller
 
     public IActionResult ListeOccurenceSousActivite(int idoccurenceactivite)
     {
+        OccurenceActivite o = _context.OccurenceActivite
+            .First(a => a.Id == idoccurenceactivite);
+        ViewBag.idoccurenceresultat = o.IdOccurenceResultat;
         ViewBag.idoccurenceactivite = idoccurenceactivite;
         List<OccurenceSousActivite> listes = _context.OccurenceSousActivite
             .Include(a => a.SousActivite)
@@ -126,7 +129,7 @@ public class OccurenceSousActiviteController : Controller
         }
     }
 
-    public IActionResult VersDetailsOccurenceSousActivite(int idoccurencesousactivite)
+    public IActionResult VersDetailsOccurenceSousActivite(int idoccurencesousactivite, int idoccurenceactivite)
     {
         ViewBag.idoccurencesousactivite = idoccurencesousactivite;
         ViewData["listesiteoccurencesousactivite"] = _context.SiteSousActivite
@@ -139,6 +142,7 @@ public class OccurenceSousActiviteController : Controller
             .Include(a => a.TypeIndicateur)
             .Where(a => a.IdOccurenceSousActivite == idoccurencesousactivite)
             .ToList();
+        ViewBag.idoccurenceactivite = idoccurenceactivite;
         return View("~/Views/OccurenceSousActivite/Details.cshtml");
     }
 
@@ -146,6 +150,9 @@ public class OccurenceSousActiviteController : Controller
     {
         int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
         ViewBag.idsitesousactivite = idsitesousactivite;
+        SiteSousActivite st = _context.SiteSousActivite
+            .First(a => a.Id == idsitesousactivite);
+        ViewBag.idoccurencesousactivite = st.IdOccurenceSousActivite;
         ViewData["listetechnicien"] = _context
             .TechnicienProjet
             .Include(a => a.Technicien)
@@ -161,5 +168,16 @@ public class OccurenceSousActiviteController : Controller
             .Where(a => a.IdSiteSousActivite == idsitesousactivite)
             .ToList();
         return View("~/Views/SiteSousActivite/Details.cshtml");
+    }
+    
+    public IActionResult RetourVersDetailsOccurenceSousActivite(int idoccurencesousactivite, int idoccurenceactivite)
+    {
+        return RedirectToAction("VersDetailsOccurenceSousActivite", new { idoccurencesousactivite = idoccurencesousactivite, idoccurenceactivite = idoccurenceactivite });
+    }
+
+
+    public IActionResult RetourVersListeOccurenceSousActivite(int idoccurenceactivite)
+    {
+        return RedirectToAction("ListeOccurenceSousActivite", new { idoccurenceactivite = idoccurenceactivite });
     }
 }

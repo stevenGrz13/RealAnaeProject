@@ -44,15 +44,25 @@
         </div>
 
         <div class="form-group">
-            <label for="budget">Budget</label>
-            <input type="text" class="form-control" id="budget" name="budget" placeholder="Budget">
-            <select name="iddevise" id="iddevise">
-                @foreach (var v in listed)
-                {
-                    <option value="@v.Id">@v.Nom</option>   
-                }
-            </select>
+            <div style="display: inline-block; width: 30%;">
+                <label for="budget">Budget</label>
+                <input type="text" class="form-control" id="budget" name="budget" placeholder="Budget">
+            </div>
+            <div style="display: inline-block; width: 30%;">
+                <label for="iddevise">Devise</label>
+                <select name="iddevise" id="iddevise" class="form-control">
+                    @foreach (var v in listed)
+                    {
+                        <option value="@v.Id">@v.Nom</option>   
+                    }
+                </select>
+            </div>
+            <div style="display: inline-block; width: 30%;">
+                <label for="valeur">Valeur</label>
+                <input type="text" class="form-control" id="valeur" name="valeur" placeholder="Valeur">
+            </div>
         </div>
+
         
 
         <div class="form-group">

@@ -25,6 +25,8 @@ public class SiteSousActiviteController : Controller
 
     public IActionResult Create(string libelle, int commune, int region, int district, int idoccurencesousactivite)
     {
+        OccurenceSousActivite oc = _context.OccurenceSousActivite
+            .First(a => a.Id == idoccurencesousactivite);
         SiteSousActivite st = new SiteSousActivite()
         {
             IdOccurenceSousActivite = idoccurencesousactivite,
@@ -35,17 +37,7 @@ public class SiteSousActiviteController : Controller
         };
         _context.Add(st);
         _context.SaveChanges();
-        ViewData["listesiteoccurencesousactivite"] = _context.SiteSousActivite
-            .Include(a => a.Commune)
-            .Include(a => a.District)
-            .Include(a => a.Region)
-            .Where(a => a.IdOccurenceSousActivite == idoccurencesousactivite).ToList();
-        ViewBag.idoccurencesousactivite = idoccurencesousactivite;
-        ViewData["listeoccurencesousactiviteindicateur"] = _context.OccurenceSousActiviteIndicateur
-            .Include(a => a.TypeIndicateur)
-            .Where(a => a.IdOccurenceSousActivite == idoccurencesousactivite)
-            .ToList();
-        return View("~/Views/OccurenceSousActivite/Details.cshtml");
+        return RedirectToAction("VersDetailsOccurenceSousActivite","OccurenceSousActivite",new {idoccurencesousactivite = idoccurencesousactivite, idoccurenceactivite = oc.IdOccurenceActivite});
     }
     
     public IActionResult VersDetailsSiteSousActivite(int idsitesousactivite)

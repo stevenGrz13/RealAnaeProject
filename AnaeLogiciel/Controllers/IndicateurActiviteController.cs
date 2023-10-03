@@ -44,6 +44,6 @@ public class IndicateurActiviteController : Controller
             .Include(a => a.Region)
             .Include(a => a.District)
             .Where(a => a.IdOccurenceActivite == idoccurenceactivite).ToList();
-        return View("~/Views/OccurenceActivite/Details.cshtml");
+        return RedirectToAction("Details", "OccurenceActivite", new { idoccurenceactivite = idoccurenceactivite });
     }
 }

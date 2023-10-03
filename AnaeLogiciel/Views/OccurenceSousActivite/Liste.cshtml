@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "_LayoutGlobalProject";
     int idoccurenceactivite = ViewBag.idoccurenceactivite;
+    int idoccurenceresultat = ViewBag.idoccurenceresultat;
     List<OccurenceSousActivite> liste = ViewData["listeoccurencesousactivite"] as List<OccurenceSousActivite>;
 }
 
@@ -14,41 +15,47 @@
 
     <table class="table mt-3">
         <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Avancement</th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
+        <tr>
+            <th>Nom</th>
+            <th>Avancement</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
         </thead>
         <tbody>
-            @foreach (var v in liste)
-            {
-                <tr>
-                    <td>@v.SousActivite.Nom</td>
-                    <td>@v.Avancement %</td>
-                    <td class="@v.Couleur">Etat</td>
-                    <td>
-                        <form action="/OccurenceSousActivite/VersDetailsOccurenceSousActivite">
-                            <input type="hidden" name="idoccurencesousactivite" value="@v.Id">
-                            <button type="submit" class="btn btn-link">Détails</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="/IndicateurSousActivite/VersInsertionSousActiviteIndicateur">
-                            <input type="hidden" name="idoccurencesousactivite" value="@v.Id">
-                            <button type="submit" class="btn btn-link">Ajouter Indicateur</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="/PaiementSousActivite/VersListePaiementSousActivite">
-                            <input type="hidden" name="idoccurencesousactivite" value="@v.Id">
-                            <button type="submit" class="btn btn-link">Execution budgetaire</button>
-                        </form>
-                    </td>
-                </tr>
-            }
+        @foreach (var v in liste)
+        {
+            <tr>
+                <td>@v.SousActivite.Nom</td>
+                <td>@v.Avancement %</td>
+                <td class="@v.Couleur">Etat</td>
+                <td>
+                    <form action="/OccurenceSousActivite/VersDetailsOccurenceSousActivite">
+                        <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+                        <input type="hidden" name="idoccurencesousactivite" value="@v.Id">
+                        <button type="submit" class="btn btn-link">Détails</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/IndicateurSousActivite/VersInsertionSousActiviteIndicateur">
+                        <input type="hidden" name="idoccurencesousactivite" value="@v.Id">
+                        <button type="submit" class="btn btn-link">Ajouter Indicateur</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/PaiementSousActivite/VersListePaiementSousActivite">
+                        <input type="hidden" name="idoccurencesousactivite" value="@v.Id">
+                        <button type="submit" class="btn btn-link">Execution budgetaire</button>
+                    </form>
+                </td>
+            </tr>
+        }
         </tbody>
     </table>
 </div>
+<br>
+<form action="/OccurenceActivite/RetourVersListeOccurenceActivite/">
+    <input type="hidden" name="idoccurenceresultat" value="@idoccurenceresultat">
+    <button type="type">Retour Vers Liste Activites</button>
+</form>

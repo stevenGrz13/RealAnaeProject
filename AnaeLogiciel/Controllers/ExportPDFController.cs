@@ -32,6 +32,23 @@ public class ExportPDFController : Controller
                 .Where(a => a.IdProjet == idprojet)
                 .ToList();
         }
+
+        if (activite == 1)
+        {
+            foreach (var v in listeresultat)
+            {
+                listeactivite.AddRange(_context.OccurenceActivite.Where(a => a.IdOccurenceResultat == v.Id).ToList());
+            }
+        }
+
+        if (sousactivite == 1)
+        {
+            foreach (var v in listeactivite)
+            {
+                listesousactivite.AddRange(_context.OccurenceSousActivite.Where(a => a.IdOccurenceActivite == v.Id)
+                    .ToList());
+            }
+        }
         return View("MainPage");
     }
 }

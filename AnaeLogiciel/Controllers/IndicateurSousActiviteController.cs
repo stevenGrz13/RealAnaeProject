@@ -21,7 +21,7 @@ public class IndicateurSousActiviteController : Controller
         return View("~/Views/SousActiviteIndicateur/Insertion.cshtml");
     }
 
-    public void Create(string target, int idindicateur, int idoccurencesousactivite)
+    public IActionResult Create(string target, int idindicateur, int idoccurencesousactivite)
     {
         OccurenceSousActiviteIndicateur os = new OccurenceSousActiviteIndicateur()
         {
@@ -31,5 +31,7 @@ public class IndicateurSousActiviteController : Controller
         };
         _context.Add(os);
         _context.SaveChanges();
+        return RedirectToAction("VersDetailsOccurenceSousActivite", "OccurenceSousActivite",
+            new { idoccurencesousactivite = idoccurencesousactivite });
     }
 }

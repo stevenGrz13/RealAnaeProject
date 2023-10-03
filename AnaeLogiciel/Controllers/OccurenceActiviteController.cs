@@ -220,4 +220,10 @@ public class OccurenceActiviteController : Controller
     {
         return RedirectToAction("Details", new { idoccurenceactivite = idoccurenceactivite });
     }
+
+
+    public IActionResult RetourVersListeOccurenceActivite(int idoccurenceresultat)
+    {
+        return RedirectToAction("ListeOccurenceActivites", new { idoccurenceresultat = idoccurenceresultat });
+    }
 }

@@ -5,6 +5,7 @@
     List<OccurenceActiviteIndicateur> listeindic = ViewData["listeindicateur"] as List<OccurenceActiviteIndicateur>;
     int idsiteactivite = ViewBag.idsiteactivite;
     List<IndicateurTechnicienSiteActivite> listetech = ViewData["indicateurtechniciensiteactivite"] as List<IndicateurTechnicienSiteActivite>;
+    int idoccurenceactivite = ViewBag.idoccurenceactivite;
 }
 
 <h2>Detail Site</h2>
@@ -61,4 +62,11 @@
     <input type="text" name="target">
     <input type="hidden" name="idsiteactivite" value="@idsiteactivite">
     <input type="submit" value="attribuer">
+</form>
+
+br
+
+<form action="/OccurenceActivite/RetourVersDetailsOccurenceActivite/">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <button type="submit">Retour Vers Liste Activites</button>
 </form>

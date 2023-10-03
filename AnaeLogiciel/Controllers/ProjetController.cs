@@ -123,7 +123,7 @@ namespace AnaeLogiciel.Controllers
             return View();
         }
 
-        public IActionResult CreateProjet(int reference, string sigle,string nom, string details, DateOnly datedebut, DateOnly datefin, int idbailleur, List<int> idcomposant, string budget, int iddevise)
+        public IActionResult CreateProjet(int reference, string sigle,string nom, string details, DateOnly datedebut, DateOnly datefin, int idbailleur, List<int> idcomposant, string budget, int iddevise, string valeur)
         {
             string messageerreur = "";
             try
@@ -135,6 +135,15 @@ namespace AnaeLogiciel.Controllers
                 messageerreur += "- montant invalide -";
             }
 
+            try
+            {
+                Double.Parse(valeur);
+            }
+            catch (Exception e)
+            {
+                messageerreur += "- valeur devise invalide -";
+            }
+            
             if (!Fonction.Fonction.SecureDate(datedebut, datefin))
             {
                 messageerreur += "- dates invalide -";
@@ -151,7 +160,7 @@ namespace AnaeLogiciel.Controllers
                     DateFinPrevision = datefin,
                     IdBailleur = idbailleur,
                     IdDevise = iddevise,
-                    Budget = devise.Value*Double.Parse(budget),
+                    Budget = Double.Parse(valeur)*Double.Parse(budget),
                     Sigle = sigle,
                     Reference = reference
                 };
