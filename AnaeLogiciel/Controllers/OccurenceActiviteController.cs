@@ -170,6 +170,32 @@ public class OccurenceActiviteController : Controller
         {
             oc.Couleur = "text-success";
         }
+
+        List<ProlongementOccurenceActivite> listeprolongement = _context.ProlongementOccurenceActivite
+            .Where(a => a.IdOccurenceActivite == idoccurenceactivite)
+            .ToList();
+
+        List<ProlongementBudgetOccurenceActivite> listeprolongementbudget = _context
+            .ProlongementBudgetOccurenceActivite
+            .Where(a => a.IdOccurenceActivite == idoccurenceactivite)
+            .ToList();
+
+        double sommeprolongement = 0;
+        
+        if (listeprolongement.Count > 0)
+        {
+            oc.DateFin = listeprolongement.LastOrDefault().DateFin;
+        }
+
+        if (listeprolongementbudget.Count > 0)
+        {
+            foreach (var v in listeprolongementbudget)
+            {
+                sommeprolongement += v.Budget;
+            }
+
+            oc.Budget += sommeprolongement;
+        }
         
         _context.SaveChanges();
         

@@ -215,6 +215,8 @@ insert into typeindicateur(nom) values ('construction cyber');
 insert into typeindicateur(nom) values ('formation');
 insert into typeindicateur(nom) values ('construction salle de reunion');
 insert into typeindicateur(nom) values ('alimentation en electricite');
+insert into typeindicateur(nom) values ('pourcentage femme');
+insert into typeindicateur(nom) values ('pourcentage homme');
 
 create table daterealisationprojet(
     id serial not null,
@@ -515,6 +517,19 @@ create table prolongementoccurenceactivite(
     datefin date not null,
     primary key(id) 
 );
+
+create or replace view VCalculStatHommeFemme as
+select p.id idprojet, r.idindicateur, r.quantite from projet p
+join occurenceresultat o on p.id = o.idprojet
+join occurenceactivite on o.id = occurenceactivite.idoccurenceresultat
+join siteactivite s on occurenceactivite.id = s.idoccurenceactivite
+join rapportindicateuractivite r on s.id = r.idsiteactivite;
+
+select * from VCalculStatHommeFemme where idprojet=1;
+
+
+
+
 
 
 

@@ -42,11 +42,13 @@ namespace AnaeLogiciel.Controllers
                 _context.SaveChanges();
                 if (v.Avancement == 50)
                 {
+                    v.Avancement = 50.01;
                     Fonction.Fonction.EnvoyerEmail(_smtpConfig,"razafimahefasteven130102@gmail.com","travisjamesmdg7713@gmail.com","Avancement a 50%","Le projet "+v.Nom+" avance a 50%");
                 }
 
-                if (v.Avancement >= 100)
+                if (v.Avancement == 100)
                 {
+                    v.Avancement = 100.01;
                     Fonction.Fonction.EnvoyerEmail(_smtpConfig,"razafimahefasteven130102@gmail.com","travisjamesmdg7713@gmail.com","Avancement a 100%","Le projet "+v.Nom+" avance a 100%");
                 }
             }
@@ -97,6 +99,31 @@ namespace AnaeLogiciel.Controllers
                 }
             }
 
+            List<ProlongementProjet> listeprolongement = _context.ProlongementProjet
+                .Where(a => a.IdProjet == idprojet).ToList();
+
+            double sommeprolongement = 0;
+            
+            List<ProlongementBudgetProjet> listeprolongementbudget = _context
+                .ProlongementBudgetProjet
+                .Where(a => a.IdProjet == idprojet)
+                .ToList();
+
+            if (listeprolongement.Count > 0)
+            {
+                projet.DateFinPrevision = listeprolongement.LastOrDefault().DateFin;
+            }
+
+            if (listeprolongementbudget.Count > 0)
+            {
+                foreach (var v in listeprolongementbudget)
+                {
+                    sommeprolongement += v.Budget;
+                }
+
+                projet.Budget += sommeprolongement;
+            }
+            
             _context.SaveChanges();
             ViewData["listeoccurenceresultat"] = listeor;
             

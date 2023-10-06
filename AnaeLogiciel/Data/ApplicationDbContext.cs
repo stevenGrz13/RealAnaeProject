@@ -101,4 +101,6 @@ public class ApplicationDbContext : IdentityDbContext
     
     
     public DbSet<AnaeLogiciel.Models.ProlongementOccurenceActivite> ProlongementOccurenceActivite { get; set; } = default!;
+
+    public DbSet<AnaeLogiciel.Models.VCalculStatHommeFemme> VCalculStatHommeFemme { get; set; } = default!;
 }

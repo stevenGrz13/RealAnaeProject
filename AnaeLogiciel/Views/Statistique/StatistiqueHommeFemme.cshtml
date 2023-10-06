@@ -1,0 +1,46 @@
+﻿@using Newtonsoft.Json
+@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    Projet projet = ViewData["projet"] as Projet;
+    PourcentageHommeFemme p = ViewData["pourcentage"] as PourcentageHommeFemme;
+}
+
+<h2>Statistique Homme/Femme du projet @projet.Nom</h2>
+
+<br>
+
+<div class="col-lg-6">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Pie Chart</h5>
+
+            <!-- Pie Chart -->
+            <canvas id="pieChart" style="max-height: 400px;"></canvas>
+            <script>
+                document.addEventListener("DOMContentLoaded", () => {
+                  new Chart(document.querySelector('#pieChart'), {
+                    type: 'pie',
+                    data: {
+                      labels: [
+                        'Femme',
+                        'Homme'
+                      ],
+                      datasets: [{
+                        label: '%',
+                        data: [@p.PourcentageFemme, @p.PourcentageHomme],
+                        backgroundColor: [
+                          'rgb(255, 99, 132)',
+                          'rgb(54, 162, 235)'
+                        ],
+                        hoverOffset: 4
+                      }]
+                    }
+                  });
+                });
+              </script>
+            <!-- End Pie CHart -->
+
+        </div>
+    </div>
+</div>

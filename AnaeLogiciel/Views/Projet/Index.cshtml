@@ -35,7 +35,13 @@
                 <td>@v.Sigle</td>
                 <td>@v.DateDebutPrevision</td>
                 <td>@v.DateFinPrevision</td>
-                <td>@v.Avancement %</td>
+                <td>
+                    <div class="progress">
+                      <div class="progress-bar bg-success" role="progressbar" style="width:@v.Avancement %;" aria-valuenow="@v.Avancement" aria-valuemin="0" aria-valuemax="100">
+                        @v.Avancement %
+                      </div>
+                    </div>
+                </td>
                 <form action="/Projet/Details">
                     <input type="hidden" name="idprojet" value="@v.Id">
                     <td><input type="submit" value="details"></td>

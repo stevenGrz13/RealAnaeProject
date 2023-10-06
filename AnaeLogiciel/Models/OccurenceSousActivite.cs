@@ -19,6 +19,9 @@ public class OccurenceSousActivite
     [DisplayName("sousactivite")]
     public int IdSousActivite { get; set; }
     
+    [NotMapped]
+    public string NomSousActivite { get; set; }
+    
     [Column("budget")]
     public double Budget { get; set; }
     

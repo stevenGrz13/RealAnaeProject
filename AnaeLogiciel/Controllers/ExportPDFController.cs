@@ -2,6 +2,7 @@
 using AnaeLogiciel.Data;
 using AnaeLogiciel.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AnaeLogiciel.Controllers;
 
@@ -18,37 +19,75 @@ public class ExportPDFController : Controller
     {
         return View("~/Views/ExportPDF/Choice.cshtml");
     }
+    
+    public string nomResultatById(int id)
+    {
+        return _context.OccurenceResultat
+            .Include(a => a.Resultat)   
+            .First(a => a.IdResultat == id)
+            .Resultat
+            .Nom;
+    }
 
-    public IActionResult VersMainPage(int resultat, int budgetresultat, int activite, int budgetactivite, int sousactivite, int budgetsousactivite)
+    public string nomActiviteById(int id)
+    {
+        return _context.OccurenceActivite
+            .Include(a => a.Activite)
+            .First(a => a.Id == id)
+            .Activite
+            .Nom;
+    }
+
+    public string nomSousActiviteById(int id)
+    {
+        return _context.OccurenceSousActivite
+            .Include(a => a.SousActivite)
+            .First(a => a.Id == id)
+            .SousActivite
+            .Nom;
+    }
+
+    public IActionResult VersMainPage(int resultat, int activite, int sousactivite, int budgetresultat, int budgetactivite, int budgetsousactivite)
     {
         int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
-        List<OccurenceResultat> listeresultat = new List<OccurenceResultat>();
-        List<OccurenceActivite> listeactivite = new List<OccurenceActivite>();
-        List<OccurenceSousActivite> listesousactivite = new List<OccurenceSousActivite>();
-        var resultatfinal = 0;
+        List<OccurenceResultat> resultats = new List<OccurenceResultat>();
+        List<OccurenceActivite> listeoa = new List<OccurenceActivite>();
+        List<OccurenceSousActivite> listeosa = new List<OccurenceSousActivite>();
+        
         if (resultat == 1)
         {
-            listeresultat = _context.OccurenceResultat
+            resultats = _context.OccurenceResultat
                 .Where(a => a.IdProjet == idprojet)
                 .ToList();
         }
 
         if (activite == 1)
         {
-            foreach (var v in listeresultat)
+            foreach (var v in resultats)
             {
-                listeactivite.AddRange(_context.OccurenceActivite.Where(a => a.IdOccurenceResultat == v.Id).ToList());
+                List<OccurenceActivite> listeoccurenceactivite = _context.OccurenceActivite
+                    .Where(a => a.IdOccurenceResultat == v.Id)
+                    .OrderBy(a => a.IdOccurenceResultat)
+                    .ToList();
+                listeoa.AddRange(listeoccurenceactivite);
+                if (sousactivite == 1)
+                {
+                    foreach (var z in listeoccurenceactivite)
+                    {
+                        List<OccurenceSousActivite> listeoccurencesousactivite = _context
+                            .OccurenceSousActivite
+                            .Where(a => a.IdOccurenceActivite == z.Id)
+                            .OrderBy(a => a.IdOccurenceActivite)
+                            .ToList();
+                        listeosa.AddRange(listeosa);
+                    }
+                }
             }
         }
 
-        if (sousactivite == 1)
-        {
-            foreach (var v in listeactivite)
-            {
-                listesousactivite.AddRange(_context.OccurenceSousActivite.Where(a => a.IdOccurenceActivite == v.Id)
-                    .ToList());
-            }
-        }
+        ViewData["listeoccurenceresultat"] = resultats;
+        ViewData["listeoccurenceactivite"] = listeoa;
+        ViewData["listeoccurencesousactivite"] = listeosa;
         return View("MainPage");
     }
 }

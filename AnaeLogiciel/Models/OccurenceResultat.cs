@@ -19,6 +19,8 @@ public class OccurenceResultat
     [DisplayName("resultat")]
     public int IdResultat { get; set; }
     
+    [NotMapped] public string NomResultat { get; set; }
+    
     [Column("avancement")]
     public double Avancement { get; set; }
     
@@ -27,4 +29,7 @@ public class OccurenceResultat
     
     [ForeignKey("IdResultat")]
     public virtual Resultat? Resultat { get; set; }
+    
+    [NotMapped]
+    public List<OccurenceActivite> ListeOccurenceActivites { get; set; }
 }

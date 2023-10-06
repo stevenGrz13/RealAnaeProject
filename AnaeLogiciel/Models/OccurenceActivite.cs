@@ -19,6 +19,9 @@ public class OccurenceActivite
     [DisplayName("activite")]
     public int IdActivite { get; set; }
     
+    [NotMapped]
+    public string NomActivite { get; set; }
+    
     [Column("budget")]
     public double Budget { get; set; }
     
@@ -39,4 +42,7 @@ public class OccurenceActivite
     
     [ForeignKey("IdActivite")]
     public virtual Activite? Activite { get; set;  }
+    
+    [NotMapped]
+    public List<OccurenceSousActivite> ListeOccurenceSousActivites { get; set; }
 }
