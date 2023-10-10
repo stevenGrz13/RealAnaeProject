@@ -46,21 +46,25 @@
 
 <br>
 
-<form action="/Prolongement/VersInsertionOccurenceActiviteTemps">
-    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
-    <button type="submit" class="btn btn-secondary">Prolonger Temporellement</button>
-</form>
-
-<br>
-
-<form action="/Prolongement/VersInsertionOccurenceActiviteBudget">
-    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
-    <button type="submit" class="btn btn-secondary">Prolonger Budgetairement</button>
-</form>
-
-<br>
-
-<form action="/OccurenceActivite/RetourVersDetailsOccurenceActivite">
-    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
-    <button type="submit" class="btn btn-secondary">Retour vers Details</button>
-</form>
+<table>
+    <tr>
+        <th>
+            <form action="/Prolongement/VersInsertionOccurenceActiviteTemps">
+                <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+                <button type="submit" class="btn btn-secondary">Prolonger Temporellement</button>
+            </form>
+        </th>
+        <th>
+            <form action="/Prolongement/VersInsertionOccurenceActiviteBudget">
+                <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+                <button type="submit" class="btn btn-secondary">Prolonger Budgetairement</button>
+            </form>
+        </th>
+        <th>
+            <form action="/OccurenceActivite/RetourVersDetailsOccurenceActivite">
+                <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+                <button type="submit" class="btn btn-secondary">Retour vers Details</button>
+            </form>
+        </th>
+    </tr>
+</table>

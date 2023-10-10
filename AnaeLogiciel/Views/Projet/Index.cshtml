@@ -9,16 +9,14 @@
     }
 }
 
-<h1>Index</h1>
-
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Nouveau Projet</a>
 </p>
 
 <p style="color: red;">@ViewBag.messageerreur</p>
 
 <table class="table">
-    <thead>
+    <thead class="thead-dark">
     <tr>
         <th>Sigle</th>
         <th>Debut Prevision</th>
@@ -36,11 +34,7 @@
                 <td>@v.DateDebutPrevision</td>
                 <td>@v.DateFinPrevision</td>
                 <td>
-                    <div class="progress">
-                      <div class="progress-bar bg-success" role="progressbar" style="width:@v.Avancement %;" aria-valuenow="@v.Avancement" aria-valuemin="0" aria-valuemax="100">
-                        @v.Avancement %
-                      </div>
-                    </div>
+                    <progress id="file" value="@v.Avancement" max="100"> @v.Avancement % </progress>
                 </td>
                 <form action="/Projet/Details">
                     <input type="hidden" name="idprojet" value="@v.Id">

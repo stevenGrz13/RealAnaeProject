@@ -65,8 +65,10 @@ public class SiteSousActiviteController : Controller
         return View("~/Views/SiteSousActivite/Details.cshtml");
     }
 
-    public void CreateWithIndicateur(int idsitesousactivite, int idindicateur, int idtechnicien, string target)
+    public IActionResult CreateWithIndicateur(int idsitesousactivite, int idindicateur, int idtechnicien, string target)
     {
+        int idoccurencesousactivite = _context.SiteSousActivite
+            .First(a => a.Id == idsitesousactivite).IdOccurenceSousActivite;
         ViewData["indicateurtechniciensitesousactivite"] = _context.IndicateurTechnicienSiteSousActivite
             .Include(a => a.TypeIndicateur)
             .Include(a => a.Technicien)
@@ -81,21 +83,19 @@ public class SiteSousActiviteController : Controller
         };
         _context.Add(ic);
         _context.SaveChangesAsync();
-        // SiteSousActivite st = _context.SiteSousActivite
-        //     .First(a => a.Id == idsitesousactivite);
-        // List<OccurenceSousActiviteIndicateur> liste = _context
-        //     .OccurenceSousActiviteIndicateur
-        //     .Include(a => a.TypeIndicateur)
-        //     .Where(a => a.IdOccurenceSousActivite == st.IdOccurenceSousActivite)
-        //     .ToList();
-        // ViewData["listeindicateur"] = liste;
-        // int idpprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
-        // ViewBag.idsitesousactivite = idsitesousactivite;
-        // ViewData["listetechnicien"] = _context
-        //     .TechnicienProjet
-        //     .Include(a => a.Technicien)
-        //     .Where(a => a.IdProjet == idpprojet).ToList();
-        // ViewBag.idsiteactivite = idsitesousactivite;
-        // return View("~/Views/SiteSousActivite/Details.cshtml");
+        return RedirectToAction("VersDetailsSiteSousActivite","SiteSousActivite",new { idsitesousactivite = idsitesousactivite, idoccurencesousactivite = idoccurencesousactivite});
+    }
+    
+    public IActionResult VersMapSiteSousActivite(int idsitesousactivite)
+    {
+        SiteSousActivite site = _context.SiteSousActivite.First(a => a.Id == idsitesousactivite); 
+        Region region = _context.Region
+            .Include(a => a.Province)
+            .First(a => a.Id == site.IdRegion);
+        string province = region.Province.Nom;
+        string commune = site.Commune.Nom;
+        ViewBag.province = province;
+        ViewBag.commune = commune;
+        return View("~/Views/SiteSousActivite/Map.cshtml");
     }
 }

@@ -6,6 +6,7 @@
     int idsitesousactivite = ViewBag.idsitesousactivite;
     List<IndicateurTechnicienSiteSousActivite> listetech = ViewData["indicateurtechniciensitesousactivite"] as List<IndicateurTechnicienSiteSousActivite>;
     int idoccurencesousactivite = ViewBag.idoccurencesousactivite;
+    int idoccurenceactivite = ViewBag.idoccurenceactivite;
 }
 
 <h2>Detail Site</h2>
@@ -37,9 +38,6 @@
                     <input type="submit" value="rapport">
                 </form>
             </td>
-            <td>
-                <input type="submit" value="liste rapport">
-            </td>
         </tr>   
     }
     </tbody>
@@ -67,7 +65,22 @@
     <input type="submit" value="attribuer">
 </form>
 
-<form action="/OccurenceSousActivite/RetourVersDetailsOccurenceSousActivite/">
-    <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
-    <button type="submit">Retour Vers Liste Sous Activite</button>
-</form>
+<br>
+
+<table>
+    <tr>
+        <th>
+            <form action="/SiteSousActivite/VersMapSiteSousActivite">
+                <input type="hidden" name="idsitesousactivite" value="@idsitesousactivite">
+                <button type="submit" class="btn btn-primary">Visualiser sur la Map</button>
+            </form>
+        </th>
+        <th>
+            <form action="/OccurenceSousActivite/RetourVersDetailsOccurenceSousActivite/">
+                <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+                <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+                <button type="submit" class="btn btn-primary">Retour Vers Liste Sous Activite</button>
+            </form>
+        </th>
+    </tr>
+</table>

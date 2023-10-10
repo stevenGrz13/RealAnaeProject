@@ -428,12 +428,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2l0ZUFjdGl2aXRlXEluc2VydGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/RealGitAnae/RealAnaeProject/AnaeLogiciel/Views/SiteActivite/Map.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2l0ZUFjdGl2aXRlXE1hcC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/RealGitAnae/RealAnaeProject/AnaeLogiciel/Views/SiteSousActivite/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2l0ZVNvdXNBY3Rpdml0ZVxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/RealGitAnae/RealAnaeProject/AnaeLogiciel/Views/SiteSousActivite/Insertion.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2l0ZVNvdXNBY3Rpdml0ZVxJbnNlcnRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/RealGitAnae/RealAnaeProject/AnaeLogiciel/Views/SiteSousActivite/Map.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2l0ZVNvdXNBY3Rpdml0ZVxNYXAuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/RealGitAnae/RealAnaeProject/AnaeLogiciel/Views/SourceDeVerification/Create.cshtml]

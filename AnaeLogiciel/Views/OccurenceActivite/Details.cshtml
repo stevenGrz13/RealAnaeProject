@@ -104,7 +104,7 @@
 
 <h3 class="mt-4">Partie Prennantes</h3>
 <table class="table">
-    <thead>
+    <thead class="thead-dark">
     <tr>
         <th>Nom</th>
     </tr>
@@ -118,25 +118,34 @@
     }
     </tbody>
 </table>
-<form action="/OccurenceActivite/VersInsertionPartiePrenante">
-    <input type="hidden" name="idoccurenceactivite" value="@oc.Id">
-    <button type="submit" class="btn btn-primary mt-2">Ajouter partie prenantes</button>
-</form>
 
 <br>
-<form action="/ActiviteSourceDeVerification/VersListe">
-    <input type="hidden" name="idoccurenceactivite" value="@oc.Id">
-    <button type="submit" class="btn btn-primary mt-2">Source de Verification</button>
-</form>
 
-<br>
-<form action="/Prolongement/VersListeProlongementOccurenceActivite">
-    <input type="hidden" name="idoccurenceactivite" value="@oc.Id">
-    <button type="submit" class="btn btn-primary mt-2">Etat Prolongement</button>
-</form>
-
-<br>
-<form action="/OccurenceActivite/RetourVersListeOccurenceActivite">
-    <input type="hidden" name="idoccurenceresultat" value="@oc.IdOccurenceResultat">
-    <button type="submit" class="btn btn-primary mt-2">Retour Vers Liste</button>
-</form>
+<table>
+    <tr>
+        <th>
+            <form action="/OccurenceActivite/VersInsertionPartiePrenante">
+                <input type="hidden" name="idoccurenceactivite" value="@oc.Id">
+                <button type="submit" class="btn btn-primary mt-2">Ajouter partie prenantes</button>
+            </form>    
+        </th>
+        <th>
+            <form action="/ActiviteSourceDeVerification/VersListe">
+                <input type="hidden" name="idoccurenceactivite" value="@oc.Id">
+                <button type="submit" class="btn btn-primary mt-2">Source de Verification</button>
+            </form>
+        </th>
+        <th>
+            <form action="/Prolongement/VersListeProlongementOccurenceActivite">
+                <input type="hidden" name="idoccurenceactivite" value="@oc.Id">
+                <button type="submit" class="btn btn-primary mt-2">Etat Prolongement</button>
+            </form>
+        </th>
+        <th>
+            <form action="/OccurenceActivite/RetourVersListeOccurenceActivite">
+                <input type="hidden" name="idoccurenceresultat" value="@oc.IdOccurenceResultat">
+                <button type="submit" class="btn btn-primary mt-2">Retour Vers Liste</button>
+            </form>
+        </th>
+    </tr>
+</table>

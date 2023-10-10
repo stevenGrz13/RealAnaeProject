@@ -38,7 +38,7 @@
             </form>
             <h3 class="mt-4">Techniciens</h3>
             <table class="table">
-                <thead>
+                <thead class="thead-dark">
                     <tr>
                         <th>Nom</th>
                     </tr>
@@ -57,7 +57,7 @@
 
     <h3 class="mt-4">Composants</h3>
     <table class="table">
-        <thead>
+        <thead class="thead-dark">
             <tr>
                 <th>Nom</th>
             </tr>
@@ -74,7 +74,7 @@
 
     <h3 class="mt-4">Résultats</h3>
     <table class="table">
-        <thead>
+        <thead class="thead-dark">
             <tr>
                 <th>Nom</th>
                 <th>Avancement</th>
@@ -87,7 +87,9 @@
             {
                 <tr>
                     <td>@v.Resultat.Nom</td>
-                    <td>@v.Avancement %</td>
+                    <td>
+                        <progress id="file" value="@v.Avancement" max="100"> @v.Avancement % </progress>
+                    </td>
                     <td>
                         <form action="/OccurenceActivite/ListeOccurenceActivites">
                             <input type="hidden" name="idoccurenceresultat" value="@v.Id">
@@ -123,30 +125,34 @@
             }
         </tbody>
     </table>
-    
-    <br>
-    <form action="/Prolongement/VersListeProlongementProjet">
-        <input type="hidden" name="idprojet" value="@Model.Id">
-        <button type="submit" class="btn btn-secondary">Vers Liste Prolongement Budgetaire</button>
-    </form>
+
     <br>
     
-    <form action="/Projet/VersInsertionPartenaireTechnique">
-        <input type="hidden" name="idprojet" value="@Model.Id">
-        <button type="submit" class="btn btn-secondary">Ajouter partenaire technique</button>
-    </form>
-    
-    <br>
-    
-    <form action="/ExportPDF/VersExportProjet">
-        <input type="hidden" name="idprojet" value="@Model.Id">
-        <button type="submit" class="btn btn-secondary">Vers Export PDF</button>
-    </form>
-    
-    <br>
-    
-    <div>
-        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Éditer</a>
-        <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
-    </div>
+    <table>
+        <tr>
+            <th>
+                <form action="/Prolongement/VersListeProlongementProjet">
+                    <input type="hidden" name="idprojet" value="@Model.Id">
+                    <button type="submit" class="btn btn-secondary">Vers Liste Prolongement Budgetaire</button>
+                </form>
+            </th>
+            <th>
+                <form action="/Projet/VersInsertionPartenaireTechnique">
+                    <input type="hidden" name="idprojet" value="@Model.Id">
+                    <button type="submit" class="btn btn-secondary">Ajouter partenaire technique</button>
+                </form>
+            </th>
+            <th>
+                <form action="/ExportPDF/VersExportProjet">
+                    <input type="hidden" name="idprojet" value="@Model.Id">
+                    <button type="submit" class="btn btn-secondary">Vers Export PDF</button>
+                </form>
+            </th>
+        </tr>
+    </table>
+</div>
+<br>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Éditer</a>
+    <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
 </div>

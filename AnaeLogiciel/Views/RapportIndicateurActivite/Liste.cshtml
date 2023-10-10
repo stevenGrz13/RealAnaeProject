@@ -2,6 +2,7 @@
     ViewBag.Title = "title";
     Layout = "_LayoutGlobalProject";
     List<RapportIndicateurActivite> liste = ViewData["listerapportsite"] as List<RapportIndicateurActivite>;
+    int idoccurenceactivite = ViewBag.idoccurenceactivite;
 }
 
 <h3>LISTE RAPPORT</h3>
@@ -17,15 +18,21 @@
     </tr>
     </thead>
     <tbody>
-        @foreach (var v in liste)
-        {
-            <tr>
-                <td>@v.Technicien.Email</td>
-                <td>@v.TypeIndicateur.Nom</td>
-                <td>@v.Quantite</td>
-                <td>@v.DateAction</td>
-            </tr>   
-        }
+    @foreach (var v in liste)
+    {
+        <tr>
+            <td>@v.Technicien.Email</td>
+            <td>@v.TypeIndicateur.Nom</td>
+            <td>@v.Quantite</td>
+            <td>@v.DateAction</td>
+        </tr>   
+    }
     </tbody>
 </table>
 
+<br>
+
+<form action="/OccurenceActivite/RetourVersDetailsOccurenceActivite">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <button type="submit">Retour</button>
+</form>

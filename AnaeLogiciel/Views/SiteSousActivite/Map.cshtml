@@ -1,0 +1,87 @@
+@{
+    ViewBag.Title = "title";
+    Layout = null;
+    string province = ViewBag.province;
+    string commune = ViewBag.commune;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recherche de coordonnées géographiques</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+<body>
+    <input type="text" id="cityInput" value="@province,@commune" placeholder="Entrez le nom de la ville">
+    
+    <div id="myMap" style="width: 800px; height: 600px;"></div>
+    <input type="text" id="coordinatesInput" placeholder="Coordonnées" readonly>
+
+    <script>
+        var map;
+        var coordinatesInput = document.getElementById('coordinatesInput');
+        var marker;
+
+        function loadMapScenario() {
+            map = L.map('myMap').setView([-18.8792, 47.5079], 6); // Coordonnées centrées sur Madagascar
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            map.on('click', function(e) {
+                displayCoordinates(e.latlng);
+                addOrUpdateMarker(e.latlng);
+            });
+
+            // Appeler la fonction de recherche directement au chargement de la page
+            searchCoordinates();
+        }
+
+        function searchCoordinates() {
+            var city = document.getElementById('cityInput').value;
+            geocodeLocation(city);
+        }
+
+        function geocodeLocation(city) {
+            var geocodeRequest = "https://nominatim.openstreetmap.org/search?format=json&q=" + encodeURIComponent(city);
+            
+            fetch(geocodeRequest)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        var latitude = parseFloat(data[0].lat);
+                        var longitude = parseFloat(data[0].lon);
+
+                        var location = L.latLng(latitude, longitude);
+                        map.setView(location, 12);
+                        displayCoordinates(location);
+                        addOrUpdateMarker(location);
+                    } else {
+                        alert("Ville non trouvée.");
+                    }
+                })
+                .catch(error => console.error("Erreur de géocodage : ", error));
+        }
+
+        function displayCoordinates(location) {
+            var latitude = location.lat.toFixed(6);
+            var longitude = location.lng.toFixed(6);
+
+            coordinatesInput.value = "Latitude : " + latitude + ", Longitude : " + longitude;
+        }
+
+        function addOrUpdateMarker(location) {
+            if (marker) {
+                marker.setLatLng(location);
+            } else {
+                marker = L.marker(location).addTo(map);
+            }
+        }
+
+        // Appeler la fonction de chargement de la carte une fois que la page est chargée
+        window.onload = loadMapScenario;
+    </script>
+</body>
+</html>

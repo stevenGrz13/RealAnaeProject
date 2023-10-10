@@ -5,31 +5,44 @@
     List<OccurenceResultat> listeresultat = ViewData["listeoccurenceresultat"] as List<OccurenceResultat>;
     List<OccurenceActivite> listeactivite = ViewData["listeoccurenceactivite"] as List<OccurenceActivite>;
     List<OccurenceSousActivite> listesousactivite = ViewData["listeoccurencesousactivite"] as List<OccurenceSousActivite>;
+    Projet projet = ViewData["projet"] as Projet;
 }
 
-<!-- Affichage de la liste des OccurenceResultat -->
-<h2>Liste des OccurenceResultat</h2>
-<ul>
-    @foreach (var resultat in listeresultat)
-    {
-        <li>Id: @resultat.Id, IdProjet: @resultat.IdProjet, IdResultat: @resultat.IdResultat, Avancement: @resultat.Avancement</li>
-    }
-</ul>
-
-<!-- Affichage de la liste des OccurenceActivite -->
-<h2>Liste des OccurenceActivite</h2>
-<ul>
-    @foreach (var activite in listeactivite)
-    {
-        <li>Id: @activite.Id, IdOccurenceResultat: @activite.IdOccurenceResultat, IdActivite: @activite.IdActivite, Budget: @activite.Budget, DateDebut: @activite.DateDebut, DateFin: @activite.DateFin, Avancement: @activite.Avancement</li>
-    }
-</ul>
-
-<!-- Affichage de la liste des OccurenceSousActivite -->
-<h2>Liste des OccurenceSousActivite</h2>
-<ul>
-    @foreach (var sousactivite in listesousactivite)
-    {
-        <li>Id: @sousactivite.Id, IdOccurenceActivite: @sousactivite.IdOccurenceActivite, IdSousActivite: @sousactivite.IdSousActivite, Budget: @sousactivite.Budget, DateDebut: @sousactivite.DateDebut, DateFin: @sousactivite.DateFin, Avancement: @sousactivite.Avancement</li>
-    }
-</ul>
+<h3>@projet.Nom</h3>
+@foreach (var resultat in listeresultat)
+{
+    <ul>
+        <li>@resultat.Resultat.Nom, Avancement: @resultat.Avancement</li>
+        <ul>
+            @foreach (var activite in listeactivite)
+            {
+                if (activite.IdOccurenceResultat == resultat.Id)
+                {
+                    <li> Activité: @activite.Activite.Nom</li>
+                    <ul>
+                        <li>Budget: @activite.Budget</li>
+                        <li>Date de début: @activite.DateDebut</li>
+                        <li>Date de fin: @activite.DateFin</li>
+                        <li>Avancement: @activite.Avancement %</li>
+                        @foreach (var sousactivite in listesousactivite)
+                        {
+                            if (sousactivite.IdOccurenceActivite == activite.Id)
+                            {
+                                <li> Sous-activité: @sousactivite.SousActivite.Nom</li>
+                                <ul>
+                                    <li>Budget: @sousactivite.Budget</li>
+                                    <li>Date de début: @sousactivite.DateDebut</li>
+                                    <li>Date de fin: @sousactivite.DateFin</li>
+                                    <li>Avancement: @sousactivite.Avancement %</li>
+                                </ul>
+                            }
+                        }
+                    </ul>
+                }
+            }
+        </ul>
+    </ul>
+    <form action="/ExportPDF/Exporter">
+    </form>
+    <page-break></page-break>
+}

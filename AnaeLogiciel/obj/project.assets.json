@@ -114,6 +114,75 @@
           }
         }
       },
+      "GrapeCity.Documents.Html/6.2.3": {
+        "type": "package",
+        "dependencies": {
+          "GrapeCity.Documents.Imaging": "[6.2.3]",
+          "GrapeCity.Documents.Pdf": "[6.2.3]",
+          "Newtonsoft.Json": "13.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/GrapeCity.Documents.Html.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/GrapeCity.Documents.Html.dll": {
+            "related": ".xml"
+          }
+        },
+        "resource": {
+          "lib/netstandard2.0/ja/GrapeCity.Documents.Html.resources.dll": {
+            "locale": "ja"
+          }
+        }
+      },
+      "GrapeCity.Documents.Imaging/6.2.3": {
+        "type": "package",
+        "dependencies": {
+          "System.Buffers": "4.4.0",
+          "System.Memory": "4.5.0",
+          "System.Numerics.Vectors": "4.4.0",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/GrapeCity.Documents.Imaging.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/GrapeCity.Documents.Imaging.dll": {
+            "related": ".xml"
+          }
+        },
+        "resource": {
+          "lib/netstandard2.0/ja/GrapeCity.Documents.Imaging.resources.dll": {
+            "locale": "ja"
+          }
+        }
+      },
+      "GrapeCity.Documents.Pdf/6.2.3": {
+        "type": "package",
+        "dependencies": {
+          "GrapeCity.Documents.Imaging": "[6.2.3]",
+          "Portable.BouncyCastle": "1.8.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/GrapeCity.Documents.Pdf.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/GrapeCity.Documents.Pdf.dll": {
+            "related": ".xml"
+          }
+        },
+        "resource": {
+          "lib/netstandard2.0/ja/GrapeCity.Documents.Pdf.resources.dll": {
+            "locale": "ja"
+          }
+        }
+      },
       "Humanizer/2.14.1": {
         "type": "package",
         "dependencies": {
@@ -2506,6 +2575,19 @@
           }
         }
       },
+      "Portable.BouncyCastle/1.8.2": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/BouncyCastle.Crypto.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
         "type": "package",
         "runtimeTargets": {
@@ -4698,6 +4780,69 @@
         "lib/netstandard2.0/Google.Apis.Oauth2.v2.dll",
         "lib/netstandard2.0/Google.Apis.Oauth2.v2.pdb",
         "lib/netstandard2.0/Google.Apis.Oauth2.v2.xml"
+      ]
+    },
+    "GrapeCity.Documents.Html/6.2.3": {
+      "sha512": "drYVBAsLLfIjTUFhjs2s0aAwPSDmWFsRDkrSuDFg/SlXFdG6VclIi3moVq8igjYOA6g9iWs2RW+lF3QGJO6NCA==",
+      "type": "package",
+      "path": "grapecity.documents.html/6.2.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "3rd-party-software.txt",
+        "LICENSE.txt",
+        "README.md",
+        "grapecity.documents.html.6.2.3.nupkg.sha512",
+        "grapecity.documents.html.nuspec",
+        "icon.png",
+        "lib/net461/GrapeCity.Documents.Html.dll",
+        "lib/net461/GrapeCity.Documents.Html.xml",
+        "lib/net461/ja/GrapeCity.Documents.Html.resources.dll",
+        "lib/netstandard2.0/GrapeCity.Documents.Html.dll",
+        "lib/netstandard2.0/GrapeCity.Documents.Html.xml",
+        "lib/netstandard2.0/ja/GrapeCity.Documents.Html.resources.dll"
+      ]
+    },
+    "GrapeCity.Documents.Imaging/6.2.3": {
+      "sha512": "pNc19YTTAlaxlTsiXZYaqMgGLOjFyRffLfFUOPuSIER5P1vhdOhbXgO9ZIdiKneNwZJVbvjrGaIMCPM0QP/77g==",
+      "type": "package",
+      "path": "grapecity.documents.imaging/6.2.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "3rd-party-software.txt",
+        "LICENSE.txt",
+        "README.md",
+        "grapecity.documents.imaging.6.2.3.nupkg.sha512",
+        "grapecity.documents.imaging.nuspec",
+        "icon.png",
+        "lib/net461/GrapeCity.Documents.Imaging.dll",
+        "lib/net461/GrapeCity.Documents.Imaging.xml",
+        "lib/net461/ja/GrapeCity.Documents.Imaging.resources.dll",
+        "lib/netstandard2.0/GrapeCity.Documents.Imaging.dll",
+        "lib/netstandard2.0/GrapeCity.Documents.Imaging.xml",
+        "lib/netstandard2.0/ja/GrapeCity.Documents.Imaging.resources.dll"
+      ]
+    },
+    "GrapeCity.Documents.Pdf/6.2.3": {
+      "sha512": "rDVqdjtycTv/pf0tYQmeS6SGh7ZQRCkx9xoNcQlL9EZ8wSbgvtzxQJmEGxJx8sxT81g0GTyeDtS0WwtznMvP/Q==",
+      "type": "package",
+      "path": "grapecity.documents.pdf/6.2.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "3rd-party-software.txt",
+        "LICENSE.txt",
+        "README.md",
+        "grapecity.documents.pdf.6.2.3.nupkg.sha512",
+        "grapecity.documents.pdf.nuspec",
+        "icon.png",
+        "lib/net461/GrapeCity.Documents.Pdf.dll",
+        "lib/net461/GrapeCity.Documents.Pdf.xml",
+        "lib/net461/ja/GrapeCity.Documents.Pdf.resources.dll",
+        "lib/netstandard2.0/GrapeCity.Documents.Pdf.dll",
+        "lib/netstandard2.0/GrapeCity.Documents.Pdf.xml",
+        "lib/netstandard2.0/ja/GrapeCity.Documents.Pdf.resources.dll"
       ]
     },
     "Humanizer/2.14.1": {
@@ -8521,6 +8666,27 @@
         "lib/netstandard2.0/NuGet.Versioning.xml",
         "nuget.versioning.6.3.1.nupkg.sha512",
         "nuget.versioning.nuspec"
+      ]
+    },
+    "Portable.BouncyCastle/1.8.2": {
+      "sha512": "XpJVIhjPiO0o+DU36eeIzqnRilDmE8Z7Kfhm9V9o1yNqM3ikgleD94Z5W/LeEu3t63LaZl2CNJexaix+I6AUMg==",
+      "type": "package",
+      "path": "portable.bouncycastle/1.8.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/BouncyCastle.Crypto.dll",
+        "lib/net40/BouncyCastle.Crypto.xml",
+        "lib/netstandard1.0/BouncyCastle.Crypto.dll",
+        "lib/netstandard1.0/BouncyCastle.Crypto.xml",
+        "lib/netstandard1.3/BouncyCastle.Crypto.dll",
+        "lib/netstandard1.3/BouncyCastle.Crypto.xml",
+        "lib/netstandard2.0/BouncyCastle.Crypto.dll",
+        "lib/netstandard2.0/BouncyCastle.Crypto.xml",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/BouncyCastle.Crypto.dll",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/BouncyCastle.Crypto.xml",
+        "portable.bouncycastle.1.8.2.nupkg.sha512",
+        "portable.bouncycastle.nuspec"
       ]
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
@@ -13129,6 +13295,7 @@
   "projectFileDependencyGroups": {
     "net7.0": [
       "Google.Apis.Oauth2.v2 >= 1.61.0.1869",
+      "GrapeCity.Documents.Html >= 6.2.3",
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 7.0.5",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 7.0.5",
       "Microsoft.AspNetCore.Identity.UI >= 7.0.5",
@@ -13186,6 +13353,10 @@
           "Google.Apis.Oauth2.v2": {
             "target": "Package",
             "version": "[1.61.0.1869, )"
+          },
+          "GrapeCity.Documents.Html": {
+            "target": "Package",
+            "version": "[6.2.3, )"
           },
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
             "target": "Package",

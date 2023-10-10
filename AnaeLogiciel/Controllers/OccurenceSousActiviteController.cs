@@ -152,6 +152,9 @@ public class OccurenceSousActiviteController : Controller
         ViewBag.idsitesousactivite = idsitesousactivite;
         SiteSousActivite st = _context.SiteSousActivite
             .First(a => a.Id == idsitesousactivite);
+        int idoccurenceactivite = _context.OccurenceSousActivite
+            .First(a => a.Id == st.IdOccurenceSousActivite)
+            .IdOccurenceActivite;
         ViewBag.idoccurencesousactivite = st.IdOccurenceSousActivite;
         ViewData["listetechnicien"] = _context
             .TechnicienProjet
@@ -167,6 +170,7 @@ public class OccurenceSousActiviteController : Controller
             .Include(a => a.TypeIndicateur)
             .Where(a => a.IdSiteSousActivite == idsitesousactivite)
             .ToList();
+        ViewBag.idoccurenceactivite = idoccurenceactivite;
         return View("~/Views/SiteSousActivite/Details.cshtml");
     }
     

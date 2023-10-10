@@ -49,23 +49,27 @@
 </table>
 <br>
 
-<form action="/Prolongement/VersInsertionBudgetaire">
-    <input type="hidden" name="idprojet" value="@idprojet">
-    <button type="submit" class="btn btn-secondary">Prolonger Budgetairement</button>
-    <br>
-</form>
-
-<br>
-
-<form action="/Prolongement/VersInsertionTemporelle">
-    <input type="hidden" name="idprojet" value="@idprojet">
-    <button type="submit" class="btn btn-secondary">Prolonger Temporellement</button>
-    <br>
-</form>
-
-<br>
-
-<form action="/Projet/RetourVersDetails">
-    <input type="hidden" name="idprojet" value="@idprojet">
-    <button type="submit" class="btn btn-secondary">Retourner vers details</button>
-</form>
+<table>
+    <thead>
+    <th>
+        <form action="/Prolongement/VersInsertionBudgetaire">
+            <input type="hidden" name="idprojet" value="@idprojet">
+            <button type="submit" class="btn btn-secondary">Prolonger Budgetairement</button>
+            <br>
+        </form>
+    </th>
+    <th>
+        <form action="/Prolongement/VersInsertionTemporelle">
+            <input type="hidden" name="idprojet" value="@idprojet">
+            <button type="submit" class="btn btn-secondary">Prolonger Temporellement</button>
+            <br>
+        </form>
+    </th>
+    <th>
+        <form action="/Projet/RetourVersDetails">
+            <input type="hidden" name="idprojet" value="@idprojet">
+            <button type="submit" class="btn btn-secondary">Retourner vers details</button>
+        </form>
+    </th>
+    </thead>
+</table>

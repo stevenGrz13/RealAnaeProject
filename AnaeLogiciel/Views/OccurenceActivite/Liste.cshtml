@@ -9,7 +9,7 @@
     <h2>Liste des Occurences d'Activités</h2>
 
     <table class="table mt-3">
-        <thead>
+        <thead class="thead-dark">
         <tr>
             <th>Activité</th>
             <th>Avancement</th>
@@ -23,7 +23,9 @@
         {
             <tr>
                 <td>@v.Activite.Nom</td>
-                <td>@v.Avancement %</td>
+                <td>
+                    <progress id="file" value="@v.Avancement" max="100"> @v.Avancement % </progress>
+                </td>
                 <td>
                     <form action="/OccurenceActivite/Details">
                         <input type="hidden" name="idoccurenceactivite" value="@v.Id">

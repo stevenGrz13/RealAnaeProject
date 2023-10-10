@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Title";
     Layout = "_LayoutGlobalProject";
     int idoccurencesousactivite = ViewBag.idoccurencesousactivite;
     List<PaiementOccurenceSousActivite> liste = ViewData["listepaiement"] as List<PaiementOccurenceSousActivite>;
@@ -55,6 +55,8 @@
 
         .total {
             font-weight: bold;
+            font-size: 18px;
+            color: #333;
         }
 
         form {
@@ -74,21 +76,21 @@
             margin: 0;
             font-size: 18px;
         }
-        
-                .error-message {
-                        color: red;
-                    }
-                  
+
+        .error-message {
+            color: red;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <div class="dashboard">
         <form action="/PaiementSousActivite/VersInsertionPaiementSousActivite">
             <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
-            <input type="submit" value="Ajouter État de Paiement">
+            <input type="submit" value="Ajouter un Mouvement">
         </form>
 
-        <h3>LISTE DE PAIEMENT</h3>
+        <h3>LISTE DES MOUVEMENTS</h3>
 
         <table>
             <thead>
@@ -105,7 +107,7 @@
                         <td>@v.Technicien.Email</td>
                         <td>@v.Motif</td>
                         <td>@v.Montant Ar</td>
-                    </tr>   
+                    </tr>
                 }
                 <tr>
                     <td></td>
@@ -117,7 +119,7 @@
 
         <p><strong>Budget:</strong> @budget Ar</p>
         <p><strong>Reste:</strong> @reste Ar</p>
-        <p><strong><span class="error-message">@ViewBag.messageerreur</span></strong></p>
+        <p class="error-message">@ViewBag.messageerreur</p>
     </div>
 </body>
 </html>

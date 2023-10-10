@@ -64,9 +64,21 @@
     <input type="submit" value="attribuer">
 </form>
 
-br
+<br>
 
-<form action="/OccurenceActivite/RetourVersDetailsOccurenceActivite/">
-    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
-    <button type="submit">Retour Vers Liste Activites</button>
-</form>
+<table>
+    <tr>
+        <th>
+            <form action="/SiteActivite/VersMapSiteActivite">
+                <input type="hidden" name="idsiteactivite" value="@idsiteactivite">
+                <button type="submit" class="btn btn-primary">Visualiser sur la map</button>
+            </form>
+        </th>
+        <th>
+            <form action="/OccurenceActivite/RetourVersDetailsOccurenceActivite/">
+                <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+                <button type="submit" class="btn btn-primary">Retour Vers Liste Activites</button>
+            </form>    
+        </th>
+    </tr>
+</table>

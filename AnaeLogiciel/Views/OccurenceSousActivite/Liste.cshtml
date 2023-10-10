@@ -28,7 +28,9 @@
         {
             <tr>
                 <td>@v.SousActivite.Nom</td>
-                <td>@v.Avancement %</td>
+                <td>
+                    <progress id="file" value="@v.Avancement" max="100"> @v.Avancement % </progress>
+                </td>
                 <td class="@v.Couleur">Etat</td>
                 <td>
                     <form action="/OccurenceSousActivite/VersDetailsOccurenceSousActivite">

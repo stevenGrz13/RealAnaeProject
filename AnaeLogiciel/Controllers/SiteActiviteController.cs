@@ -82,4 +82,19 @@ public class SiteActiviteController : Controller
         _context.SaveChanges();
         return RedirectToAction("VersDetailsSiteActivite", new { idsiteactivite = idsiteactivite });
     }
+    
+    public IActionResult VersMapSiteActivite(int idsiteactivite)
+    {
+        SiteActivite site = _context.SiteActivite
+            .Include(a => a.Commune)
+            .First(a => a.Id == idsiteactivite);
+        Region region = _context.Region
+            .Include(a => a.Province)
+            .First(a => a.Id == site.IdRegion);
+        string province = region.Province.Nom;
+        string commune = site.Commune.Nom;
+        ViewBag.province = province;
+        ViewBag.commune = commune;
+        return View("~/Views/SiteActivite/Map.cshtml");
+    }
 }

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "CXKzL1F6JbWC8bciD0AlCSLhGRxzwSQXGQn5xF14VQC9mmN5AwGjL3DSHrx5wdmHdl079PT2EG81p9MpE5+LPw==",
+  "dgSpecHash": "MKkGWrwZV8qgiHtdgceZyPMMRnQUwkr2tj8l6Uj2Vyb0IcsWe1S3XETA0bJdoE7v0tmqB2TPaaAY3DQuPcECuw==",
   "success": true,
   "projectFilePath": "D:\\RealGitAnae\\RealAnaeProject\\AnaeLogiciel\\AnaeLogiciel.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,9 @@
     "C:\\Users\\STEVEN\\.nuget\\packages\\google.apis.auth\\1.61.0\\google.apis.auth.1.61.0.nupkg.sha512",
     "C:\\Users\\STEVEN\\.nuget\\packages\\google.apis.core\\1.61.0\\google.apis.core.1.61.0.nupkg.sha512",
     "C:\\Users\\STEVEN\\.nuget\\packages\\google.apis.oauth2.v2\\1.61.0.1869\\google.apis.oauth2.v2.1.61.0.1869.nupkg.sha512",
+    "C:\\Users\\STEVEN\\.nuget\\packages\\grapecity.documents.html\\6.2.3\\grapecity.documents.html.6.2.3.nupkg.sha512",
+    "C:\\Users\\STEVEN\\.nuget\\packages\\grapecity.documents.imaging\\6.2.3\\grapecity.documents.imaging.6.2.3.nupkg.sha512",
+    "C:\\Users\\STEVEN\\.nuget\\packages\\grapecity.documents.pdf\\6.2.3\\grapecity.documents.pdf.6.2.3.nupkg.sha512",
     "C:\\Users\\STEVEN\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\STEVEN\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\STEVEN\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",
@@ -147,6 +150,7 @@
     "C:\\Users\\STEVEN\\.nuget\\packages\\nuget.projectmodel\\6.3.1\\nuget.projectmodel.6.3.1.nupkg.sha512",
     "C:\\Users\\STEVEN\\.nuget\\packages\\nuget.protocol\\6.3.1\\nuget.protocol.6.3.1.nupkg.sha512",
     "C:\\Users\\STEVEN\\.nuget\\packages\\nuget.versioning\\6.3.1\\nuget.versioning.6.3.1.nupkg.sha512",
+    "C:\\Users\\STEVEN\\.nuget\\packages\\portable.bouncycastle\\1.8.2\\portable.bouncycastle.1.8.2.nupkg.sha512",
     "C:\\Users\\STEVEN\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\STEVEN\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\STEVEN\\.nuget\\packages\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",

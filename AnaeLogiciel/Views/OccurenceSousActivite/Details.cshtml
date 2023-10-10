@@ -12,7 +12,7 @@
     <h3>Target Indicateur</h3>
     <br>
     <table class="table">
-        <thead>
+        <thead class="thead-dark">
         <tr>
             <th>Indicateur</th>
             <th>Target</th>
@@ -39,7 +39,7 @@
     <br>
 
     <table class="table">
-        <thead>
+        <thead class="thead-dark">
         <tr>
             <th>Libellé</th>
             <th>Commune</th>
@@ -76,12 +76,20 @@
     </table>
 </div>
 <br>
-<form action="/SousActiviteSourceDeVerification/VersListe">
-    <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
-    <input type="submit" value="Source de verification">
-</form>
-<br>
-<form action="/OccurenceSousActivite/RetourVersListeOccurenceSousActivite/">
-    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
-    <button type="submit">Retour Vers Liste Sous Activites</button>
-</form>
+
+<table>
+    <tr>
+        <th>
+            <form action="/SousActiviteSourceDeVerification/VersListe">
+                <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+                <button type="submit" class="btn btn-primary">Source de verification</button>
+            </form>   
+        </th>
+        <th>
+            <form action="/OccurenceSousActivite/RetourVersListeOccurenceSousActivite/">
+                <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+                <button type="submit" class="btn btn-primary">Retour Vers Liste Sous Activites</button>
+            </form>
+        </th>
+    </tr>
+</table>

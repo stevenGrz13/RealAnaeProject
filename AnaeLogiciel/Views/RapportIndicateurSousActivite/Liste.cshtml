@@ -2,6 +2,8 @@
     ViewBag.Title = "title";
     Layout = "_LayoutGlobalProject";
     List<RapportIndicateurSousActivite> liste = ViewData["listerapportsite"] as List<RapportIndicateurSousActivite>;
+    int idoccurencesousactivite = ViewBag.idoccurencesousactivite;
+    int idoccurenceactivite = ViewBag.idoccurenceactivite;
 }
 
 <h3>LISTE RAPPORT</h3>
@@ -28,3 +30,9 @@
     }
     </tbody>
 </table>
+
+<form action="/OccurenceSousActivite/RetourVersDetailsOccurenceSousActivite">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+    <button type="submit" class="btn btn-primary">Retour</button>
+</form>

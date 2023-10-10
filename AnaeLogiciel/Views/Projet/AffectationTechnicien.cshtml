@@ -2,6 +2,7 @@
     ViewBag.Title = "title";
     Layout = "_LayoutGlobalProject";
     List<Technicien> liste = ViewData["listetechnicien"] as List<Technicien>;
+    int idprojet = Context.Session.GetInt32("idprojet").GetValueOrDefault();
 }
 
 <h2>Affectation</h2>
@@ -9,11 +10,35 @@
 <br>
 
 <form action="/Projet/AffectationTechnicien">
-    @foreach (var v in liste)
-    {   
-        @v.Email
-        <input type="checkbox" name="idtechnicien" value="@v.Id">   
-        <br>
-    }
-    <input type="submit" value="Valider">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (var v in liste)
+                    {
+                        <tr>
+                        <td>@v.Email</td>
+                        <td><input type="checkbox" name="idtechnicien" value="@v.Id"></td>
+                        </tr>
+                    }
+        </tbody>
+    </table>
+    <br>
+    <table>
+        <tr>
+            <th>
+                <button type="submit" class="btn btn-primary">Valider</button>
+            </th>
+            <th>
+                <form action="/Projet/RetourVersDetails">
+                    <input type="hidden" name="idprojet" value="@idprojet">
+                    <button type="submit" class="btn btn-primary">Retour</button>
+                </form>
+            </th>
+        </tr>
+    </table>
 </form>

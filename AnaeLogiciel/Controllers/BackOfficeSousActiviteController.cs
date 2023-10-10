@@ -25,7 +25,7 @@ public class BackOfficeSousActiviteController : Controller
         return View("~/Views/RapportIndicateurSousActivite/Insertion.cshtml");
     }
 
-    public void Create(int idtechnicien, int idsitesousactivite, int idindicateur, string quantite, DateOnly dateaction)
+    public IActionResult Create(int idtechnicien, int idsitesousactivite, int idindicateur, string quantite, DateOnly dateaction)
     {
         RapportIndicateurSousActivite ri = new RapportIndicateurSousActivite()
         {
@@ -37,10 +37,17 @@ public class BackOfficeSousActiviteController : Controller
         };
         _context.Add(ri);
         _context.SaveChanges();
+        return RedirectToAction("VersDetailsSiteSousActivite", "SiteSousActivite",
+            new { idsitesousactivite = idsitesousactivite });
     }
     
     public IActionResult VersListeRapportSousActivite(int idsitesousactivite)
     {
+        int idoccurencesousactivite = _context.SiteSousActivite
+            .First(a => a.Id == idsitesousactivite).IdOccurenceSousActivite;
+        int idoccurenceactivite = _context.OccurenceSousActivite
+            .First(a => a.Id == idoccurencesousactivite)
+            .IdOccurenceActivite;
         List<RapportIndicateurSousActivite> liste = _context
             .RapportIndicateurSousActivite
             .Include(a => a.TypeIndicateur)
@@ -48,6 +55,8 @@ public class BackOfficeSousActiviteController : Controller
             .Where(a => a.IdSiteSousActivite == idsitesousactivite)
             .ToList();
         ViewData["listerapportsite"] = liste;
+        ViewBag.idoccurencesousactivite = idoccurencesousactivite;
+        ViewBag.idoccurenceactivite = idoccurenceactivite;
         return View("~/Views/RapportIndicateurSousActivite/Liste.cshtml");
     }
 }
