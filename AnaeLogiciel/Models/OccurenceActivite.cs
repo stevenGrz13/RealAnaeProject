@@ -37,6 +37,9 @@ public class OccurenceActivite
     [NotMapped]
     public string Couleur { get; set; }
     
+    [NotMapped]
+    public string Message { get; set; }
+    
     [ForeignKey("IdOccurenceResultat")]
     public virtual OccurenceResultat? OccurenceResultat { get; set; }
     

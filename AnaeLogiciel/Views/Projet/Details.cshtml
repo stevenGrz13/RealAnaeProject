@@ -6,10 +6,18 @@
     List<OccurenceResultat> lister = ViewData["listeoccurenceresultat"] as List<OccurenceResultat>;
     List<TechnicienProjet> listet = ViewData["listetechnicien"] as List<TechnicienProjet>;
     List<ProjetPartenaireTechnique> listep = ViewData["listepartenaire"] as List<ProjetPartenaireTechnique>;
+    List<Composant> listec = ViewData["composant"] as List<Composant>;
 }
 
 <div class="container mt-5">
-    <h1 class="mb-4">Détails du Projet "@Model.Nom"</h1>
+    <table class="table">
+        <thead>
+        <tr>
+            <th><h3>@Model.Nom</h3></th>
+            <th class="@Model.Couleur">@Model.Message</th>
+        </tr>
+        </thead>
+    </table>
 
     <div class="row">
         <div class="col-md-6">
@@ -69,6 +77,51 @@
                     <td>@v.Composant.Nom</td>
                 </tr>
             }
+        <tr>
+            <td>
+                <form action="/Projet/AjoutComposant">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                        Ajouter composant
+                    </button>
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Choisir Composant a ajouter</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Nom</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach (var v in listec)
+                                        {
+                                            <tr>
+                                                <td>@v.Nom</td>
+                                                <td><input type="checkbox" name="listecomposant" value="@v.Id"></td>
+                                            </tr>
+                                        }
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">
+                                        Ajouter
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </td>
+        </tr>
         </tbody>
     </table>
 

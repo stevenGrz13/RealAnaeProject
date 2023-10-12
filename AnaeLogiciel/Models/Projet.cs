@@ -46,6 +46,12 @@ public class Projet
     [Column("reference")]
     public int Reference { get; set; }
     
+    [NotMapped]
+    public string Couleur { get; set; }
+    
+    [NotMapped]
+    public string Message { get; set; }
+    
     [ForeignKey("IdBailleur")]
     public virtual Bailleur? Bailleur { get; set; }
     

@@ -66,16 +66,6 @@ public class OccurenceSousActiviteController : Controller
                 .Include(a => a.SousActivite)
                 .First(a => a.Id == v.Id);
             oc.Avancement = moyenne;
-            DateOnly datenow = Fonction.Fonction.getDateNow();
-
-            if ((oc.Avancement < 100) && oc.DateFin < datenow)
-            {
-                oc.Couleur = "text-danger";
-            }
-            else
-            {
-                oc.Couleur = "text-success";
-            }
             _context.SaveChanges();
         }
 
@@ -167,6 +157,21 @@ public class OccurenceSousActiviteController : Controller
             .Where(a => a.IdOccurenceSousActivite == idoccurencesousactivite)
             .ToList();
         ViewBag.idoccurenceactivite = idoccurenceactivite;
+        OccurenceSousActivite osc = _context
+            .OccurenceSousActivite
+            .Include(a => a.SousActivite)
+            .First(a => a.Id == idoccurencesousactivite);
+        if (Fonction.Fonction.getDateNow() < osc.DateFin && osc.Avancement < 100)
+        {
+            osc.Couleur = "text-danger";
+            osc.Message = "En retard";
+        }
+        else
+        {
+            osc.Couleur = "text-success";
+            osc.Message = "A temps";
+        }
+        ViewData["osc"] = osc;
         return View("~/Views/OccurenceSousActivite/Details.cshtml");
     }
 

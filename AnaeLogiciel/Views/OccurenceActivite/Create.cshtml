@@ -6,22 +6,39 @@
 
 <p style="color: red;">@ViewBag.messageerreur</p>
 
-<form action="/OccurenceActivite/Create">
-    <input type="hidden" name="idoccurenceresultat" value="@idoccurenceresultat">
-    Choisir Activite:
-    <br>
-    <select name="idactivite" id="idactivite">
-        @foreach (var v in liste)
-        {
-            <option value="@v.Id">@v.Nom</option>   
-        }
-    </select>
-    <br>
-    <input type="date" name="datedebut" placeholder="Date Debut">
-    <br>
-    <input type="date" name="datefin" placeholder="Date Fin">
-    <br>
-    <input type="text" name="budget" placeholder="Budget">
-    <br>
-    <input type="submit" value="inserer">
-</form>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form action="/OccurenceActivite/Create" method="post" class="my-4">
+                <input type="hidden" name="idoccurenceresultat" value="@idoccurenceresultat">
+                
+                <div class="form-group">
+                    <label for="idactivite">Choisir Activité:</label>
+                    <select name="idactivite" id="idactivite" class="form-control">
+                        @foreach (var v in liste)
+                        {
+                            <option value="@v.Id">@v.Nom</option>   
+                        }
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="datedebut">Date Début:</label>
+                    <input type="date" name="datedebut" id="datedebut" class="form-control" placeholder="Date Début">
+                </div>
+                
+                <div class="form-group">
+                    <label for="datefin">Date Fin:</label>
+                    <input type="date" name="datefin" id="datefin" class="form-control" placeholder="Date Fin">
+                </div>
+                
+                <div class="form-group">
+                    <label for="budget">Budget:</label>
+                    <input type="text" name="budget" id="budget" class="form-control" placeholder="Budget">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Insérer</button>
+            </form>
+        </div>
+    </div>
+</div>

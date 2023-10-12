@@ -5,8 +5,18 @@
     int idoccurenceactivite = ViewBag.idoccurenceactivite;
     List<SiteSousActivite> liste = ViewData["listesiteoccurencesousactivite"] as List<SiteSousActivite>;
     List<OccurenceSousActiviteIndicateur> listeindic = ViewData["listeoccurencesousactiviteindicateur"] as List<OccurenceSousActiviteIndicateur>;
+    OccurenceSousActivite osc = ViewData["osc"] as OccurenceSousActivite;
 }
 
+<table class="table">
+    <thead>
+    <tr>
+        <th>@osc.SousActivite.Nom</th>
+        <th class="@osc.Couleur">@osc.Message</th>
+    </tr>
+    </thead>
+</table>
+<br>
 <div class="container mt-5">
     <br>
     <h3>Target Indicateur</h3>

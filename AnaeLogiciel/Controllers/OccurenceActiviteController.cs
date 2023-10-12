@@ -191,10 +191,12 @@ public class OccurenceActiviteController : Controller
         if ((oc.Avancement < 100) && oc.DateFin < datenow)
         {
             oc.Couleur = "text-danger";
+            oc.Message = "En retard";
         }
         else
         {
             oc.Couleur = "text-success";
+            oc.Message = "A temps";
         }
 
         List<ProlongementOccurenceActivite> listeprolongement = _context.ProlongementOccurenceActivite

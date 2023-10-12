@@ -124,6 +124,17 @@ namespace AnaeLogiciel.Controllers
                 projet.Budget += sommeprolongement;
             }
             
+            if (Fonction.Fonction.getDateNow() < projet.DateFinPrevision && projet.Avancement < 100)
+            {
+                projet.Couleur = "text-danger";
+                projet.Message = "En retard";
+            }
+            else
+            {
+                projet.Couleur = "text-success";
+                projet.Message = "A temps";
+            }
+            
             _context.SaveChanges();
             ViewData["listeoccurenceresultat"] = listeor;
             
@@ -136,10 +147,29 @@ namespace AnaeLogiciel.Controllers
                 .Include(a => a.PartenaireTechnique)
                 .Where(a => a.IdProjet == idprojet)
                 .ToList();
-            
+
+            ViewData["composant"] = _context.Composant
+                .ToList();
             return View(projet);
         }
 
+        public IActionResult AjoutComposant(List<int> listecomposant)
+        {
+            int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
+            foreach (var v in listecomposant)
+            {
+                ProjetComposant pr = new ProjetComposant()
+                {
+                    IdComposant = v,
+                    IdProjet = idprojet
+                };
+                _context.Add(pr);
+            }
+            _context.SaveChanges();
+            Console.WriteLine("AVY NISAVE IZY ZAO");
+            return RedirectToAction("Details", new {idprojet = idprojet});
+        }
+        
         // GET: Projet/Create
         public IActionResult Create(string messageerreur)
         {

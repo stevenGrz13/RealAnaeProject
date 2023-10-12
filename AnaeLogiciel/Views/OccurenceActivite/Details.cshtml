@@ -10,6 +10,17 @@
 <div class="container mt-5">
     <h3>@oc.Activite.Nom</h3>
     <br>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Etat:</th>
+            <th class="@oc.Couleur">@oc.Message</th>
+        </tr>
+        </thead>
+    </table>
+    
+    <br>
+    <br>
     <div class="row">
         <div class="col-md-3">
             <strong>Budget:</strong>
@@ -26,9 +37,6 @@
         <div class="col-md-3">
             <strong>Avancement:</strong>
             <p>@oc.Avancement %</p>
-        </div>
-        <div class="col-md-3">
-            <p class="@oc.Couleur">Etat</p>
         </div>
     </div>
 
