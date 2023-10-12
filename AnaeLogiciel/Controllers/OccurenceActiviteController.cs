@@ -23,7 +23,9 @@ public class OccurenceActiviteController : Controller
             ViewBag.messageerreur = TempData["messageerreur"].ToString();
         }
         ViewBag.idoccurenceresultat = idoccurenceresultat;
-        ViewData["listeactivite"] = _context.Activite.ToList();
+        ViewData["listeactivite"] = _context.Activite
+                .OrderByDescending(a => a.Id)
+                .ToList();
         return View("~/Views/OccurenceActivite/Create.cshtml");
     }
 
@@ -70,14 +72,38 @@ public class OccurenceActiviteController : Controller
             return RedirectToAction("VersInsertionOccurenceActivite", new {idoccurenceresultat = idoccurenceresultat});
         }
     }
-
-    public IActionResult ListeOccurenceActivites(int idoccurenceresultat)
+    
+    public IActionResult ListeOccurenceActivites(int idoccurenceresultat, int? page)
     {
-        ViewData["listeoccurenceactivite"] = _context.OccurenceActivite
+        if (page == null)
+        {
+            page = 1;
+        }
+        int pageSize = 3;
+        var query = _context.OccurenceActivite
             .Include(a => a.Activite)
-            .Where(a => a.IdOccurenceResultat == idoccurenceresultat).ToList();
+            .Where(a => a.IdOccurenceResultat == idoccurenceresultat);
+
+        int totalItems = query.Count();
+
+        var pagedList = query
+            .OrderBy(a => a.Id)
+            .Skip((page.GetValueOrDefault() - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        var model = new PagedList<OccurenceActivite>
+        {
+            Items = pagedList,
+            TotalItems = totalItems,
+            PageNumber = page.GetValueOrDefault(),
+            PageSize = pageSize
+        };
+
+        ViewData["listeoccurenceactivite"] = model;
         return View("~/Views/OccurenceActivite/Liste.cshtml");
     }
+
 
     public IActionResult Details(int idoccurenceactivite)
     {
@@ -214,7 +240,9 @@ public class OccurenceActiviteController : Controller
 
     public IActionResult VersInsertionIndicateurActivite(int idoccurenceactivite)
     {
-        ViewData["listeindicateur"] = _context.TypeIndicateur.ToList();
+        ViewData["listeindicateur"] = _context.TypeIndicateur
+            .OrderByDescending(a => a.Id)
+            .ToList();
         ViewBag.idoccurenceactivite = idoccurenceactivite;
         return View("~/Views/ActiviteIndicateur/Insertion.cshtml");
     }

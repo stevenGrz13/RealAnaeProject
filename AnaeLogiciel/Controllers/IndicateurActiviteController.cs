@@ -17,7 +17,9 @@ public class IndicateurActiviteController : Controller
     {
         ViewBag.idoccurenceactivite = idoccurenceactivite;
         ViewData["listeindicateur"] = _context
-            .TypeIndicateur.ToList();
+            .TypeIndicateur
+            .OrderByDescending(a => a.Id)
+            .ToList();
         return View("~/Views/ActiviteIndicateur/Insertion.cshtml");
     }
 

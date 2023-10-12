@@ -1,10 +1,15 @@
 ﻿using System.Net.Mime;
-using System.Reflection.Metadata;
 using AnaeLogiciel.Data;
 using AnaeLogiciel.Models;
 using GrapeCity.Documents.Html;
+using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Rotativa.AspNetCore;
+using Document = System.Reflection.Metadata.Document;
 
 namespace AnaeLogiciel.Controllers;
 
@@ -69,6 +74,9 @@ public class ExportPDFController : Controller
         ViewData["listeoccurenceresultat"] = resultats;
         ViewData["listeoccurenceactivite"] = listeoa;
         ViewData["listeoccurencesousactivite"] = listeosa;
+        ViewBag.resultat = resultat;
+        ViewBag.activite = activite;
+        ViewBag.sousactivite = sousactivite;
         return View("MainPage");
     }
     
@@ -104,4 +112,8 @@ public class ExportPDFController : Controller
         return File(stream.ToArray(), MediaTypeNames.Application.Pdf, "document.pdf");
     }
 
+    public IActionResult RealExportPDF()
+    {
+        return new ViewAsPdf("~/Views/ExportPDF/MainPage.cshtml");
+    }
 }

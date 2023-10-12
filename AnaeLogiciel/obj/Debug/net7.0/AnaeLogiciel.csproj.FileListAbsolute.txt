@@ -1254,3 +1254,16 @@ D:\RealGitAnae\RealAnaeProject\AnaeLogiciel\obj\Debug\net7.0\refint\AnaeLogiciel
 D:\RealGitAnae\RealAnaeProject\AnaeLogiciel\obj\Debug\net7.0\AnaeLogiciel.pdb
 D:\RealGitAnae\RealAnaeProject\AnaeLogiciel\obj\Debug\net7.0\AnaeLogiciel.genruntimeconfig.cache
 D:\RealGitAnae\RealAnaeProject\AnaeLogiciel\obj\Debug\net7.0\ref\AnaeLogiciel.dll
+D:\RealGitAnae\RealAnaeProject\AnaeLogiciel\bin\Debug\net7.0\BouncyCastle.Crypto.dll
+D:\RealGitAnae\RealAnaeProject\AnaeLogiciel\bin\Debug\net7.0\GrapeCity.Documents.Html.dll
+D:\RealGitAnae\RealAnaeProject\AnaeLogiciel\bin\Debug\net7.0\GrapeCity.Documents.Imaging.dll
+D:\RealGitAnae\RealAnaeProject\AnaeLogiciel\bin\Debug\net7.0\GrapeCity.Documents.Pdf.dll
+D:\RealGitAnae\RealAnaeProject\AnaeLogiciel\bin\Debug\net7.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\RealGitAnae\RealAnaeProject\AnaeLogiciel\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+D:\RealGitAnae\RealAnaeProject\AnaeLogiciel\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
+D:\RealGitAnae\RealAnaeProject\AnaeLogiciel\bin\Debug\net7.0\itextsharp.dll
+D:\RealGitAnae\RealAnaeProject\AnaeLogiciel\bin\Debug\net7.0\itextsharp.xmlworker.dll
+D:\RealGitAnae\RealAnaeProject\AnaeLogiciel\bin\Debug\net7.0\Rotativa.AspNetCore.dll
+D:\RealGitAnae\RealAnaeProject\AnaeLogiciel\bin\Debug\net7.0\ja\GrapeCity.Documents.Html.resources.dll
+D:\RealGitAnae\RealAnaeProject\AnaeLogiciel\bin\Debug\net7.0\ja\GrapeCity.Documents.Imaging.resources.dll
+D:\RealGitAnae\RealAnaeProject\AnaeLogiciel\bin\Debug\net7.0\ja\GrapeCity.Documents.Pdf.resources.dll

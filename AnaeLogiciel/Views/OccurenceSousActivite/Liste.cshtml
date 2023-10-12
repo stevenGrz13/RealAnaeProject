@@ -2,7 +2,7 @@
     Layout = "_LayoutGlobalProject";
     int idoccurenceactivite = ViewBag.idoccurenceactivite;
     int idoccurenceresultat = ViewBag.idoccurenceresultat;
-    List<OccurenceSousActivite> liste = ViewData["listeoccurencesousactivite"] as List<OccurenceSousActivite>;
+    var liste = ViewData["listeoccurencesousactivite"] as PagedList<OccurenceSousActivite>;
 }
 
 <div class="container mt-5">
@@ -24,7 +24,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach (var v in liste)
+        @foreach (var v in liste.Items)
         {
             <tr>
                 <td>@v.SousActivite.Nom</td>
@@ -55,9 +55,31 @@
         }
         </tbody>
     </table>
+    <nav>
+            <ul class="pagination">
+                @if (liste.HasPreviousPage)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="?idoccurenceactivite=@(liste.Items[0].IdOccurenceActivite)&page=@(liste.PageNumber - 1)&pageSize=@(liste.PageSize)">Précédent</a>
+                    </li>
+                }
+                @for (int i = 1; i <= liste.TotalPages; i++)
+                {
+                    <li class="page-item @(i == liste.PageNumber ? "active" : "")">
+                        <a class="page-link" href="?idoccurenceactivite=@(liste.Items[0].IdOccurenceActivite)&page=@i&pageSize=@(liste.PageSize)">@i</a>
+                    </li>
+                }
+                @if (liste.HasNextPage)
+                {
+                    <li class="page-item">
+                        <a class="page-link" href="?idoccurenceactivite=@(liste.Items[0].IdOccurenceActivite)&page=@(liste.PageNumber + 1)&pageSize=@(liste.PageSize)">Suivant</a>
+                    </li>
+                }
+            </ul>
+        </nav>
 </div>
 <br>
 <form action="/OccurenceActivite/RetourVersListeOccurenceActivite/">
     <input type="hidden" name="idoccurenceresultat" value="@idoccurenceresultat">
-    <button type="type">Retour Vers Liste Activites</button>
+    <button type="type" class="btn btn-primary">Retour Vers Liste Activites</button>
 </form>

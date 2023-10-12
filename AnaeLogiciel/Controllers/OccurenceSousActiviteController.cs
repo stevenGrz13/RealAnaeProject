@@ -14,13 +14,17 @@ public class OccurenceSousActiviteController : Controller
         _context = context;
     }
 
-    public IActionResult ListeOccurenceSousActivite(int idoccurenceactivite)
+    public IActionResult ListeOccurenceSousActivite(int idoccurenceactivite, int? page)
     {
+        if (page == null)
+        {
+            page = 1;
+        }
         OccurenceActivite o = _context.OccurenceActivite
             .First(a => a.Id == idoccurenceactivite);
         ViewBag.idoccurenceresultat = o.IdOccurenceResultat;
         ViewBag.idoccurenceactivite = idoccurenceactivite;
-        List<OccurenceSousActivite> listes = _context.OccurenceSousActivite
+        var listes = _context.OccurenceSousActivite
             .Include(a => a.SousActivite)
             .Where(a => a.IdOccurenceActivite == idoccurenceactivite).ToList();
         foreach (var v in listes)
@@ -74,7 +78,25 @@ public class OccurenceSousActiviteController : Controller
             }
             _context.SaveChanges();
         }
-        ViewData["listeoccurencesousactivite"] = listes;
+
+        int totalItems = listes.Count();
+
+        int pageSize = 3;
+        
+        var pagedList = listes
+            .OrderBy(a => a.Id)
+            .Skip((page.GetValueOrDefault() - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        var model = new PagedList<OccurenceSousActivite>
+        {
+            Items = pagedList,
+            TotalItems = totalItems,
+            PageNumber = page.GetValueOrDefault(),
+            PageSize = pageSize
+        };
+        ViewData["listeoccurencesousactivite"] = model;
         return View("~/Views/OccurenceSousActivite/Liste.cshtml");
     }
 
@@ -85,7 +107,9 @@ public class OccurenceSousActiviteController : Controller
             ViewBag.messageerreur = TempData["messageerreur"].ToString();
         }
         ViewBag.idoccurenceactivite = idoccurenceactivite;
-        ViewData["listesousactivite"] = _context.SousActivite.ToList();
+        ViewData["listesousactivite"] = _context.SousActivite
+            .OrderByDescending(a => a.Id)
+            .ToList();
         return View("~/Views/OccurenceSousActivite/Insertion.cshtml");
     }
 
