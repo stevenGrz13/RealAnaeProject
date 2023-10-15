@@ -47,12 +47,12 @@ public class SiteSousActiviteController : Controller
             .Include(a => a.Technicien)
             .Where(a => a.IdSiteSousActivite == idsitesousactivite)
             .ToList();
-        SiteActivite st = _context.SiteActivite
+        SiteSousActivite st = _context.SiteSousActivite
             .First(a => a.Id == idsitesousactivite);
-        List<OccurenceActiviteIndicateur> liste = _context
-            .OccurenceActiviteIndicateur
+        List<OccurenceSousActiviteIndicateur> liste = _context
+            .OccurenceSousActiviteIndicateur
             .Include(a => a.TypeIndicateur)
-            .Where(a => a.IdOccurenceActivite == st.IdOccurenceActivite)
+            .Where(a => a.IdOccurenceSousActivite == st.IdOccurenceSousActivite)
             .ToList();
         ViewData["listeindicateur"] = liste;
         int idpprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
@@ -62,13 +62,15 @@ public class SiteSousActiviteController : Controller
             .Include(a => a.Technicien)
             .Where(a => a.IdProjet == idpprojet).ToList();
         ViewBag.idsitesousactivite = idsitesousactivite;
+        OccurenceSousActivite os = _context.OccurenceSousActivite
+            .First(a => a.Id == st.IdOccurenceSousActivite);
+        ViewBag.idoccurenceactivite = os.IdOccurenceActivite;
+        ViewBag.idoccurencesousactivite = st.IdOccurenceSousActivite;
         return View("~/Views/SiteSousActivite/Details.cshtml");
     }
 
     public IActionResult CreateWithIndicateur(int idsitesousactivite, int idindicateur, int idtechnicien, string target)
     {
-        int idoccurencesousactivite = _context.SiteSousActivite
-            .First(a => a.Id == idsitesousactivite).IdOccurenceSousActivite;
         ViewData["indicateurtechniciensitesousactivite"] = _context.IndicateurTechnicienSiteSousActivite
             .Include(a => a.TypeIndicateur)
             .Include(a => a.Technicien)
@@ -83,12 +85,14 @@ public class SiteSousActiviteController : Controller
         };
         _context.Add(ic);
         _context.SaveChangesAsync();
-        return RedirectToAction("VersDetailsSiteSousActivite","SiteSousActivite",new { idsitesousactivite = idsitesousactivite, idoccurencesousactivite = idoccurencesousactivite});
+        return RedirectToAction("VersDetailsSiteSousActivite","SiteSousActivite",new { idsitesousactivite = idsitesousactivite});
     }
     
     public IActionResult VersMapSiteSousActivite(int idsitesousactivite)
     {
-        SiteSousActivite site = _context.SiteSousActivite.First(a => a.Id == idsitesousactivite); 
+        SiteSousActivite site = _context.SiteSousActivite
+            .Include(a => a.Commune)
+            .First(a => a.Id == idsitesousactivite); 
         Region region = _context.Region
             .Include(a => a.Province)
             .First(a => a.Id == site.IdRegion);

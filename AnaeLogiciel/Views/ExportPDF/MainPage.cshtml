@@ -12,7 +12,7 @@
 @foreach (var resultat in listeresultat)
 {
     <ul>
-        <li>@resultat.Resultat.Nom, Avancement: @resultat.Avancement</li>
+        <li>@resultat.Resultat.Nom, Avancement: @resultat.Avancement %</li>
         <ul>
             @foreach (var activite in listeactivite)
             {
@@ -20,7 +20,7 @@
                 {
                     <li> Activité: @activite.Activite.Nom</li>
                     <ul>
-                        <li>Budget: @activite.Budget</li>
+                        <li>Budget: @activite.Budget Ar</li>
                         <li>Date de début: @activite.DateDebut</li>
                         <li>Date de fin: @activite.DateFin</li>
                         <li>Avancement: @activite.Avancement %</li>
@@ -30,7 +30,7 @@
                             {
                                 <li> Sous-activité: @sousactivite.SousActivite.Nom</li>
                                 <ul>
-                                    <li>Budget: @sousactivite.Budget</li>
+                                    <li>Budget: @sousactivite.Budget Ar</li>
                                     <li>Date de début: @sousactivite.DateDebut</li>
                                     <li>Date de fin: @sousactivite.DateFin</li>
                                     <li>Avancement: @sousactivite.Avancement %</li>

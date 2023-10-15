@@ -1,12 +1,6 @@
-@model IEnumerable<AnaeLogiciel.Models.Projet>
-
 @{
     ViewData["Title"] = "Index";
-    List<Projet> liste = new List<Projet>();
-    if (ViewData["listeprojet"] != null)
-    {
-        liste = ViewData["listeprojet"] as List<Projet>;
-    }
+    var model = ViewData["listeprojet"] as PagedList<Projet>;
 }
 
 <p>
@@ -27,7 +21,7 @@
     </tr>
     </thead>
     <tbody>
-        @foreach (var v in liste)
+        @foreach (var v in model.Items)
         {
             <tr>
                 <td>@v.Sigle</td>
@@ -48,3 +42,25 @@
         }
     </tbody>
 </table>
+<nav>
+        <ul class="pagination">
+            @if (model.HasPreviousPage)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="?page=@(model.PageNumber - 1)&pageSize=@(model.PageSize)">Précédent</a>
+                </li>
+            }
+            @for (int i = 1; i <= model.TotalPages; i++)
+            {
+                <li class="page-item @(i == model.PageNumber ? "active" : "")">
+                    <a class="page-link" href="?page=@i&pageSize=@(model.PageSize)">@i</a>
+                </li>
+            }
+            @if (model.HasNextPage)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="?page=@(model.PageNumber + 1)&pageSize=@(model.PageSize)">Suivant</a>
+                </li>
+            }
+        </ul>
+    </nav>

@@ -188,7 +188,7 @@ public class OccurenceActiviteController : Controller
         
         DateOnly datenow = Fonction.Fonction.getDateNow();
 
-        if ((oc.Avancement < 100) && oc.DateFin < datenow)
+        if ((oc.Avancement != 100) && oc.DateFin < datenow)
         {
             oc.Couleur = "text-danger";
             oc.Message = "En retard";

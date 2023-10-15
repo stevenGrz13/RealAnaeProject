@@ -22,7 +22,7 @@ namespace AnaeLogiciel.Controllers
         }
 
         // GET: Projet
-        public IActionResult Index()
+        public IActionResult Index(int? page)
         {
             List<Projet> liste = _context.Projet
                 .Include(a => a.Bailleur)
@@ -53,7 +53,30 @@ namespace AnaeLogiciel.Controllers
                 }
             }
             _context.SaveChanges();
-            ViewData["listeprojet"] = liste;
+            if (page == null)
+            {
+                page = 1;
+            }
+            int pageSize = 3;
+            var query = _context.Projet.ToList();
+                
+            int totalItems = query.Count();
+
+            var pagedList = query
+                .OrderBy(a => a.Id)
+                .Skip((page.GetValueOrDefault() - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var model = new PagedList<Projet>
+            {
+                Items = pagedList,
+                TotalItems = totalItems,
+                PageNumber = page.GetValueOrDefault(),
+                PageSize = pageSize
+            };
+            
+            ViewData["listeprojet"] = model;
             return View();
         }
 
@@ -124,7 +147,7 @@ namespace AnaeLogiciel.Controllers
                 projet.Budget += sommeprolongement;
             }
             
-            if (Fonction.Fonction.getDateNow() < projet.DateFinPrevision && projet.Avancement < 100)
+            if (Fonction.Fonction.getDateNow() > projet.DateFinPrevision && projet.Avancement != 100)
             {
                 projet.Couleur = "text-danger";
                 projet.Message = "En retard";
@@ -238,7 +261,7 @@ namespace AnaeLogiciel.Controllers
                 ViewData["listeprojet"] = _context.Projet
                     .Include(a => a.Bailleur)
                     .ToList();
-                return View("Index");
+                return RedirectToAction("Index");
             }
             else
             {

@@ -161,7 +161,7 @@ public class OccurenceSousActiviteController : Controller
             .OccurenceSousActivite
             .Include(a => a.SousActivite)
             .First(a => a.Id == idoccurencesousactivite);
-        if (Fonction.Fonction.getDateNow() < osc.DateFin && osc.Avancement < 100)
+        if (Fonction.Fonction.getDateNow() > osc.DateFin && osc.Avancement != 100)
         {
             osc.Couleur = "text-danger";
             osc.Message = "En retard";
