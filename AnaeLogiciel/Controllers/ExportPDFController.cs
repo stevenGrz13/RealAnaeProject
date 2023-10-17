@@ -7,6 +7,11 @@ using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
 using iTextSharp.tool.xml;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Abstractions;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Rotativa.AspNetCore;
 using Document = System.Reflection.Metadata.Document;
@@ -17,13 +22,20 @@ public class ExportPDFController : Controller
 {
     private readonly ApplicationDbContext _context;
 
-    public ExportPDFController(ApplicationDbContext context)
+    private readonly ICompositeViewEngine _viewEngine;
+    private readonly ITempDataProvider _tempDataProvider;
+    
+    public ExportPDFController(ApplicationDbContext context,ICompositeViewEngine viewEngine,
+        ITempDataProvider tempDataProvider)
     {
         _context = context;
+        _viewEngine = viewEngine;
+        _tempDataProvider = tempDataProvider;
     }
 
-    public IActionResult VersExportProjet()
+    public IActionResult VersExportProjet(int idprojet)
     {
+        ViewBag.idprojet = idprojet;
         return View("~/Views/ExportPDF/Choice.cshtml");
     }
 
@@ -111,9 +123,45 @@ public class ExportPDFController : Controller
         System.IO.File.Delete(tmp);
         return File(stream.ToArray(), MediaTypeNames.Application.Pdf, "document.pdf");
     }
-
-    public IActionResult RealExportPDF()
+    
+    public static string RenderViewToString(ControllerBase controller, string viewName, object model)
     {
-        return new ViewAsPdf("~/Views/ExportPDF/MainPage.cshtml");
+        var httpContext = new DefaultHttpContext();
+        var actionContext = new ActionContext(httpContext, new RouteData(), new ActionDescriptor());
+    
+        var services = new ServiceCollection()
+            .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
+            .AddScoped<ITempDataProvider, SessionStateTempDataProvider>()
+            .BuildServiceProvider();
+    
+        httpContext.RequestServices = services;
+    
+        var viewEngine = controller.HttpContext.RequestServices.GetService(typeof(ICompositeViewEngine)) as ICompositeViewEngine;
+        var viewResult = viewEngine.FindView(actionContext, viewName, false);
+    
+        if (viewResult.Success)
+        {
+            var viewDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary())
+            {
+                Model = model
+            };
+    
+            using (var writer = new StringWriter())
+            {
+                var viewContext = new ViewContext(
+                    actionContext,
+                    viewResult.View,
+                    viewDictionary,
+                    new TempDataDictionary(httpContext, services.GetRequiredService<ITempDataProvider>()),
+                    writer,
+                    new HtmlHelperOptions()
+                );
+    
+                viewResult.View.RenderAsync(viewContext).GetAwaiter().GetResult();
+                return writer.ToString();
+            }
+        }
+    
+        return null;
     }
 }

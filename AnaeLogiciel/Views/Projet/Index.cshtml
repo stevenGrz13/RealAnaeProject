@@ -9,6 +9,17 @@
 
 <p style="color: red;">@ViewBag.messageerreur</p>
 
+<br>
+<form action="/Projet/Index">
+    <div class="input-group mb-3">
+        <input type="text" id="search" name="search" class="form-control" placeholder="Rechercher...">
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Rechercher</button>
+        </div>
+    </div>
+</form>
+<br>
+
 <table class="table">
     <thead class="thead-dark">
     <tr>
@@ -28,7 +39,7 @@
                 <td>@v.DateDebutPrevision</td>
                 <td>@v.DateFinPrevision</td>
                 <td>
-                    <progress id="file" value="@v.Avancement" max="100"> @v.Avancement % </progress>
+                  <progress id="file" value="@v.Avancement.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)" max="100"> @v.Avancement.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) % </progress>
                 </td>
                 <form action="/Projet/Details">
                     <input type="hidden" name="idprojet" value="@v.Id">

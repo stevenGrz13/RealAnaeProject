@@ -166,7 +166,6 @@ namespace AnaeLogiciel.Controllers
         [HttpPost]
         public IActionResult Login(int idtypeuser, string email, string pass)
         {
-            Console.WriteLine("idtypeuser="+idtypeuser);
             if (idtypeuser == 1)
             {
                 List<Admin> liste = _context.Admin.ToList();
@@ -175,7 +174,7 @@ namespace AnaeLogiciel.Controllers
                     if (v.Email == email && v.Pass == pass)
                     {
                         HttpContext.Session.SetString("idadmin",v.Id+"");
-                        Console.WriteLine("makato amle page frontofficeacceuil");
+                        HttpContext.Session.SetString("nom",v.Email);
                         return View("~/Views/FrontOffice/Acceuil.cshtml");  
                     }
                 }   
@@ -188,7 +187,7 @@ namespace AnaeLogiciel.Controllers
                     if (v.Email == email && v.Pass == pass)
                     {
                         HttpContext.Session.SetString("idemploye",v.Id+"");
-                        Console.WriteLine("makato amle page frontofficeacceuil");
+                        HttpContext.Session.SetString("nom",v.Email);
                         return View("~/Views/FrontOffice/Acceuil.cshtml");  
                     }
                 }   
@@ -197,10 +196,10 @@ namespace AnaeLogiciel.Controllers
             return View("~/Views/Home/Index.cshtml"); 
         }
         
-        [HttpPost]
         public IActionResult Deconnexion()
         {
             HttpContext.Session.Remove("idadmin");
+            HttpContext.Session.Remove("idemploye");
             return View("~/Views/Home/Index.cshtml");
         }
     }

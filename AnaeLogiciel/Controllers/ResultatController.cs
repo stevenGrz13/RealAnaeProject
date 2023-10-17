@@ -185,7 +185,7 @@ namespace AnaeLogiciel.Controllers
             ViewData["listeprojet"] = _context.Projet
                 .Include(a => a.Bailleur)
                 .ToList();
-            return View("~/Views/Projet/Index.cshtml");
+            return RedirectToAction("Details", "Projet", new { idprojet = idprojet });
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿@{
+﻿@using iTextSharp.tool.xml.html.table
+@{
     ViewBag.Title = "title";
     Layout = "_LayoutGlobalProject";
     int idoccurenceactivite = ViewBag.idoccurenceactivite;
@@ -8,12 +9,23 @@
 <h2>Choisir source de verification</h2>
 
 <form action="/ActiviteSourceDeVerification/Create">
-    @foreach (var v in liste)
-    {
-        @v.Nom
-        <input type="checkbox" name="idsource" value="@v.Id">    
-        <br>
-        <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
-    }
-    <input type="submit" value="ajouter">
+    <table class="table">
+        <thead>
+        @foreach (var v in liste)
+        {
+            <tr>
+                <td>@v.Nom</td>
+                <td><input type="checkbox" name="idsource" value="@v.Id"></td>
+            </tr>
+        }
+        </thead>
+    </table>
+    <br>
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <button type="submit" class="btn btn-primary">Ajouter</button>
+</form>
+<br>
+<form action="/ActiviteSourceDeVerification/VersListe">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <button type="submit" class="btn btn-secondary">Retour</button>
 </form>

@@ -12,6 +12,7 @@
     <thead>
     <tr>
         <th>@osc.SousActivite.Nom</th>
+        <th>Avancement: @osc.Avancement.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) %</th>
         <th class="@osc.Couleur">@osc.Message</th>
     </tr>
     </thead>
@@ -98,7 +99,7 @@
         <th>
             <form action="/OccurenceSousActivite/RetourVersListeOccurenceSousActivite/">
                 <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
-                <button type="submit" class="btn btn-primary">Retour Vers Liste Sous Activites</button>
+                <button type="submit" class="btn btn-secondary">Retour Vers Liste Sous Activites</button>
             </form>
         </th>
     </tr>

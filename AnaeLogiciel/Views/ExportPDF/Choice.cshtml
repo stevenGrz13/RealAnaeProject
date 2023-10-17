@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "title";
     Layout = "_LayoutGlobalProject";
+    int idprojet = ViewBag.idprojet;
 }
 
 <h2>Choisir le quel vous voulez exporter</h2>
@@ -33,5 +34,10 @@
         </tr>
         </tbody>
     </table>
-    <button type="submit">Voir Apercu</button>
+    <button type="submit" class="btn btn-primary">Voir Apercu</button>
+</form>
+<br>
+<form action="/Projet/Details">
+    <input type="hidden" name="idprojet" value="@idprojet">
+    <button type="submit" class="btn btn-secondary">Retour</button>
 </form>

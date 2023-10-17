@@ -22,7 +22,7 @@ namespace AnaeLogiciel.Controllers
         }
 
         // GET: Projet
-        public IActionResult Index(int? page)
+        public IActionResult Index(int? page, string? search)
         {
             List<Projet> liste = _context.Projet
                 .Include(a => a.Bailleur)
@@ -58,7 +58,16 @@ namespace AnaeLogiciel.Controllers
                 page = 1;
             }
             int pageSize = 3;
-            var query = _context.Projet.ToList();
+            IQueryable<Projet> query;
+            if (search == null)
+            {
+                query = _context.Projet;
+            }
+            else
+            {
+                query = _context.Projet
+                    .Where(a => a.Sigle.Contains(search));
+            }
                 
             int totalItems = query.Count();
 

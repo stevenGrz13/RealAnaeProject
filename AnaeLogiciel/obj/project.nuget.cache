@@ -1,16 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "0jSmm+TYkHJuTO+cQ1YNlTtTwzO2FArrdyiFHFhMqYGup0wJ/xMl6ZBk0XAvtgigHt92GwUQla8a2kNt96ucKQ==",
+  "dgSpecHash": "eJncRfZvg7BzXTLU+MO2FArmnlY+YSXL5/E9FU7r8925eo7mUiM6SmSMUVnOToddtgIKw9Ezgr4kxm3dzsZwGA==",
   "success": true,
   "projectFilePath": "D:\\RealGitAnae\\RealAnaeProject\\AnaeLogiciel\\AnaeLogiciel.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\STEVEN\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\STEVEN\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
     "C:\\Users\\STEVEN\\.nuget\\packages\\bouncycastle\\1.8.9\\bouncycastle.1.8.9.nupkg.sha512",
-    "C:\\Users\\STEVEN\\.nuget\\packages\\google.apis\\1.61.0\\google.apis.1.61.0.nupkg.sha512",
-    "C:\\Users\\STEVEN\\.nuget\\packages\\google.apis.auth\\1.61.0\\google.apis.auth.1.61.0.nupkg.sha512",
-    "C:\\Users\\STEVEN\\.nuget\\packages\\google.apis.core\\1.61.0\\google.apis.core.1.61.0.nupkg.sha512",
-    "C:\\Users\\STEVEN\\.nuget\\packages\\google.apis.oauth2.v2\\1.61.0.1869\\google.apis.oauth2.v2.1.61.0.1869.nupkg.sha512",
     "C:\\Users\\STEVEN\\.nuget\\packages\\grapecity.documents.html\\6.2.3\\grapecity.documents.html.6.2.3.nupkg.sha512",
     "C:\\Users\\STEVEN\\.nuget\\packages\\grapecity.documents.imaging\\6.2.3\\grapecity.documents.imaging.6.2.3.nupkg.sha512",
     "C:\\Users\\STEVEN\\.nuget\\packages\\grapecity.documents.pdf\\6.2.3\\grapecity.documents.pdf.6.2.3.nupkg.sha512",

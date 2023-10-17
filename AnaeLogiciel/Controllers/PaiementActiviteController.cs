@@ -54,6 +54,7 @@ public class PaiementActiviteController : Controller
         }
 
         ViewBag.messageerreur = messageerreur;
+        ViewBag.idoccurenceresultat = os.IdOccurenceResultat;
         return View("~/Views/PaiementActivite/Liste.cshtml");
     }
 
@@ -81,34 +82,6 @@ public class PaiementActiviteController : Controller
         };
         _context.Add(po);
         _context.SaveChanges();
-        List<PaiementOccurenceActivite> liste = _context
-            .PaiementOccurenceActivite
-            .Include(a => a.Technicien)
-            .Where(a => a.IdOccurenceActivite == idoccurenceactivite)
-            .ToList();
-        ViewData["listepaiement"] = liste;
-        ViewBag.idoccurenceactivite = idoccurenceactivite;
-        OccurenceActivite os = _context.OccurenceActivite
-            .First(a => a.Id == idoccurenceactivite);
-        ViewBag.budget = os.Budget;
-        double total = 0;
-        double reste = 0;
-        foreach (var v in liste)
-        {
-            total += v.Montant;
-        }
-
-        reste = os.Budget - total;
-        string messageerreur = "";
-        if (reste < 0)
-        {
-            messageerreur = "attention budget deja depassee";
-        }
-
-        ViewBag.messageerreur = messageerreur;
-        ViewBag.total = total;
-        ViewBag.budget = os.Budget;
-        ViewBag.reste = reste;
-        return View("~/Views/PaiementActivite/Liste.cshtml");
+        return RedirectToAction("VersListePaiementActivite", new {idoccurenceactivite = idoccurenceactivite});
     }
 }

@@ -21,24 +21,37 @@
 
     <div class="row">
         <div class="col-md-6">
-            <hr />
             <dl class="row">
                 <dt class="col-sm-3">Sigle</dt>
                 <dd class="col-sm-9">@Html.DisplayFor(model => model.Sigle)</dd>
+                <hr />
+                
                 <dt class="col-sm-3">Début</dt>
                 <dd class="col-sm-9">@Html.DisplayFor(model => model.DateDebutPrevision)</dd>
+                <hr />
+        
                 <dt class="col-sm-3">Fin</dt>
                 <dd class="col-sm-9">@Html.DisplayFor(model => model.DateFinPrevision)</dd>
+                <hr />
+        
                 <dt class="col-sm-3">Avancement</dt>
                 <dd class="col-sm-9">@Html.DisplayFor(model => model.Avancement) %</dd>
+                <hr />
+        
                 <dt class="col-sm-3">Détails</dt>
                 <dd class="col-sm-9">@Html.DisplayFor(model => model.Details)</dd>
+                <hr />
+        
                 <dt class="col-sm-3">Partenaire Financier</dt>
                 <dd class="col-sm-9">@Html.DisplayFor(model => model.Bailleur.Nom)</dd>
+                <hr />
+        
                 <dt class="col-sm-3">Budget</dt>
                 <dd class="col-sm-9">@Html.DisplayFor(model => model.Budget) Ar</dd>
             </dl>
         </div>
+
+
 
         <div class="col-md-6">
             <form action="/Projet/VersAffectationTechnicien">
@@ -141,7 +154,7 @@
                 <tr>
                     <td>@v.Resultat.Nom</td>
                     <td>
-                        <progress id="file" value="@v.Avancement" max="100"> @v.Avancement % </progress>
+                        <progress id="file" value="@v.Avancement.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)" max="100"> @v.Avancement % </progress>
                     </td>
                     <td>
                         <form action="/OccurenceActivite/ListeOccurenceActivites">
@@ -186,26 +199,28 @@
             <th>
                 <form action="/Prolongement/VersListeProlongementProjet">
                     <input type="hidden" name="idprojet" value="@Model.Id">
-                    <button type="submit" class="btn btn-secondary">Vers Etat Prolongement</button>
+                    <button type="submit" class="btn btn-primary">Vers Etat Prolongement</button>
                 </form>
             </th>
             <th>
                 <form action="/Projet/VersInsertionPartenaireTechnique">
                     <input type="hidden" name="idprojet" value="@Model.Id">
-                    <button type="submit" class="btn btn-secondary">Ajouter partenaire technique</button>
+                    <button type="submit" class="btn btn-primary">Ajouter partenaire technique</button>
                 </form>
             </th>
             <th>
                 <form action="/ExportPDF/VersExportProjet">
                     <input type="hidden" name="idprojet" value="@Model.Id">
-                    <button type="submit" class="btn btn-secondary">Vers Export PDF</button>
+                    <button type="submit" class="btn btn-primary">Vers Export PDF</button>
                 </form>
+            </th>
+            <th>
+                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Éditer</a>            
+            </th>
+            <th>
+                <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>            
             </th>
         </tr>
     </table>
 </div>
 <br>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Éditer</a>
-    <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>
-</div>

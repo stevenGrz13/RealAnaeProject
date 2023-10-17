@@ -15,7 +15,8 @@
            {
                <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">               
                @:Description du site: <br>
-               <input type="text" name="libelle"><br>
+               <textarea class="form-control" id="libelle" name="libelle" rows="4"></textarea>
+               <br>
                <select id="region" name="region">
                    @foreach (var v in listeregion)
                    {
@@ -36,7 +37,9 @@
                        <option value="@v.Id" data-district-id="@v.IdDistrict">@v.Nom</option>   
                    }
                </select>
-               <input type="submit" value="Inserer">
+               <br>
+               <br>
+               <button type="submit" class="btn btn-primary">Inserer</button>
            }
 <script>
     var regionsData = @Html.Raw(JsonConvert.SerializeObject(listeregion));

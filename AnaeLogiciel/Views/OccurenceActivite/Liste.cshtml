@@ -3,18 +3,22 @@
     Layout = "_LayoutGlobalProject";
     var model = ViewData["listeoccurenceactivite"] as PagedList<OccurenceActivite>;
     int idprojet = Context.Session.GetInt32("idprojet").GetValueOrDefault();
+    int idoccurenceresultat = ViewBag.idoccurenceresultat;
 }
 
 <div class="container mt-5">
     <h2>Liste des Occurences d'Activités</h2>
 
     <br>
-    <div class="input-group mb-3">
-        <input type="text" id="searchInput" class="form-control" placeholder="Rechercher...">
-        <div class="input-group-append">
-            <button id="searchButton" class="btn btn-primary" type="button">Rechercher</button>
+    <form action="/OccurenceActivite/ListeOccurenceActivites">
+        <div class="input-group mb-3">
+            <input type="hidden" name="idoccurenceresultat" value="@idoccurenceresultat">
+            <input type="text" id="search" name="search" class="form-control" placeholder="Rechercher...">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">Rechercher</button>
+            </div>
         </div>
-    </div>
+    </form>
     <br>
     
     <table class="table mt-3">
@@ -33,7 +37,7 @@
             <tr>
                 <td>@v.Activite.Nom</td>
                 <td>
-                    <progress id="file" value="@v.Avancement" max="100"> @v.Avancement % </progress>
+                    <progress id="file" value="@v.Avancement.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)" max="100"> @v.Avancement % </progress>
                 </td>
                 <td>
                     <form action="/OccurenceActivite/Details">

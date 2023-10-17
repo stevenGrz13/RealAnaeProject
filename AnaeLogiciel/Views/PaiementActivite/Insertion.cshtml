@@ -8,95 +8,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            padding: 20px;
-        }
-
-        h3 {
-            font-size: 24px;
-            margin: 0 0 20px;
-        }
-
-        form {
-            background-color: #fff;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 80%;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        select,
-        input[type="text"],
-        input[type="date"],
-        input[type="submit"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            box-sizing: border-box;
-            font-size: 16px;
-            font-family: Arial, sans-serif;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        select:focus,
-        input[type="text"]:focus,
-        input[type="date"]:focus {
-            border-color: #333;
-        }
-
-        input[type="submit"] {
-            background-color: #333;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-
-        input[required] {
-            border-color: #e74c3c;
-        }
-
-        input[required]:focus {
-            border-color: #c0392b;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <h3>Insertion mouvement budgetaire</h3>
+<div class="container mt-4">
+    <h3 class="mb-4">Insertion mouvement budgetaire</h3>
 
-    <form action="/PaiementActivite/Create">
+    <form action="/PaiementActivite/Create" class="mb-4">
         <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
-        
-        <label for="idtechnicien">Sélectionner un technicien :</label>
-        <select name="idtechnicien" id="idtechnicien" required>
-            @foreach (var v in listetech)
-            {
-                <option value="@v.IdTechnicien">@v.Technicien.Email</option>
-            }
-        </select>
-        
-        <label for="motif">Motif :</label>
-        <input type="text" name="motif" placeholder="Motif" required>
-        
-        <label for="montant">Montant :</label>
-        <input type="text" name="montant" placeholder="Montant" required>
-        
-        <label for="dateaction">Date d'action :</label>
-        <input type="date" name="dateaction" required>
-        
-        <input type="submit" value="Insérer">
+
+        <div class="form-group">
+            <label for="idtechnicien">Sélectionner un technicien :</label>
+            <select name="idtechnicien" id="idtechnicien" class="form-control" required>
+                @foreach (var v in listetech)
+                {
+                    <option value="@v.IdTechnicien">@v.Technicien.Email</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="motif">Motif :</label>
+            <input type="text" name="motif" class="form-control" placeholder="Motif" required>
+        </div>
+
+        <div class="form-group">
+            <label for="montant">Montant :</label>
+            <input type="text" name="montant" class="form-control" placeholder="Montant" required>
+        </div>
+
+        <div class="form-group">
+            <label for="dateaction">Date d'action :</label>
+            <input type="date" name="dateaction" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Insérer</button>
     </form>
+</div>
+<form action="/PaiementActivite/VersListePaiementActivite">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <button type="submit" class="btn btn-secondary">Retour</button>
+</form>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

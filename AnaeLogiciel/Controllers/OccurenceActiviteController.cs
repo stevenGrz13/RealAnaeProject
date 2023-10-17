@@ -73,17 +73,27 @@ public class OccurenceActiviteController : Controller
         }
     }
     
-    public IActionResult ListeOccurenceActivites(int idoccurenceresultat, int? page)
+    public IActionResult ListeOccurenceActivites(int idoccurenceresultat, int? page, string? search)
     {
+        IQueryable<OccurenceActivite> query;
+        if (search == null)
+        {
+            query = _context.OccurenceActivite
+                .Include(a => a.Activite)
+                .Where(a => a.IdOccurenceResultat == idoccurenceresultat);
+        }
+        else
+        {
+            query = _context.OccurenceActivite
+                .Include(a => a.Activite)
+                .Where(a => a.IdOccurenceResultat == idoccurenceresultat && a.Activite.Nom.Contains(search));            
+        }
         if (page == null)
         {
             page = 1;
         }
         int pageSize = 3;
-        var query = _context.OccurenceActivite
-            .Include(a => a.Activite)
-            .Where(a => a.IdOccurenceResultat == idoccurenceresultat);
-
+        
         int totalItems = query.Count();
 
         var pagedList = query
@@ -101,6 +111,7 @@ public class OccurenceActiviteController : Controller
         };
 
         ViewData["listeoccurenceactivite"] = model;
+        ViewBag.idoccurenceresultat = idoccurenceresultat;
         return View("~/Views/OccurenceActivite/Liste.cshtml");
     }
 
@@ -175,15 +186,11 @@ public class OccurenceActiviteController : Controller
 
         if (lien.Count == 0)
         {
-            Console.WriteLine("null ilay izy");
             oc.Avancement = moyenne;    
         }
         else
         {
-            Console.WriteLine("tsy null ilay izy");
-            Console.WriteLine("avancement avant="+oc.Avancement);
             oc.Avancement = (moyenne + newmoyenne) / 2;
-            Console.WriteLine("avancement apres="+oc.Avancement);
         }
         
         DateOnly datenow = Fonction.Fonction.getDateNow();

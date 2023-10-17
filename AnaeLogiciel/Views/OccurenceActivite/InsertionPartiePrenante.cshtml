@@ -8,11 +8,22 @@
 <h3>Liste Partie Prenante</h3>
 <br>
 <form action="/OccurenceActivite/InsertionPartiePrenante">
-    @foreach (var v in liste)
-    {
-        <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
-        @v.Nom
-        <input type="checkbox" name="idpartieprenante" value="@v.Id"><br> 
-    }
-    <input type="submit" value="ajouter">
+    <table class="table">
+        <thead>
+        @foreach (var v in liste)
+        {
+            <tr>
+                <td>@v.Nom</td>
+                <td><input type="checkbox" name="idpartieprenante" value="@v.Id"></td>
+            </tr>
+        }
+        </thead>
+    </table>
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <button type="submit" class="btn btn-primary">Ajouter</button>
+</form>
+<br>
+<form action="/OccurenceActivite/Details">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <button type="submit" class="btn btn-secondary">Retour</button>
 </form>

@@ -80,22 +80,26 @@
       <div class="col-12">
         <label for="yourPassword" class="form-label">Mot de passe</label>
         <input type="password" name="pass" class="form-control" id="yourPassword" required>
-        <div class="invalid-feedback">Veuillez inserer un mot de passe!</div>
+        <div class="invalid-feedback">Veuillez insérer un mot de passe!</div>
+      </div>
+      <br>
+      <div class="input-group mb-3">
+        <select class="form-select" name="idtypeuser" id="idtypeuser">
+          <option value="1">Admin</option>
+          <option value="2">Employe</option>
+        </select>
       </div>
 
-      <select class="form-select" name="idtypeuser" id="idtypeuser">
-        <option value="1">Admin</option>
-        <option value="2">Employe</option>
-      </select>
-
-      <div class="col-12">
-        <button class="btn btn-primary w-100" type="submit">Se connecter</button>
+        <br>
+        <div class="col-12">
+          <button class="btn btn-primary w-100" type="submit">Se connecter</button>
+        </div>
+        <br>
+        <div class="col-12">
+          <p class="small mb-0">Pas encore de compte? <a href="@Url.Action("Create", "Admin")">S'inscrire</a></p>
+        </div>
+        }
       </div>
-      <div class="col-12">
-        <p class="small mb-0">Pas encore de compte? <a href="pages-register.html">S'inscrire</a></p>
-      </div>
-    }
-                </div>
               </div>
 
             </div>
@@ -110,7 +114,7 @@
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Vendor JS Files -->
+<!-- Vendor JS Files -->
   <script src="/NiceAdmin/assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="/NiceAdmin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="/NiceAdmin/assets/vendor/chart.js/chart.umd.js"></script>

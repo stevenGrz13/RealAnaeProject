@@ -6,94 +6,26 @@
     double reste = ViewBag.reste;
     double budget = ViewBag.budget;
     double total = ViewBag.total;
+    int idoccurenceactivite = ViewBag.idoccurenceactivite;
 }
 
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
-            padding: 20px;
-        }
-
-        .dashboard {
-            background-color: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            max-width: 80%;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        h3 {
-            font-size: 24px;
-            margin: 0 0 20px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-
-        th, td {
-            text-align: left;
-            padding: 12px;
-        }
-
-        th {
-            background-color: #333;
-            color: #fff;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        .total {
-            font-weight: bold;
-            font-size: 18px;
-            color: #333;
-        }
-
-        form {
-            margin-bottom: 20px;
-        }
-
-        form input[type="submit"] {
-            background-color: #333;
-            color: #fff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-
-        p {
-            margin: 0;
-            font-size: 18px;
-        }
-
-        .error-message {
-            color: red;
-            font-weight: bold;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="dashboard">
+    <div class="container mt-4">
         <form action="/PaiementSousActivite/VersInsertionPaiementSousActivite">
             <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
-            <input type="submit" value="Ajouter un Mouvement">
+            <button type="submit" class="btn btn-primary">Ajouter un Mouvement</button>
         </form>
 
-        <h3>LISTE DES MOUVEMENTS</h3>
+        <h3 class="mt-4">LISTE DES MOUVEMENTS</h3>
 
-        <table>
-            <thead>
+        <table class="table">
+            <thead class="thead-dark">
                 <tr>
                     <th>Technicien</th>
                     <th>Motif</th>
@@ -112,14 +44,22 @@
                 <tr>
                     <td></td>
                     <td></td>
-                    <td class="total">@total Ar</td>
+                    <td class="font-weight-bold">@total Ar</td>
                 </tr>
             </tbody>
         </table>
 
         <p><strong>Budget:</strong> @budget Ar</p>
         <p><strong>Reste:</strong> @reste Ar</p>
-        <p class="error-message">@ViewBag.messageerreur</p>
+        <p class="text-danger"><strong>@ViewBag.messageerreur</strong></p>
     </div>
+<br>
+<form action="/OccurenceSousActivite/RetourVersListeOccurenceSousActivite">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <button type="submit" class="btn btn-secondary">Retour</button>
+</form>
+<br>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

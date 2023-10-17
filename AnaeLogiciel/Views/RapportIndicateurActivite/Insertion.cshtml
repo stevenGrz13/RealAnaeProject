@@ -6,20 +6,34 @@
     TypeIndicateur tp = ViewData["indicateur"] as TypeIndicateur;
 }
 
-<h4>Site: @st.Libelle</h4>
-<br>
-Technicien: @t.Email
-<br>
-Indicateur: @tp.Nom
-<br>
+<div class="container mt-4">
+    <h4 class="text-left">Site: @st.Libelle</h4>
+    <p class="text-left">Technicien: @t.Email</p>
+    <p class="text-left">Indicateur: @tp.Nom</p>
 
-<form action="/BackOfficeActivite/Create">
-    <input type="hidden" name="idsiteactivite" value="@st.Id">
-    <input type="hidden" name="idtechnicien" value="@t.Id">
-    <input type="hidden" name="idindicateur" value="@tp.Id">
-    <input type="text" name="quantite" placeholder="Quantite">
-    <br>
-    <input type="date" name="dateaction">
-    <br>
-    <input type="submit" value="inserer">
-</form>
+    <form action="/BackOfficeActivite/Create" method="POST">
+        <input type="hidden" name="idsiteactivite" value="@st.Id">
+        <input type="hidden" name="idtechnicien" value="@t.Id">
+        <input type="hidden" name="idindicateur" value="@tp.Id">
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="quantite">Quantité</label>
+                    <input type="text" name="quantite" id="quantite" class="form-control" placeholder="Quantité">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="dateaction">Date d'action</label>
+                    <input type="date" name="dateaction" id="dateaction" class="form-control">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group text-right">
+            <button type="submit" class="btn btn-primary">Insérer</button>
+        </div>
+    </form>
+</div>

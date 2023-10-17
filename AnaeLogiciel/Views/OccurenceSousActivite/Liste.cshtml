@@ -8,6 +8,14 @@
 <div class="container mt-5">
     <h2>Liste des Sous-Activités</h2>
     <br>
+        <div class="input-group mb-3">
+            <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+            <input type="text" id="search" name="search" class="form-control" placeholder="Rechercher...">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">Rechercher</button>
+            </div>
+        </div>
+    <br>
     <form action="/OccurenceSousActivite/VersInsertionOccurenceSousActivite">
         <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
         <button type="submit" class="btn btn-primary">Ajouter Nouvelle Sous-Activité</button>
@@ -28,7 +36,7 @@
             <tr>
                 <td>@v.SousActivite.Nom</td>
                 <td>
-                    <progress id="file" value="@v.Avancement" max="100"> @v.Avancement % </progress>
+                    <progress id="file" value="@v.Avancement.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)" max="100"> @v.Avancement % </progress>
                 </td>
                 <td>
                     <form action="/OccurenceSousActivite/VersDetailsOccurenceSousActivite">
@@ -79,5 +87,5 @@
 <br>
 <form action="/OccurenceActivite/RetourVersListeOccurenceActivite/">
     <input type="hidden" name="idoccurenceresultat" value="@idoccurenceresultat">
-    <button type="type" class="btn btn-primary">Retour Vers Liste Activites</button>
+    <button type="type" class="btn btn-secondary">Retour Vers Liste Activites</button>
 </form>

@@ -4,9 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Technicien</h4>
+<h4>Nouveau Technicien</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -22,24 +20,15 @@
                 <input asp-for="Pass" class="form-control" />
                 <span asp-validation-for="Pass" class="text-danger"></span>
             </div>
+            <br>
             <div class="form-group">
-                <label asp-for="Token" class="control-label"></label>
-                <input asp-for="Token" class="form-control" />
-                <span asp-validation-for="Token" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="isAffected" /> @Html.DisplayNameFor(model => model.isAffected)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Inserer" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
-
+<br>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Regarder liste</a>
 </div>
 

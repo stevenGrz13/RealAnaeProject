@@ -5,12 +5,25 @@
     int idprojet = ViewBag.idprojet;
 }
 
+<h3>Choisir:</h3>
+<br>
 <form action="/Projet/InsertionPartenaire">
     <input type="hidden" name="idprojet" value="@idprojet">
-    @foreach (var v in liste)
-    {
-        @v.Nom
-        <input type="checkbox" name="idpartenaire" value="@v.Id"><br>
-    }
-    <input type="submit" value="ajouter">
+    <table class="table">
+        <thead>
+        @foreach (var v in liste)
+        {
+            <tr>
+                <td>@v.Nom</td>
+                <td><input type="checkbox" name="idpartenaire" value="@v.Id"></td>
+            </tr>
+        }
+        </thead>
+    </table>
+    <button type="submit" class="btn btn-primary">Ajouter</button>
+</form>
+<br>
+<form action="/Projet/Details">
+    <input type="hidden" name="idprojet" value="@idprojet">
+    <button type="submit" class="btn btn-secondary">Retour</button>
 </form>
