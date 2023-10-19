@@ -15,6 +15,10 @@ public class IndicateurActiviteController : Controller
     }
     public IActionResult VersInsertionActiviteIndicateur(int idoccurenceactivite)
     {
+        if (TempData["messageerreur"] != null)
+        {
+            ViewBag.messageerreur = TempData["messageerreur"];
+        }
         ViewBag.idoccurenceactivite = idoccurenceactivite;
         ViewData["listeindicateur"] = _context
             .TypeIndicateur
@@ -25,27 +29,32 @@ public class IndicateurActiviteController : Controller
 
     public IActionResult Create(string target, int idindicateur, int idoccurenceactivite)
     {
-        OccurenceActiviteIndicateur os = new OccurenceActiviteIndicateur()
+        string messageerreur = "";
+        try
         {
-            IdOccurenceActivite = idoccurenceactivite,
-            IdIndicateur = idindicateur,
-            Target = Double.Parse(target)
-        };
-        _context.Add(os);
-        _context.SaveChanges();
-        OccurenceActivite oc = _context.OccurenceActivite
-            .Include(a => a.Activite)
-            .First(a => a.Id == idoccurenceactivite);
-        List<OccurenceActiviteIndicateur> liste = _context.OccurenceActiviteIndicateur
-            .Include(a => a.TypeIndicateur)
-            .Where(a => a.IdOccurenceActivite == idoccurenceactivite).ToList();
-        ViewData["listeoccurenceactiviteindicateur"] = liste;
-        ViewData["occurenceactivite"] = oc;
-        ViewData["listesiteoccurenceactivite"] = _context.SiteActivite
-            .Include(a => a.Commune)
-            .Include(a => a.Region)
-            .Include(a => a.District)
-            .Where(a => a.IdOccurenceActivite == idoccurenceactivite).ToList();
-        return RedirectToAction("Details", "OccurenceActivite", new { idoccurenceactivite = idoccurenceactivite });
+            Double.Parse(target);
+        }
+        catch (Exception e)
+        {
+            messageerreur += "- target invalide -";
+        }
+
+        if (messageerreur == "")
+        {
+            OccurenceActiviteIndicateur os = new OccurenceActiviteIndicateur()
+            {
+                IdOccurenceActivite = idoccurenceactivite,
+                IdIndicateur = idindicateur,
+                Target = Double.Parse(target)
+            };
+            _context.Add(os);
+            _context.SaveChanges();
+            return RedirectToAction("Details", "OccurenceActivite", new { idoccurenceactivite = idoccurenceactivite });   
+        }
+        else
+        {
+            TempData["messageerreur"] = messageerreur;
+            return RedirectToAction("VersInsertionActiviteIndicateur", new {idoccurenceactivite = idoccurenceactivite});
+        }
     }
 }

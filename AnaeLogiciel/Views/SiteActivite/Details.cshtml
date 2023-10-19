@@ -45,7 +45,8 @@
 <br>
 <h3>Donner Travail</h3>
 <br>
-
+<p><span style="color: red;">@ViewBag.messageerreur</span></p>
+<br>
 <form action="/SiteActivite/CreateWithIndicateur">
     <select name="idtechnicien" id="idtechnicien">
         @foreach (var v in liste)
@@ -77,7 +78,7 @@
         <th>
             <form action="/OccurenceActivite/RetourVersDetailsOccurenceActivite/">
                 <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
-                <button type="submit" class="btn btn-primary">Retour Vers Liste Activites</button>
+                <button type="submit" class="btn btn-secondary">Retour Vers Liste Activites</button>
             </form>    
         </th>
     </tr>

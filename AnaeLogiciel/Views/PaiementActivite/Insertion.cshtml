@@ -14,7 +14,10 @@
 <body>
 <div class="container mt-4">
     <h3 class="mb-4">Insertion mouvement budgetaire</h3>
-
+    
+    <p><span style="color: red;">@ViewBag.messageerreur</span></p>
+    <br>
+    
     <form action="/PaiementActivite/Create" class="mb-4">
         <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
 

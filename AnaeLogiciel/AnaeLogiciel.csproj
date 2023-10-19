@@ -122,6 +122,11 @@
       <_ContentIncludedByDefault Remove="Views\PagesSourceDeVerification\insertionFichedepresence.cshtml" />
       <_ContentIncludedByDefault Remove="Views\PagesSourceDeVerification\insertionPhoto.cshtml" />
       <_ContentIncludedByDefault Remove="Views\PagesSourceDeVerification\insertionRapport.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\DateRealisationProjet\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\DateRealisationProjet\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\DateRealisationProjet\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\DateRealisationProjet\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\DateRealisationProjet\Index.cshtml" />
     </ItemGroup>
 
     <ItemGroup>

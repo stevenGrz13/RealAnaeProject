@@ -6,13 +6,14 @@
     List<ProlongementBudgetProjet> listebudget = ViewData["listeprolongementbudget"] as List<ProlongementBudgetProjet>;
 }
 
-<h3>Prolongement Budgetaire</h3>
+<h3>Prolongements Budgetaire</h3>
 <br>
 <table class="table">
     <thead>
     <tr>
         <th></th>
         <th>Montant</th>
+        <th>Prolongé le</th>
     </tr>
     </thead>
     <tbody>
@@ -21,13 +22,14 @@
         <tr>
             <td>@v.Id</td>
             <td>@v.Budget Ar</td>
+            <td>@v.DateAction</td>
         </tr>
     }
     </tbody>
 </table>
 
 <br>
-<h3>Prolongement Temporelle</h3>
+<h3>Prolongements Temporelle</h3>
 <br>
 
 <table class="table">
@@ -35,6 +37,7 @@
     <tr>
         <th></th>
         <th>Nouvelle Date Fin</th>
+        <th>Prolongé le</th>
     </tr>
     </thead>
     <tbody>
@@ -43,6 +46,7 @@
         <tr>
             <td>@v.Id</td>
             <td>@v.DateFin</td>
+            <td>@v.DateAction</td>
         </tr>
     }
     </tbody>

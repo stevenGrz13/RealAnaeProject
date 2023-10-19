@@ -16,6 +16,10 @@ public class BackOfficeActiviteController : Controller
 
     public IActionResult VersRapportActivite(int idtechnicien, int idsiteactivite, int idindicateur)
     {
+        if (TempData["messageerreur"] != null)
+        {
+            ViewBag.messageerreur = TempData["messageerreur"];
+        }
         ViewData["technicien"] = _context.Technicien
             .First(a => a.Id == idtechnicien);
         ViewData["indicateur"] = _context.TypeIndicateur
@@ -27,17 +31,36 @@ public class BackOfficeActiviteController : Controller
 
     public IActionResult Create(int idtechnicien, int idsiteactivite, int idindicateur, string quantite, DateOnly dateaction)
     {
-        RapportIndicateurActivite ri = new RapportIndicateurActivite()
+        string messageerreur = "";
+        try
         {
-            IdTechnicien = idtechnicien,
-            IdSiteActivite = idsiteactivite,
-            IdIndicateur = idindicateur,
-            Quantite = Double.Parse(quantite),
-            DateAction = dateaction
-        };
-        _context.Add(ri);
-        _context.SaveChanges();
-        return RedirectToAction("VersDetailsSiteActivite", "SiteActivite", new { idsiteactivite = idsiteactivite });
+            Double.Parse(quantite);
+        }
+        catch (Exception e)
+        {
+            messageerreur += "- Quantite invalide -";
+        }
+
+        if (messageerreur == "")
+        {
+            RapportIndicateurActivite ri = new RapportIndicateurActivite()
+            {
+                IdTechnicien = idtechnicien,
+                IdSiteActivite = idsiteactivite,
+                IdIndicateur = idindicateur,
+                Quantite = Double.Parse(quantite),
+                DateAction = dateaction
+            };
+            _context.Add(ri);
+            _context.SaveChanges();
+            return RedirectToAction("VersDetailsSiteActivite", "SiteActivite", new { idsiteactivite = idsiteactivite });   
+        }
+        else
+        {
+            TempData["messageerreur"] = messageerreur;
+            return RedirectToAction("VersRapportActivite",
+                new { idtechnicien = idtechnicien, idsiteactivite = idsiteactivite, idindicateur = idindicateur });
+        }
     }
 
     public IActionResult VersListeRapportActivite(int idsiteactivite)

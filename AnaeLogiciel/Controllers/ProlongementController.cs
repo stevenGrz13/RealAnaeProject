@@ -1,5 +1,6 @@
 ﻿using AnaeLogiciel.Data;
 using AnaeLogiciel.Models;
+using iTextSharp.awt.geom;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AnaeLogiciel.Controllers;
@@ -31,6 +32,10 @@ public class ProlongementController : Controller
 
     public IActionResult VersInsertionBudgetaire(int idprojet)
     {
+        if (TempData["messageerreur"] != null)
+        {
+            ViewBag.messageerreur = TempData["messageerreur"];
+        }
         ViewBag.idprojet = idprojet;
         return View("InsertionBudgetProjet");
     }
@@ -43,14 +48,33 @@ public class ProlongementController : Controller
 
     public IActionResult CreateBudgetProjet(int idprojet, string budget)
     {
-        ProlongementBudgetProjet pl = new ProlongementBudgetProjet()
+        string messageerreur = "";
+        try
         {
-            IdProjet = idprojet,
-            Budget = Double.Parse(budget)
-        };
-        _context.Add(pl);
-        _context.SaveChanges();
-        return RedirectToAction("VersListeProlongementProjet", new { idprojet = idprojet });
+            Double.Parse(budget);
+        }
+        catch (Exception e)
+        {
+            messageerreur += "- budget invalide -";
+        }
+
+        if (messageerreur == "")
+        {
+            ProlongementBudgetProjet pl = new ProlongementBudgetProjet()
+            {
+                IdProjet = idprojet,
+                Budget = Double.Parse(budget),
+                DateAction = DateOnly.FromDateTime(DateTime.Now)
+            };
+            _context.Add(pl);
+            _context.SaveChanges();
+            return RedirectToAction("VersListeProlongementProjet", new { idprojet = idprojet });   
+        }
+        else
+        {
+            TempData["messageerreur"] = messageerreur;
+            return RedirectToAction("VersInsertionBudgetaire", new { idprojet = idprojet });
+        }
     }
     
     public IActionResult CreateTempsProjet(int idprojet, DateOnly datefin)
@@ -58,7 +82,8 @@ public class ProlongementController : Controller
         ProlongementProjet pl = new ProlongementProjet()
         {
             IdProjet = idprojet,
-            DateFin = datefin
+            DateFin = datefin,
+            DateAction = DateOnly.FromDateTime(DateTime.Now)
         };
         _context.Add(pl);
         _context.SaveChanges();
@@ -89,6 +114,10 @@ public class ProlongementController : Controller
     
     public IActionResult VersInsertionOccurenceActiviteBudget(int idoccurenceactivite)
     {
+        if (TempData["messageerreur"] != null)
+        {
+            ViewBag.messageerreur = TempData["messageerreur"];
+        }
         ViewBag.idoccurenceactivite = idoccurenceactivite;
         return View("~/Views/ProlongementOccurenceActivite/InsertionOccurenceActiviteBudget.cshtml");
     }
@@ -98,7 +127,8 @@ public class ProlongementController : Controller
         ProlongementOccurenceActivite pr = new ProlongementOccurenceActivite()
         {
             DateFin = datefin,
-            IdOccurenceActivite = idoccurenceactivite
+            IdOccurenceActivite = idoccurenceactivite,
+            DateAction = DateOnly.FromDateTime(DateTime.Now)
         };
         _context.Add(pr);
         _context.SaveChanges();
@@ -107,13 +137,33 @@ public class ProlongementController : Controller
     
     public IActionResult CreateOccurenceActiviteBudget(string budget, int idoccurenceactivite)
     {
-        ProlongementBudgetOccurenceActivite pr = new ProlongementBudgetOccurenceActivite()
+        string messageerreur = "";
+        try
         {
-            Budget = Double.Parse(budget),
-            IdOccurenceActivite = idoccurenceactivite
-        };
-        _context.Add(pr);
-        _context.SaveChanges();
-        return RedirectToAction("VersListeProlongementOccurenceActivite",new {idoccurenceactivite = idoccurenceactivite});
+            Double.Parse(budget);
+        }
+        catch (Exception e)
+        {
+            messageerreur += "- budget invalide -";
+        }
+
+        if (messageerreur == "")
+        {
+            ProlongementBudgetOccurenceActivite pr = new ProlongementBudgetOccurenceActivite()
+            {
+                Budget = Double.Parse(budget),
+                IdOccurenceActivite = idoccurenceactivite,
+                DateAction = DateOnly.FromDateTime(DateTime.Now)
+            };
+            _context.Add(pr);
+            _context.SaveChanges();
+            return RedirectToAction("VersListeProlongementOccurenceActivite",new {idoccurenceactivite = idoccurenceactivite});   
+        }
+        else
+        {
+            TempData["messageerreur"] = messageerreur;
+            return RedirectToAction("VersInsertionOccurenceActiviteBudget",
+                new { idoccurenceactivite = idoccurenceactivite });
+        }
     }
 }

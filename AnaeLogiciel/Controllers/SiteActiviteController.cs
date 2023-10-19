@@ -40,6 +40,10 @@ public class SiteActiviteController : Controller
 
     public IActionResult VersDetailsSiteActivite(int idsiteactivite)
     {
+        if (TempData["messageerreur"] != null)
+        {
+            ViewBag.messageerreur = TempData["messageerreur"];
+        }
         ViewData["indicateurtechniciensiteactivite"] = _context.IndicateurTechnicienSiteActivite
             .Include(a => a.TypeIndicateur)
             .Include(a => a.Technicien)
@@ -66,21 +70,34 @@ public class SiteActiviteController : Controller
 
     public IActionResult CreateWithIndicateur(int idsiteactivite, int idindicateur, int idtechnicien, string target)
     {
-        ViewData["indicateurtechniciensiteactivite"] = _context.IndicateurTechnicienSiteActivite
-            .Include(a => a.TypeIndicateur)
-            .Include(a => a.Technicien)
-            .Where(a => a.IdSiteActivite == idsiteactivite)
-            .ToList();
-        IndicateurTechnicienSiteActivite ic = new IndicateurTechnicienSiteActivite()
+        string messageerreur = "";
+        try
         {
-            IdSiteActivite = idsiteactivite,
-            IdIndicateur = idindicateur,
-            IdTechnicien = idtechnicien,
-            Target = Double.Parse(target)
-        };
-        _context.Add(ic);
-        _context.SaveChanges();
-        return RedirectToAction("VersDetailsSiteActivite", new { idsiteactivite = idsiteactivite });
+            Double.Parse(target);
+        }
+        catch (Exception e)
+        {
+            messageerreur += "- Target invalide -";
+        }
+
+        if (messageerreur == "")
+        {
+            IndicateurTechnicienSiteActivite ic = new IndicateurTechnicienSiteActivite()
+            {
+                IdSiteActivite = idsiteactivite,
+                IdIndicateur = idindicateur,
+                IdTechnicien = idtechnicien,
+                Target = Double.Parse(target)
+            };
+            _context.Add(ic);
+            _context.SaveChanges();
+            return RedirectToAction("VersDetailsSiteActivite", new { idsiteactivite = idsiteactivite });   
+        }
+        else
+        {
+            TempData["messageerreur"] = messageerreur;
+            return RedirectToAction("VersDetailsSiteActivite", new { idsiteactivite = idsiteactivite });
+        }
     }
     
     public IActionResult VersMapSiteActivite(int idsiteactivite)

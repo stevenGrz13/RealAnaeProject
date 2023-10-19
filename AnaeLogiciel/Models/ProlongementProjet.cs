@@ -18,6 +18,9 @@ public class ProlongementProjet
     [Column("datefin")]
     public DateOnly DateFin { get; set; }
     
+    [Column("dateaction")]
+    public DateOnly DateAction { get; set; }
+    
     [ForeignKey("IdProjet")]
     public virtual Projet? Projet { get; set; }
 }

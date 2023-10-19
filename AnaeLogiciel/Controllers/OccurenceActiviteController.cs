@@ -26,6 +26,8 @@ public class OccurenceActiviteController : Controller
         ViewData["listeactivite"] = _context.Activite
                 .OrderByDescending(a => a.Id)
                 .ToList();
+        int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
+        ViewBag.idprojet = idprojet;
         return View("~/Views/OccurenceActivite/Create.cshtml");
     }
 
@@ -59,15 +61,21 @@ public class OccurenceActiviteController : Controller
                 DateFin = datefin
             };
             _context.Add(oa);
-            _context.SaveChanges();   
-            ViewData["listeprojet"] = _context.Projet
-                .Include(a => a.Bailleur)
-                .ToList();
+            _context.SaveChanges();
+            OccurenceActivite noa = _context.OccurenceActivite
+                .First(a => a == oa);
+            RealDataOccurenceActivite ro = new RealDataOccurenceActivite()
+            {
+                IdOccurenceActivite = noa.Id,
+                Budget = noa.Budget,
+                DateFin = noa.DateFin
+            };
+            _context.Add(ro);
+            _context.SaveChanges();
             return RedirectToAction("ListeOccurenceActivites", new {idoccurenceresultat = idoccurenceresultat});
         }
         else
         {
-            ViewBag.messageerreur = messageerreur;
             TempData["messageerreur"] = messageerreur;
             return RedirectToAction("VersInsertionOccurenceActivite", new {idoccurenceresultat = idoccurenceresultat});
         }
@@ -150,10 +158,6 @@ public class OccurenceActiviteController : Controller
             .Where(a => a.IdOccurenceActivite == idoccurenceactivite)
             .ToList();
 
-        Console.WriteLine("------------------------------------");
-        Console.WriteLine("taille tableau="+lien.Count);
-        Console.WriteLine("------------------------------------");
-        
         double newmoyenne = 0;
         
         if (lien.Count > 0)

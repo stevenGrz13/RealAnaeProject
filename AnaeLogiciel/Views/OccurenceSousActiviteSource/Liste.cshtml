@@ -3,6 +3,7 @@
     Layout = "_LayoutGlobalProject";
     List<OccurenceSousActiviteSource> liste = ViewData["listesource"] as List<OccurenceSousActiviteSource>;
     int idoccurencesousactivite = ViewBag.idoccurencesousactivite;
+    int idoccurenceactivite = ViewBag.idoccurenceactivite;
 }
 
 <h3>Les Source de verifications</h3>
@@ -27,14 +28,21 @@
     <tr>
         <th>
             <form action="/SousActiviteSourceDeVerification/VersInsertion">
-                <input type="submit" value="ajouter nouvelle">
+                <button type="submit" class="btn btn-primary">Ajouter Nouvelle</button>
                 <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
             </form>
         </th>
         <th>
             <form action="/SousActiviteSourceTechnicien/VersListeRapport">
-                <input type="submit" value="vers liste techniciens">
+                <button type="submit" class="btn btn-primary">Vers liste techniciens</button>
                 <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+            </form>
+        </th>
+        <th>
+            <form action="/OccurenceSousActivite/VersDetailsOccurenceSousActivite">
+                <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+                <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+                <button type="submit" class="btn btn-secondary">Retour</button>
             </form>
         </th>
     </tr>

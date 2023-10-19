@@ -60,6 +60,10 @@ public class PaiementActiviteController : Controller
 
     public IActionResult VersInsertionPaiementActivite(int idoccurenceactivite)
     {
+        if (TempData["messageerreur"] != null)
+        {
+            ViewBag.messageerreur = TempData["messageerreur"];
+        }
         int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
         List<TechnicienProjet> listetech = _context.TechnicienProjet
             .Include(a => a.Technicien)
@@ -72,16 +76,34 @@ public class PaiementActiviteController : Controller
 
     public IActionResult Create(int idoccurenceactivite, int idtechnicien, string montant, string motif, DateOnly dateaction)
     {
-        PaiementOccurenceActivite po = new PaiementOccurenceActivite()
+        string messageerreur = "";
+        try
         {
-            IdOccurenceActivite = idoccurenceactivite,
-            IdTechnicien = idtechnicien,
-            Montant = Double.Parse(montant),
-            Motif = motif,
-            DateAction = dateaction
-        };
-        _context.Add(po);
-        _context.SaveChanges();
-        return RedirectToAction("VersListePaiementActivite", new {idoccurenceactivite = idoccurenceactivite});
+            Double.Parse(montant);
+        }
+        catch (Exception e)
+        {
+            messageerreur += "- montant invalide -";
+        }
+
+        if (messageerreur == "")
+        {
+            PaiementOccurenceActivite po = new PaiementOccurenceActivite()
+            {
+                IdOccurenceActivite = idoccurenceactivite,
+                IdTechnicien = idtechnicien,
+                Montant = Double.Parse(montant),
+                Motif = motif,
+                DateAction = dateaction
+            };
+            _context.Add(po);
+            _context.SaveChanges();
+            return RedirectToAction("VersListePaiementActivite", new {idoccurenceactivite = idoccurenceactivite});   
+        }
+        else
+        {
+            TempData["messageerreur"] = messageerreur;
+            return RedirectToAction("VersInsertionPaiementActivite", new { idoccurenceactivite = idoccurenceactivite });
+        }
     }
 }

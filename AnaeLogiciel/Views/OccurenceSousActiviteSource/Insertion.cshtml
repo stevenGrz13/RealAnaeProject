@@ -8,16 +8,28 @@
 <h2>Choisir source de verification</h2>
 
 <form action="/SousActiviteSourceDeVerification/Create">
-    @foreach (var v in liste)
-    {
-        @v.Nom
-        <input type="checkbox" name="idsource" value="@v.Id">    
-        <br>
-        <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
-    }
-    <input type="submit" value="ajouter">
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var v in liste)
+        {
+            <tr>
+                <td>@v.Nom</td>
+                <td><input type="checkbox" name="idsource" value="@v.Id"></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+    <button type="submit" class="btn btn-primary">Ajouter</button>
 </form>
 <br>
-<form action="OccurenceSousActiviteSource/">
-    <button type="submit">Retour</button>
+<form action="/SousActiviteSourceDeVerification/VersListe">
+    <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+    <button type="submit" class="btn btn-secondary">Retour</button>
 </form>

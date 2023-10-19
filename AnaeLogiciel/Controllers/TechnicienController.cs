@@ -56,15 +56,12 @@ namespace AnaeLogiciel.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Email,Pass,Token,isAffected")] Technicien technicien)
+        public async Task<IActionResult> Create([Bind("Id,Email,Pass")] Technicien technicien)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(technicien);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(technicien);
+            technicien.Token = Fonction.Fonction.GenerateToken();
+            _context.Add(technicien);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Technicien/Edit/5
@@ -88,34 +85,14 @@ namespace AnaeLogiciel.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Email,Pass,Token,isAffected")] Technicien technicien)
+        public IActionResult Edit(int id, string email, string pass)
         {
-            if (id != technicien.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(technicien);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TechnicienExists(technicien.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(technicien);
+            Technicien technicien = _context.Technicien
+                .First(a => a.Id == id);
+            technicien.Email = email;
+            technicien.Pass = pass;
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: Technicien/Delete/5

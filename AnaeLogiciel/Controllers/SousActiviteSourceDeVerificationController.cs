@@ -18,6 +18,8 @@ public class SousActiviteSourceDeVerificationController : Controller
 
     public IActionResult VersListe(int idoccurencesousactivite)
     {
+        ViewBag.idoccurenceactivite = _context.OccurenceSousActivite
+            .First(a => a.Id == idoccurencesousactivite).IdOccurenceActivite;
         ViewBag.idoccurencesousactivite = idoccurencesousactivite;
         List<OccurenceSousActiviteSource> liste = _context.OccurenceSousActiviteSource
             .Include(a => a.SourceDeVerification)
@@ -48,12 +50,6 @@ public class SousActiviteSourceDeVerificationController : Controller
             _context.Add(oa);
         }
         _context.SaveChanges();
-        ViewBag.idoccurencesousactivite = idoccurencesousactivite;
-        List<OccurenceSousActiviteSource> liste = _context.OccurenceSousActiviteSource
-            .Include(a => a.SourceDeVerification)
-            .Where(a => a.IdOccurenceSousActivite == idoccurencesousactivite)
-            .ToList();
-        ViewData["listesource"] = liste;
-        return View("~/Views/OccurenceSousActiviteSource/Liste.cshtml");
+        return RedirectToAction("VersListe", new { idoccurencesousactivite = idoccurencesousactivite });
     }
 }

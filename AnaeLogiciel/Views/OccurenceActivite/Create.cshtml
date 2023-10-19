@@ -2,6 +2,7 @@
     Layout = "_LayoutGlobalProject";
     int idoccurenceresultat = ViewBag.idoccurenceresultat;
     List<Activite> liste = ViewData["listeactivite"] as List<Activite>;
+    int idprojet = ViewBag.idprojet;
 }
 
 <p style="color: red;">@ViewBag.messageerreur</p>
@@ -42,3 +43,8 @@
         </div>
     </div>
 </div>
+<br>
+<form action="/Projet/Details">
+    <input type="hidden" name="idprojet" value="@idprojet">
+    <button type="submit" class="btn btn-secondary">Retour</button>
+</form>

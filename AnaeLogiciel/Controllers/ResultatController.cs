@@ -160,12 +160,40 @@ namespace AnaeLogiciel.Controllers
           return (_context.Resultat?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-        public IActionResult VersOccurenceResultat(int idprojet)
+        public IActionResult VersOccurenceResultat(int idprojet, int? page, string? search)
         {
-            List<Resultat> liste = _context.Resultat
+            IQueryable<Resultat> query;
+            if (search == null)
+            {
+                query = _context.Resultat;
+            }
+            else
+            {
+                query = _context.Resultat.Where(a => a.Nom.Contains(search));
+            }
+            if (page == null)
+            {
+                page = 1;
+            }
+            int pageSize = 5;
+        
+            int totalItems = query.Count();
+
+            var pagedList = query
+                .OrderBy(a => a.Id)
+                .Skip((page.GetValueOrDefault() - 1) * pageSize)
+                .Take(pageSize)
                 .ToList();
+
+            var model = new PagedList<Resultat>
+            {
+                Items = pagedList,
+                TotalItems = totalItems,
+                PageNumber = page.GetValueOrDefault(),
+                PageSize = pageSize
+            };
             ViewBag.idprojet = idprojet;
-            ViewData["listeresultat"] = liste;
+            ViewData["listeresultat"] = model;
             return View("~/Views/OccurenceResultat/Create.cshtml");
         }
 

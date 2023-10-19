@@ -4,12 +4,20 @@
     int idprojet = ViewBag.idprojet;
 }
 
-<form action="/Prolongement/CreateBudgetProjet">
+<div class="container">
+    <p><span style="color: red;">@ViewBag.messageerreur</span></p>
+    <form action="/Prolongement/CreateBudgetProjet">
+        <input type="hidden" name="idprojet" value="@idprojet">
+        <h4>Choisir le montant</h4>
+        <div class="form-group">
+            <input type="text" name="budget" class="form-control" placeholder="Montant">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+    </form>
+</div>
+<br>
+<form action="/Prolongement/VersListeProlongementProjet">
     <input type="hidden" name="idprojet" value="@idprojet">
-    <h4>Choisir la nouvelle date</h4>
-    <br>
-    <input type="text" name="budget" placeholder="Montant">
-    <br>
-    <input type="submit" value="ajouter">
+    <button type="submit" class="btn btn-secondary">Retour</button>
 </form>
-

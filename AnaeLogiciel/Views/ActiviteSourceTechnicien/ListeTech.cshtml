@@ -32,9 +32,22 @@
     </tbody>
 </table>
 <br>
-<form action="/ActiviteSourceTechnicien/VersInsertion">
-    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
-    <input type="hidden" name="idtechnicien" value="@idtechnicien">
-    <input type="submit" value="ajouter nouvelle">
-</form>
-<br>
+<table>
+    <thead>
+    <tr>
+        <th>
+            <form action="/ActiviteSourceTechnicien/VersInsertion">
+                <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+                <input type="hidden" name="idtechnicien" value="@idtechnicien">
+                <button type="submit" class="btn btn-primary">Ajouter Nouvelle</button>
+            </form>    
+        </th>
+        <th>
+            <form action="/ActiviteSourceTechnicien/VersListeRapport">
+                <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+                <button type="submit" class="btn btn-secondary">Retour</button>
+            </form>
+        </th>
+    </tr>
+    </thead>
+</table>

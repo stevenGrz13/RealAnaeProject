@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AnaeLogiciel.Models;
 
-[Table("prolongementbudgetprojet")]
-public class ProlongementBudgetProjet
-{
+[Table("realdataprojet")]
+public class RealDataProjet
+{   
     [Key]
     [Column("id")]
     public int Id { get; set; }
@@ -15,11 +15,11 @@ public class ProlongementBudgetProjet
     [DisplayName("projet")]
     public int IdProjet { get; set; }
     
+    [Column("datefin")]
+    public DateOnly DateFin { get; set; }
+    
     [Column("budget")]
     public double Budget { get; set; }
-    
-    [Column("dateaction")]
-    public DateOnly DateAction { get; set; }
     
     [ForeignKey("IdProjet")]
     public virtual Projet? Projet { get; set; }

@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AnaeLogiciel.Models;
 
-[Table("prolongementbudgetoccurenceactivite")]
-public class ProlongementBudgetOccurenceActivite
+[Table("realdataoccurenceactivite")]
+public class RealDataOccurenceActivite
 {
     [Key]
     [Column("id")]
@@ -15,11 +15,11 @@ public class ProlongementBudgetOccurenceActivite
     [DisplayName("occurenceactivite")]
     public int IdOccurenceActivite { get; set; }
     
+    [Column("datefin")]
+    public DateOnly DateFin { get; set; }
+    
     [Column("budget")]
     public double Budget { get; set; }
-    
-    [Column("dateaction")]
-    public DateOnly DateAction { get; set; }
     
     [ForeignKey("IdOccurenceActivite")]
     public virtual OccurenceActivite? OccurenceActivite { get; set; }

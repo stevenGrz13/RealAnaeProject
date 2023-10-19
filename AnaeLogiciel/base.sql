@@ -73,6 +73,8 @@ drop table prolongementprojet cascade;
 drop table prolongementbudgetoccurenceactivite cascade;
 drop table prolongementbudgetprojet cascade;
 drop table prolongementoccurenceactivite cascade; 
+drop table realdataprojet cascade;
+drop table realdataoccurenceactivite cascade;
 
 create table partieprenante(
     id serial not null,
@@ -491,6 +493,7 @@ create table prolongementprojet(
     id serial not null,
     idprojet int not null,
     datefin date not null,
+    dateaction date not null,
     primary key(id),
     foreign key(idprojet) references projet(id)
 );
@@ -499,6 +502,7 @@ create table prolongementbudgetoccurenceactivite(
     id serial not null,
     idoccurenceactivite int not null,
     budget real not null,
+    dateaction date not null,
     primary key(id),
     foreign key(idoccurenceactivite) references occurenceactivite(id)
 );
@@ -507,6 +511,7 @@ create table prolongementbudgetprojet(
     id serial not null,
     idprojet int not null,
     budget real not null,
+    dateaction date not null,
     primary key(id),
     foreign key(idprojet) references projet(id)
 );
@@ -515,6 +520,7 @@ create table prolongementoccurenceactivite(
     id serial not null,
     idoccurenceactivite int not null,
     datefin date not null,
+    dateaction date not null,
     primary key(id) 
 );
 
@@ -525,8 +531,23 @@ join occurenceactivite on o.id = occurenceactivite.idoccurenceresultat
 join siteactivite s on occurenceactivite.id = s.idoccurenceactivite
 join rapportindicateuractivite r on s.id = r.idsiteactivite;
 
-select * from VCalculStatHommeFemme where idprojet=1;
+create table realdataprojet(
+    id serial not null,
+    idprojet int not null,
+    datefin date not null,
+    budget real not null,
+    primary key(id),
+    foreign key(idprojet) references projet(id)
+);
 
+create table realdataoccurenceactivite(
+    id serial not null,
+    idoccurenceactivite int not null,
+    datefin date not null,
+    budget real not null,
+    primary key(id),
+    foreign key(idoccurenceactivite) references occurenceactivite(id)
+);
 
 
 

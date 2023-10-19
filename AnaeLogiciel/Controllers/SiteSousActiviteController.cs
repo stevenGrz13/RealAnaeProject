@@ -16,9 +16,13 @@ public class SiteSousActiviteController : Controller
     
     public IActionResult VersInsertionSiteSousActivite(int idoccurencesousactivite)
     {
+        OccurenceSousActivite os = _context
+            .OccurenceSousActivite
+            .First(a => a.Id == idoccurencesousactivite);
         ViewData["listecommune"] = _context.Commune.ToList();
         ViewData["listedistrict"] = _context.District.ToList();
         ViewData["listeregion"] = _context.Region.ToList();
+        ViewBag.idoccurenceactivite = os.IdOccurenceActivite;
         ViewBag.idoccurencesousactivite = idoccurencesousactivite;
         return View("~/Views/SiteSousActivite/Insertion.cshtml");
     }
@@ -42,6 +46,10 @@ public class SiteSousActiviteController : Controller
     
     public IActionResult VersDetailsSiteSousActivite(int idsitesousactivite)
     {
+        if (TempData["messageerreur"] != null)
+        {
+            ViewBag.messageerreur = TempData["messageerreur"];
+        }
         ViewData["indicateurtechniciensitesousactivite"] = _context.IndicateurTechnicienSiteSousActivite
             .Include(a => a.TypeIndicateur)
             .Include(a => a.Technicien)
@@ -71,21 +79,34 @@ public class SiteSousActiviteController : Controller
 
     public IActionResult CreateWithIndicateur(int idsitesousactivite, int idindicateur, int idtechnicien, string target)
     {
-        ViewData["indicateurtechniciensitesousactivite"] = _context.IndicateurTechnicienSiteSousActivite
-            .Include(a => a.TypeIndicateur)
-            .Include(a => a.Technicien)
-            .Where(a => a.IdSiteSousActivite == idsitesousactivite)
-            .ToList();
-        IndicateurTechnicienSiteSousActivite ic = new IndicateurTechnicienSiteSousActivite()
+        string messageerreur = "";
+        try
         {
-            IdSiteSousActivite = idsitesousactivite,
-            IdIndicateur = idindicateur,
-            IdTechnicien = idtechnicien,
-            Target = Double.Parse(target)
-        };
-        _context.Add(ic);
-        _context.SaveChangesAsync();
-        return RedirectToAction("VersDetailsSiteSousActivite","SiteSousActivite",new { idsitesousactivite = idsitesousactivite});
+            Double.Parse(target);
+        }
+        catch (Exception e)
+        {
+            messageerreur += "- target invalide -";
+        }
+
+        if (messageerreur == "")
+        {
+            IndicateurTechnicienSiteSousActivite ic = new IndicateurTechnicienSiteSousActivite()
+            {
+                IdSiteSousActivite = idsitesousactivite,
+                IdIndicateur = idindicateur,
+                IdTechnicien = idtechnicien,
+                Target = Double.Parse(target)
+            };
+            _context.Add(ic);
+            _context.SaveChangesAsync();
+            return RedirectToAction("VersDetailsSiteSousActivite","SiteSousActivite",new { idsitesousactivite = idsitesousactivite});   
+        }
+        else
+        {
+            TempData["messageerreur"] = messageerreur;
+            return RedirectToAction("VersDetailsSiteSousActivite", new { idsitesousactivite = idsitesousactivite });
+        }
     }
     
     public IActionResult VersMapSiteSousActivite(int idsitesousactivite)

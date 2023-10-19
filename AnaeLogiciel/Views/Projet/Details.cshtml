@@ -9,6 +9,42 @@
     List<Composant> listec = ViewData["composant"] as List<Composant>;
 }
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+        $(document).ready(function () {
+            $('#myModal').modal('show');
+        });
+</script>
+
+@if (Model.Avancement == 100)
+{
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Ce projet a atteint 100%, voulez vous le finaliser?
+                    <br>
+                </div>
+                <div class="modal-footer">
+                    <form action="/DateRealisationProjet/FinalisationProjet">
+                        <input type="hidden" name="idprojet" value="@Model.Id">
+                        <button type="submit" class="btn btn-primary">Oui</button>
+                    </form>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Non, Pas encore</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Utilisez JavaScript pour ouvrir le modal automatiquement -->
+}
+
 <div class="container mt-5">
     <table class="table">
         <thead>
@@ -93,10 +129,10 @@
         <tr>
             <td>
                 <form action="/Projet/AjoutComposant">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModals">
                         Ajouter composant
                     </button>
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="myModals" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -199,7 +235,7 @@
             <th>
                 <form action="/Prolongement/VersListeProlongementProjet">
                     <input type="hidden" name="idprojet" value="@Model.Id">
-                    <button type="submit" class="btn btn-primary">Vers Etat Prolongement</button>
+                    <button type="submit" class="btn btn-primary">Etat Prolongement</button>
                 </form>
             </th>
             <th>

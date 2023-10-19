@@ -51,6 +51,10 @@ public class PaiementSousActiviteController : Controller
 
     public IActionResult VersInsertionPaiementSousActivite(int idoccurencesousactivite)
     {
+        if (TempData["messageerreur"] != null)
+        {
+            ViewBag.mesageerreur = TempData["messageerreur"];
+        }
         int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
         List<TechnicienProjet> listetech = _context.TechnicienProjet
             .Include(a => a.Technicien)
@@ -63,17 +67,36 @@ public class PaiementSousActiviteController : Controller
 
     public IActionResult Create(int idoccurencesousactivite, int idtechnicien, string montant, string motif, DateOnly dateaction)
     {
-        PaiementOccurenceSousActivite po = new PaiementOccurenceSousActivite()
+        string messageerreur = "";
+        try
         {
-            IdOccurenceSousActivite = idoccurencesousactivite,
-            IdTechnicien = idtechnicien,
-            Montant = Double.Parse(montant),
-            Motif = motif,
-            DateAction = dateaction
-        };
-        _context.Add(po);
-        _context.SaveChanges();
-        return RedirectToAction("VersListePaiementSousActivite",
-            new { idoccurencesousactivite = idoccurencesousactivite });
+            Double.Parse(montant);
+        }
+        catch (Exception e)
+        {
+            messageerreur += "- montant invalide -";
+        }
+
+        if (messageerreur == "")
+        {
+            PaiementOccurenceSousActivite po = new PaiementOccurenceSousActivite()
+            {
+                IdOccurenceSousActivite = idoccurencesousactivite,
+                IdTechnicien = idtechnicien,
+                Montant = Double.Parse(montant),
+                Motif = motif,
+                DateAction = dateaction
+            };
+            _context.Add(po);
+            _context.SaveChanges();
+            return RedirectToAction("VersListePaiementSousActivite",
+                new { idoccurencesousactivite = idoccurencesousactivite });   
+        }
+        else
+        {
+            TempData["messageerreur"] = messageerreur;
+            return RedirectToAction("VersInsertionPaiementSousActivite",
+                new { idoccurencesousactivite = idoccurencesousactivite });
+        }
     }
 }

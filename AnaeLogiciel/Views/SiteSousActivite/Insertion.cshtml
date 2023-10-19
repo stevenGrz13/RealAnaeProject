@@ -3,6 +3,7 @@
     ViewBag.Title = "title";
     Layout = "_LayoutGlobalProject";
     int idoccurencesousactivite = ViewBag.idoccurencesousactivite;
+    int idoccurenceactivite = ViewBag.idoccurenceactivite;
     List<Commune> listecommune = ViewData["listecommune"] as List<Commune>;
     List<District> listedistrict = ViewData["listedistrict"] as List<District>;
     List<Region> listeregion = ViewData["listeregion"] as List<Region>;
@@ -41,6 +42,12 @@
                <br>
                <button type="submit" class="btn btn-primary">Inserer</button>
            }
+<br>
+<form action="/OccurenceSousActivite/VersDetailsOccurenceSousActivite">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+    <button type="submit" class="btn btn-secondary">Retour</button>
+</form>
 <script>
     var regionsData = @Html.Raw(JsonConvert.SerializeObject(listeregion));
     var districtsData = @Html.Raw(JsonConvert.SerializeObject(listedistrict));

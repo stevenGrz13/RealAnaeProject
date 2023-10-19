@@ -18,6 +18,9 @@ public class ProlongementOccurenceActivite
     [Column("datefin")]
     public DateOnly DateFin { get; set; }
     
+    [Column("dateaction")]
+    public DateOnly DateAction { get; set; }
+    
     [ForeignKey("IdOccurenceActivite")]
     public virtual OccurenceActivite? OccurenceActivite { get; set; }
 }

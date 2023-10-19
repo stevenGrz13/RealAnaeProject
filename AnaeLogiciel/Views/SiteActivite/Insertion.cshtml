@@ -41,6 +41,11 @@
                <br>
                <button type="submit" class="btn btn-primary">Inserer</button>
            }
+<br>
+<form action="/OccurenceActivite/Details">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <button type="submit" class="btn btn-secondary">Retour</button>
+</form>
 <script>
     var regionsData = @Html.Raw(JsonConvert.SerializeObject(listeregion));
     var districtsData = @Html.Raw(JsonConvert.SerializeObject(listedistrict));

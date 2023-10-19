@@ -45,12 +45,6 @@ namespace AnaeLogiciel.Controllers
                     v.Avancement = 50.01;
                     Fonction.Fonction.EnvoyerEmail(_smtpConfig,"razafimahefasteven130102@gmail.com","travisjamesmdg7713@gmail.com","Avancement a 50%","Le projet "+v.Nom+" avance a 50%");
                 }
-
-                if (v.Avancement == 100)
-                {
-                    v.Avancement = 100.01;
-                    Fonction.Fonction.EnvoyerEmail(_smtpConfig,"razafimahefasteven130102@gmail.com","travisjamesmdg7713@gmail.com","Avancement a 100%","Le projet "+v.Nom+" avance a 100%");
-                }
             }
             _context.SaveChanges();
             if (page == null)
@@ -240,7 +234,6 @@ namespace AnaeLogiciel.Controllers
 
             if (messageerreur == "")
             {
-                Devise devise = _context.Devise.First(a => a.Id == iddevise);
                 Projet projet = new Projet()
                 {
                     Nom = nom,
@@ -265,11 +258,16 @@ namespace AnaeLogiciel.Controllers
                     };
                     _context.ProjetComposant.Add(pr);
                 }
-            
+
+                RealDataProjet rl = new RealDataProjet()
+                {
+                    IdProjet = np.Id,
+                    DateFin = np.DateFinPrevision,
+                    Budget = np.Budget
+                };
+                
+                _context.Add(rl);
                 _context.SaveChanges();
-                ViewData["listeprojet"] = _context.Projet
-                    .Include(a => a.Bailleur)
-                    .ToList();
                 return RedirectToAction("Index");
             }
             else

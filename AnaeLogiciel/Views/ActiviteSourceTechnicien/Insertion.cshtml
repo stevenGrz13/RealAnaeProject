@@ -9,19 +9,35 @@
 <h3>Choisir Source de Verification</h3>
 
 <br>
-<form method="post" action="/ActiviteSourceTechnicien/Create">
+<form method="post" action="/ActiviteSourceTechnicien/Create" class="container">
     <input type="hidden" name="idtechnicien" value="@idtechnicien">
     <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
-    <select name="idsource" id="idsource">
-        @foreach (var v in liste)
-        {
-            <option value="@v.IdSource">@v.SourceDeVerification.Nom</option>   
-        }
-    </select>
+
+    <div class="form-group">
+        <label for="idsource">Source de Vérification</label>
+        <select name="idsource" id="idsource" class="form-control">
+            @foreach (var v in liste)
+            {
+                <option value="@v.IdSource">@v.SourceDeVerification.Nom</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="dateaction">Date d'action</label>
+        <input type="date" name="dateaction" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label for="lienfichier">Lien Fichier</label>
+        <input type="text" name="lienfichier" class="form-control" placeholder="Lien Fichier">
+    </div>
     <br>
-    <input type="date" name="dateaction">
-    <br>
-    <input type="text" name="lienfichier" placeholder="Lien Fichier">
-    <br>
-    <input type="submit" value="Inserer">
+    <button type="submit" class="btn btn-primary">Insérer</button>
+</form>
+<br>
+<form action="/ActiviteSourceTechnicien/ListeRapportTech">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <input type="hidden" name="idtechnicien" value="@idtechnicien">
+    <button type="submit" class="btn btn-secondary">Retour</button>
 </form>

@@ -3,14 +3,16 @@
     Layout = "_LayoutGlobalProject";
     List<TypeIndicateur> liste = ViewData["listeindicateur"] as List<TypeIndicateur>;
     int idoccurencesousactivite = ViewBag.idoccurencesousactivite;
+    int idoccurenceactivite = ViewBag.idoccurenceactivite;
 }
-
+@ViewBag.messageerreur;
+<br>
 <div class="container mt-5">
     <h3>Insertion Indicateur pour Sous-Activité</h3>
     <br>
     <form action="/IndicateurSousActivite/Create">
         <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
-
+        <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
         <div class="form-group">
             <label for="idindicateur">Sélectionnez un indicateur</label>
             <select class="form-control" id="idindicateur" name="idindicateur">
@@ -25,7 +27,12 @@
             <label for="target">Target</label>
             <input type="text" class="form-control" id="target" name="target" placeholder="Target">
         </div>
-
+        <br>    
         <button type="submit" class="btn btn-primary">Ajouter Indicateur</button>
     </form>
 </div>
+<br>
+<form action="/OccurenceSousActivite/ListeOccurenceSousActivite">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <button type="submit" class="btn btn-secondary">Retour</button>
+</form>

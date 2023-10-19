@@ -175,6 +175,7 @@ namespace AnaeLogiciel.Controllers
                     {
                         HttpContext.Session.SetString("idadmin",v.Id+"");
                         HttpContext.Session.SetString("nom",v.Email);
+                        HttpContext.Session.SetString("domaine","Admin");
                         return View("~/Views/FrontOffice/Acceuil.cshtml");  
                     }
                 }   
@@ -188,6 +189,7 @@ namespace AnaeLogiciel.Controllers
                     {
                         HttpContext.Session.SetString("idemploye",v.Id+"");
                         HttpContext.Session.SetString("nom",v.Email);
+                        HttpContext.Session.SetString("domaine","Employe");
                         return View("~/Views/FrontOffice/Acceuil.cshtml");  
                     }
                 }   

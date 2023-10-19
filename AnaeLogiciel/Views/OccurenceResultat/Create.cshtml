@@ -1,11 +1,21 @@
 ﻿@{
     Layout = "_LayoutGlobalProject";
     int idprojet = ViewBag.idprojet;
-        List<Resultat> liste = ViewData["listeresultat"] as List<Resultat>;
+    var model = ViewData["listeresultat"] as PagedList<Resultat>;
 }
 
 <h2>Inserer Resultat</h2>
-
+<br>
+    <form action="/Resultat/VersOccurenceResultat">
+        <div class="input-group mb-3">
+            <input type="hidden" name="idprojet" value="@idprojet">
+            <input type="text" id="search" name="search" class="form-control" placeholder="Rechercher...">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-primary">Rechercher</button>
+            </div>
+        </div>
+    </form>
+    <br>
 <table class="table">
     <thead>
     <tr>
@@ -13,17 +23,44 @@
         <th></th>
     </tr>
     </thead>
+    <tbody>
     <form action="/Resultat/InsertionOccurenceResultat">
         <input type="hidden" name="idprojet" value="@idprojet">
-        <tbody>
-        @foreach (var v in liste)
+        @foreach (var v in model.Items)
         {
             <tr>
                 <td>@v.Nom</td>
                 <td><input type="checkbox" name="idresultat" value="@v.Id"></td>
             </tr>
         }
-        <input type="submit" value="inserer">
-        </tbody>
+        <button type="submit" class="btn btn-primary">Inserer la selection</button>
     </form>
+    </tbody>
 </table>
+<nav>
+        <ul class="pagination">
+            @if (model.HasPreviousPage)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="?idprojet=@idprojet&ipage=@(model.PageNumber - 1)&pageSize=@(model.PageSize)">Précédent</a>
+                </li>
+            }
+            @for (int i = 1; i <= model.TotalPages; i++)
+            {
+                <li class="page-item @(i == model.PageNumber ? "active" : "")">
+                    <a class="page-link" href="?idprojet=@idprojet&page=@i&pageSize=@(model.PageSize)">@i</a>
+                </li>
+            }
+            @if (model.HasNextPage)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="?idprojet=@idprojet&page=@(model.PageNumber + 1)&pageSize=@(model.PageSize)">Suivant</a>
+                </li>
+            }
+        </ul>
+    </nav>
+<br>
+<br>
+<form action="/Projet/Index">
+    <button type="submit" class="btn btn-secondary">Retour</button>
+</form>

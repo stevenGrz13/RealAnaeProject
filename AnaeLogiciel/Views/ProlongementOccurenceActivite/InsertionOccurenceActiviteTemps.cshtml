@@ -4,7 +4,7 @@
     int idoccurenceactivite = ViewBag.idoccurenceactivite;
 }
 
-<h2>Insertion Prolongement Temporelle</h2>
+<h2>Inserer nouvelle date</h2>
 
 <br>
 
@@ -12,5 +12,11 @@
     <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
     <input type="date" name="datefin">
     <br>
-    <button type="submit">Ajouter</button>
+    <br>
+    <button type="submit" class="btn btn-primary">Ajouter</button>
+</form>
+<br>
+<form action="/Prolongement/VersListeProlongementOccurenceActivite">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <button type="submit" class="btn btn-secondary">Retour</button>
 </form>
