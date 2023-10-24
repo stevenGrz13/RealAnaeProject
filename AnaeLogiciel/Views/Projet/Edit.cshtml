@@ -19,26 +19,6 @@
                 <span asp-validation-for="Nom" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DateDebutPrevision" class="control-label"></label>
-                <input asp-for="DateDebutPrevision" class="form-control" />
-                <span asp-validation-for="DateDebutPrevision" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateFinPrevision" class="control-label"></label>
-                <input asp-for="DateFinPrevision" class="form-control" />
-                <span asp-validation-for="DateFinPrevision" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="FinishedOrNot" /> @Html.DisplayNameFor(model => model.FinishedOrNot)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Avancement" class="control-label"></label>
-                <input asp-for="Avancement" class="form-control" />
-                <span asp-validation-for="Avancement" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Details" class="control-label"></label>
                 <input asp-for="Details" class="form-control" />
                 <span asp-validation-for="Details" class="text-danger"></span>
@@ -48,14 +28,15 @@
                 <select asp-for="IdBailleur" class="form-control" asp-items="ViewBag.IdBailleur"></select>
                 <span asp-validation-for="IdBailleur" class="text-danger"></span>
             </div>
+            <br>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Sauvegarder" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 <br>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Retour</a>
 </div>
 

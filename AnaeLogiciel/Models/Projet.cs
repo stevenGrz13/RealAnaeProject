@@ -46,6 +46,9 @@ public class Projet
     [Column("reference")]
     public int Reference { get; set; }
     
+    [Column("issupp")]
+    public bool IsSupp { get; set; }
+    
     [NotMapped]
     public string Couleur { get; set; }
     

@@ -9,18 +9,13 @@
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <form action="/OccurenceSousActivite/Create" method="post" class="my-4">
                 <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
-                
+              
                 <div class="form-group">
-                    <label for="idsousactivite">Choisir Sous Activité:</label>
-                    <select name="idsousactivite" id="idsousactivite" class="form-control">
-                        @foreach (var v in liste)
-                        {
-                            <option value="@v.Id">@v.Nom</option>
-                        }
-                    </select>
+                    <label for="details">Details:</label>
+                    <textarea class="form-control" id="details" name="details" rows="4"></textarea>
                 </div>
                 
                 <div class="form-group">

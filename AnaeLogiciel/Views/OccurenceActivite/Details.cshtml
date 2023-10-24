@@ -8,7 +8,7 @@
 }
 
 <div class="container mt-5">
-    <h3>@oc.Activite.Nom</h3>
+    <h3>@oc.Details</h3>
     <br>
     <table class="table">
         <thead>
@@ -24,7 +24,7 @@
     <div class="row">
         <div class="col-md-3">
             <strong>Budget:</strong>
-            <p>@oc.Budget Ar</p>
+            <p>@oc.Budget.ToString("N0") Ar</p>
         </div>
         <div class="col-md-3">
             <strong>Date Début:</strong>
@@ -110,7 +110,7 @@
 </div>
 <br>
 
-<h3 class="mt-4">Partie Prennantes</h3>
+<h3 class="mt-4">Partie Prenantes</h3>
 <table class="table">
     <thead class="thead-dark">
     <tr>
@@ -147,6 +147,13 @@
             <form action="/Prolongement/VersListeProlongementOccurenceActivite">
                 <input type="hidden" name="idoccurenceactivite" value="@oc.Id">
                 <button type="submit" class="btn btn-primary mt-2">Etat Prolongement</button>
+            </form>
+        </th>
+        <th>
+            <form action="/OccurenceActivite/deleteActivite">
+                <input type="hidden" name="idoccurenceactivite" value="@oc.Id">
+                <input type="hidden" name="idoccurenceresultat" value="@oc.IdOccurenceResultat">
+                <button type="submit" class="btn btn-danger mt-2">Supprimer</button>
             </form>
         </th>
         <th>

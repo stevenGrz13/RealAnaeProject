@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    List<OccurenceActivite> liste = ViewData["listeactivite"] as List<OccurenceActivite>;
+    int idoccurenceresultat = ViewBag.idoccurenceresultat;
+}
+
+<h2>Les activites supprimes</h2>
+
+<br>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var v in liste)
+    {
+        <tr>
+            <td>@v.Details</td>
+            <td>
+                <form action="/Historique/RestaurerActivite">
+                    <input type="hidden" name="idoccurenceactivite" value="@v.Id">
+                    <input type="hidden" name="idoccurenceresultat" value="@idoccurenceresultat">
+                    <button type="submit" class="btn btn-success">Restaurer</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<br>
+<form action="/OccurenceActivite/ListeOccurenceActivites">
+    <input type="hidden" name="idoccurenceresultat" value="@idoccurenceresultat">
+    <button type="submit" class="btn btn-secondary">Retour</button>
+</form>

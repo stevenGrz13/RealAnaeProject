@@ -82,9 +82,9 @@ create table partieprenante(
     primary key(id)
 );
 
-insert into partieprenante(nom) values ('premier partie');
-insert into partieprenante(nom) values ('deuxieme partie');
-insert into partieprenante(nom) values ('troisieme partie');
+-- insert into partieprenante(nom) values ('premier partie');
+-- insert into partieprenante(nom) values ('deuxieme partie');
+-- insert into partieprenante(nom) values ('troisieme partie');
 
 create table resultat(
     id serial not null,
@@ -92,9 +92,9 @@ create table resultat(
     primary key(id) 
 );
 
-insert into resultat(nom) values ('Realisation du travail');
-insert into resultat(nom) values ('Operation travail');
-insert into resultat(nom) values ('Realisation du but');
+-- insert into resultat(nom) values ('Realisation du travail');
+-- insert into resultat(nom) values ('Operation travail');
+-- insert into resultat(nom) values ('Realisation du but');
 
 create table partenaire(
     id serial not null,
@@ -102,9 +102,9 @@ create table partenaire(
     primary key(id) 
 );
 
-insert into partenaire(nom) values ('ONU');
-insert into partenaire(nom) values ('UNESCO');
-insert into partenaire(nom) values ('UNICEF');
+-- insert into partenaire(nom) values ('ONU');
+-- insert into partenaire(nom) values ('UNESCO');
+-- insert into partenaire(nom) values ('UNICEF');
 
 create table composant(
     id serial not null,
@@ -112,9 +112,9 @@ create table composant(
     primary key(id) 
 );
 
-insert into composant(nom) values ('cyber');
-insert into composant(nom) values ('fils');
-insert into composant(nom) values ('transport');
+-- insert into composant(nom) values ('cyber');
+-- insert into composant(nom) values ('fils');
+-- insert into composant(nom) values ('transport');
 
 create table bailleur(
     id serial not null,
@@ -122,9 +122,9 @@ create table bailleur(
     primary key(id) 
 );
 
-insert into bailleur(nom) values ('BlackRock');
-insert into bailleur(nom) values ('Banque Mondial');
-insert into bailleur(nom) values ('BNI');
+-- insert into bailleur(nom) values ('BlackRock');
+-- insert into bailleur(nom) values ('Banque Mondial');
+-- insert into bailleur(nom) values ('BNI');
 
 create table devise(
                        id serial not null,
@@ -139,9 +139,9 @@ insert into devise(nom,value) values ('Ariary',1);
 
 create table projet(
     id serial not null,
-    nom varchar(500) not null,
+    nom varchar(5000) not null,
     sigle varchar(500) not null,
-    details varchar(500) not null,
+    details varchar(5000) not null,
     datedebutprevision date not null,
     datefinprevision date not null,
     finishedornot boolean default false,
@@ -150,6 +150,7 @@ create table projet(
     budget decimal(20,2) not null,
     iddevise int not null,
     reference int not null,
+    issupp boolean not null default false,
     primary key(id),
     foreign key(idbailleur) references bailleur(id),
     foreign key(iddevise) references devise(id)
@@ -161,9 +162,9 @@ create table partenairetechnique(
     primary key(id) 
 );
 
-insert into partenairetechnique(nom) values ('premier partenaire');
-insert into partenairetechnique(nom) values ('second partenaire');
-insert into partenairetechnique(nom) values ('troisieme partenaire');
+-- insert into partenairetechnique(nom) values ('premier partenaire');
+-- insert into partenairetechnique(nom) values ('second partenaire');
+-- insert into partenairetechnique(nom) values ('troisieme partenaire');
 
 create table projetpartenairetechnique(
     id serial not null,
@@ -180,9 +181,9 @@ create table activite(
     primary key(id) 
 ); --
 
-insert into activite(nom) values ('Diagnostic au niveau des citoyens');
-insert into activite(nom) values ('Reunion information entre les KMT');
-insert into activite(nom) values ('Envoi liste des beneficiaires finaux');
+-- insert into activite(nom) values ('Diagnostic au niveau des citoyens');
+-- insert into activite(nom) values ('Reunion information entre les KMT');
+-- insert into activite(nom) values ('Envoi liste des beneficiaires finaux');
 
 create table sousactivite(
     id serial not null,
@@ -190,10 +191,10 @@ create table sousactivite(
     primary key(id)
 );
 
-insert into sousactivite(nom) values ('travail sur les constructions');
-insert into sousactivite(nom) values ('surveillance des site');
-insert into sousactivite(nom) values ('attachement des sites');
-insert into sousactivite(nom) values ('realisation des taches');
+-- insert into sousactivite(nom) values ('travail sur les constructions');
+-- insert into sousactivite(nom) values ('surveillance des site');
+-- insert into sousactivite(nom) values ('attachement des sites');
+-- insert into sousactivite(nom) values ('realisation des taches');
 
 create table sourcedeverification(
     id serial not null,
@@ -213,12 +214,12 @@ create table typeindicateur(
     primary key(id)  
 ); --
 
-insert into typeindicateur(nom) values ('construction cyber');
-insert into typeindicateur(nom) values ('formation');
-insert into typeindicateur(nom) values ('construction salle de reunion');
-insert into typeindicateur(nom) values ('alimentation en electricite');
-insert into typeindicateur(nom) values ('pourcentage femme');
-insert into typeindicateur(nom) values ('pourcentage homme');
+-- insert into typeindicateur(nom) values ('construction cyber');
+-- insert into typeindicateur(nom) values ('formation');
+-- insert into typeindicateur(nom) values ('construction salle de reunion');
+-- insert into typeindicateur(nom) values ('alimentation en electricite');
+-- insert into typeindicateur(nom) values ('pourcentage femme');
+-- insert into typeindicateur(nom) values ('pourcentage homme');
 
 create table daterealisationprojet(
     id serial not null,
@@ -232,21 +233,23 @@ create table daterealisationprojet(
 create table occurenceresultat(
     id serial not null,
     idprojet int not null,
-    idresultat int not null,
+    nomresultat varchar(1000) not null,
     avancement decimal(20,2) not null default 0,
+    issupp boolean not null default false,
     primary key(id),
-    foreign key(idprojet) references projet(id),
-    foreign key(idresultat) references resultat(id)
+    foreign key(idprojet) references projet(id)
 );
 
 create table occurenceactivite(
     id serial not null,     
     idoccurenceresultat int not null,
     idactivite int not null,
+    details varchar(5000) not null,
     budget decimal(20,2) not null,
     datedebut date not null,
     datefin date not null,
     avancement decimal(20,2) not null default 0,
+    issupp boolean not null default false,
     primary key(id),
     foreign key(idoccurenceresultat) references occurenceresultat(id),
     foreign key(idactivite) references activite(id)
@@ -265,10 +268,12 @@ create table occurencesousactivite(
     id serial not null,
     idoccurenceactivite int not null,
     idsousactivite int not null,
+    details varchar(5000) not null,
     budget decimal(20,2) not null,
     datedebut date not null,
     datefin date not null,
     avancement decimal(20,2) not null default 0,
+    issupp boolean not null default false,
     primary key(id),
     foreign key(idoccurenceactivite) references occurenceactivite(id),
     foreign key(idsousactivite) references sousactivite(id)
@@ -409,10 +414,12 @@ select * from vcalculrapportactivite where idoccurenceactivite = 1 and idindicat
 
 create or replace view vAvancementresultat as
 select occurenceactivite.idoccurenceresultat idoccurenceresultat, coalesce(coalesce(sum(avancement),0)/count(occurenceactivite.id),0) avancement from occurenceactivite
+where occurenceactivite.issupp = false
 group by idoccurenceresultat;
 
 create or replace view vAvancementprojet as 
-select occurenceresultat.idprojet idprojet, coalesce(coalesce(sum(occurenceresultat.avancement),0)/count(occurenceresultat.idresultat),0) avancement from occurenceresultat
+select occurenceresultat.idprojet idprojet, coalesce(coalesce(sum(occurenceresultat.avancement),0)/count(occurenceresultat),0) avancement from occurenceresultat
+where occurenceresultat.issupp = false
 group by idprojet;
 
 create table paiementoccurenceactivite(
@@ -485,7 +492,8 @@ create table occurencesousactivitesourcetechnicien(
 
 create or replace view vLienActiviteSousActivite as
 select oa.id idoccurenceactivite, os.id idoccurencesousactivite, os.avancement from occurenceactivite oa join 
-occurencesousactivite os on oa.id = os.idoccurenceactivite;
+occurencesousactivite os on oa.id = os.idoccurenceactivite 
+where os.issupp = false;
 
 select * from vLienActiviteSousActivite where idoccurenceactivite = 1;
 
@@ -549,9 +557,16 @@ create table realdataoccurenceactivite(
     foreign key(idoccurenceactivite) references occurenceactivite(id)
 );
 
+create or replace view vsommepaiementactivite as
+select o.id idoccurenceactivite, o.idoccurenceresultat idoccurenceresultat, sum(paiementoccurenceactivite.montant) somme from paiementoccurenceactivite
+join occurenceactivite o on paiementoccurenceactivite.idoccurenceactivite = o.id
+group by o.id, idoccurenceresultat;
 
-
-
+create or replace view vsommepaiementsousactivite as
+select o2.id idoccurenceactivite, o.id idoccurencesousactivite, sum(paiementoccurencesousactivite.montant) somme from paiementoccurencesousactivite
+join occurencesousactivite o on paiementoccurencesousactivite.idoccurencesousactivite = o.id
+join occurenceactivite o2 on o.idoccurenceactivite = o2.id
+group by o2.id, o.id;
 
 
 

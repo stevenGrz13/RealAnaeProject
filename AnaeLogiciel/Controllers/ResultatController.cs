@@ -196,19 +196,15 @@ namespace AnaeLogiciel.Controllers
             ViewData["listeresultat"] = model;
             return View("~/Views/OccurenceResultat/Create.cshtml");
         }
-
-        public IActionResult InsertionOccurenceResultat(int idprojet, List<int> idresultat)
+        
+        public IActionResult InsertionOccurenceResultat(int idprojet, string nomresultat)
         {
-            foreach (var v in idresultat)
+            OccurenceResultat or = new OccurenceResultat()
             {
-                OccurenceResultat or = new OccurenceResultat()
-                {
-                    IdProjet = idprojet,
-                    IdResultat = v
-                };
-                _context.Add(or);
-            }
-
+                NomResultat = nomresultat,
+                IdProjet = idprojet
+            };
+            _context.Add(or);
             _context.SaveChanges();
             ViewData["listeprojet"] = _context.Projet
                 .Include(a => a.Bailleur)

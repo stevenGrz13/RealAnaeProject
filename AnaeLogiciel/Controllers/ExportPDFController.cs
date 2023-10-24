@@ -51,8 +51,7 @@ public class ExportPDFController : Controller
         if (resultat == 1)
         {
             resultats = _context.OccurenceResultat
-                .Include(a => a.Resultat)
-                .Where(a => a.IdProjet == idprojet)
+                .Where(a => a.IdProjet == idprojet && a.IsSupp == false)
                 .ToList();
         }
 
@@ -61,8 +60,7 @@ public class ExportPDFController : Controller
             foreach (var v in resultats)
             {
                 List<OccurenceActivite> listeoccurenceactivite = _context.OccurenceActivite
-                    .Include(a => a.Activite)
-                    .Where(a => a.IdOccurenceResultat == v.Id)
+                    .Where(a => a.IdOccurenceResultat == v.Id && a.IsSupp == false)
                     .OrderBy(a => a.IdOccurenceResultat)
                     .ToList();
                 listeoa.AddRange(listeoccurenceactivite);
@@ -72,8 +70,7 @@ public class ExportPDFController : Controller
                     {
                         List<OccurenceSousActivite> listeoccurencesousactivite = _context
                             .OccurenceSousActivite
-                            .Include(a => a.SousActivite)
-                            .Where(a => a.IdOccurenceActivite == z.Id)
+                            .Where(a => a.IdOccurenceActivite == z.Id && a.IsSupp == false)
                             .OrderBy(a => a.IdOccurenceActivite)
                             .ToList();
                         listeosa.AddRange(listeoccurencesousactivite);
@@ -86,9 +83,6 @@ public class ExportPDFController : Controller
         ViewData["listeoccurenceresultat"] = resultats;
         ViewData["listeoccurenceactivite"] = listeoa;
         ViewData["listeoccurencesousactivite"] = listeosa;
-        ViewBag.resultat = resultat;
-        ViewBag.activite = activite;
-        ViewBag.sousactivite = sousactivite;
         return View("MainPage");
     }
     

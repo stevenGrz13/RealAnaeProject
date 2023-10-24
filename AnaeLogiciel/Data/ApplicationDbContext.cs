@@ -107,4 +107,8 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<AnaeLogiciel.Models.RealDataOccurenceActivite> RealDataOccurenceActivite { get; set; } = default!;
     
     public DbSet<AnaeLogiciel.Models.RealDataProjet> RealDataProjet { get; set; } = default!;
+
+    public DbSet<AnaeLogiciel.Models.Vsommepaiementactivite> Vsommepaiementactivite { get; set; } = default!;
+
+    public DbSet<AnaeLogiciel.Models.Vsommepaiementsousactivite> Vsommepaiementsousactivite { get; set; } = default!;
 }

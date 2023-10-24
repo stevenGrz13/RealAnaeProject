@@ -168,6 +168,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRnJvbnRPZmZpY2VcQWNjZXVpbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/RealGitAnae/RealAnaeProject/AnaeLogiciel/Views/Historique/DeletedActivite.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGlzdG9yaXF1ZVxEZWxldGVkQWN0aXZpdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/RealGitAnae/RealAnaeProject/AnaeLogiciel/Views/Historique/DeletedResultat.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGlzdG9yaXF1ZVxEZWxldGVkUmVzdWx0YXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/RealGitAnae/RealAnaeProject/AnaeLogiciel/Views/Historique/DeletedSousActivite.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGlzdG9yaXF1ZVxEZWxldGVkU291c0FjdGl2aXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/RealGitAnae/RealAnaeProject/AnaeLogiciel/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -326,6 +338,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/RealGitAnae/RealAnaeProject/AnaeLogiciel/Views/Projet/PageInsertionPartenaireTechnique.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamV0XFBhZ2VJbnNlcnRpb25QYXJ0ZW5haXJlVGVjaG5pcXVlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/RealGitAnae/RealAnaeProject/AnaeLogiciel/Views/Projet/TableauDeBord.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamV0XFRhYmxlYXVEZUJvcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/RealGitAnae/RealAnaeProject/AnaeLogiciel/Views/ProlongementOccurenceActivite/InsertionOccurenceActiviteBudget.cshtml]

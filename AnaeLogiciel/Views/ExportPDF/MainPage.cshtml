@@ -12,15 +12,15 @@
 @foreach (var resultat in listeresultat)
 {
     <ul>
-        <li>@resultat.Resultat.Nom, Avancement: @resultat.Avancement %</li>
+        <li>@resultat.NomResultat, Avancement: @resultat.Avancement %</li>
         <ul>
             @foreach (var activite in listeactivite)
             {
                 if (activite.IdOccurenceResultat == resultat.Id)
                 {
-                    <li> Activité: @activite.Activite.Nom</li>
+                    <li> Activité: @activite.Details</li>
                     <ul>
-                        <li>Budget: @activite.Budget Ar</li>
+                        <li>Budget: @activite.Budget.ToString("N0") Ar</li>
                         <li>Date de début: @activite.DateDebut</li>
                         <li>Date de fin: @activite.DateFin</li>
                         <li>Avancement: @activite.Avancement %</li>
@@ -28,9 +28,9 @@
                         {
                             if (sousactivite.IdOccurenceActivite == activite.Id)
                             {
-                                <li> Sous-activité: @sousactivite.SousActivite.Nom</li>
+                                <li> Sous-activité: @sousactivite.Details</li>
                                 <ul>
-                                    <li>Budget: @sousactivite.Budget Ar</li>
+                                    <li>Budget: @sousactivite.Budget.ToString("N0") Ar</li>
                                     <li>Date de début: @sousactivite.DateDebut</li>
                                     <li>Date de fin: @sousactivite.DateFin</li>
                                     <li>Avancement: @sousactivite.Avancement %</li>

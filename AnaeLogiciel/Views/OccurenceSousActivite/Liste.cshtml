@@ -27,14 +27,15 @@
             <th>Nom</th>
             <th>Avancement</th>
             <th></th>
-            <th></th>
         </tr>
         </thead>
         <tbody>
         @foreach (var v in liste.Items)
         {
             <tr>
-                <td>@v.SousActivite.Nom</td>
+                <td>
+                    @v.Details
+                </td>
                 <td>
                     <progress id="file" value="@v.Avancement.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)" max="100"> @v.Avancement % </progress>
                 </td>
@@ -85,7 +86,21 @@
         </nav>
 </div>
 <br>
-<form action="/OccurenceActivite/RetourVersListeOccurenceActivite/">
-    <input type="hidden" name="idoccurenceresultat" value="@idoccurenceresultat">
-    <button type="type" class="btn btn-secondary">Retour Vers Liste Activites</button>
-</form>
+<table>
+    <thead>
+    <tr>
+        <th>
+            <form action="/Historique/versDeletedSousActivite">
+                <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+                <button type="submit" class="btn btn-primary">Historique des suppressions</button>
+            </form>
+        </th>
+        <th>
+            <form action="/OccurenceActivite/RetourVersListeOccurenceActivite/">
+                <input type="hidden" name="idoccurenceresultat" value="@idoccurenceresultat">
+                <button type="type" class="btn btn-secondary">Retour Vers Liste Activites</button>
+            </form>    
+        </th>
+    </tr>
+    </thead>
+</table>

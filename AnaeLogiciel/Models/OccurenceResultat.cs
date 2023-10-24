@@ -15,20 +15,17 @@ public class OccurenceResultat
     [DisplayName("projet")]
     public int IdProjet { get; set; }
     
-    [Column("idresultat")]
-    [DisplayName("resultat")]
-    public int IdResultat { get; set; }
-    
-    [NotMapped] public string NomResultat { get; set; }
+    [Column("nomresultat")]
+    public string NomResultat { get; set; }
     
     [Column("avancement")]
     public double Avancement { get; set; }
     
+    [Column("issupp")]
+    public bool IsSupp { get; set; }
+    
     [ForeignKey("IdProjet")]
     public virtual Projet? Projet { get; set; }
-    
-    [ForeignKey("IdResultat")]
-    public virtual Resultat? Resultat { get; set; }
     
     [NotMapped]
     public List<OccurenceActivite> ListeOccurenceActivites { get; set; }

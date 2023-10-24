@@ -15,10 +15,6 @@ public class OccurenceActivite
     [DisplayName("occurenceresultat")]
     public int IdOccurenceResultat { get; set; }
     
-    [Column("idactivite")]
-    [DisplayName("activite")]
-    public int IdActivite { get; set; }
-    
     [NotMapped]
     public string NomActivite { get; set; }
     
@@ -34,6 +30,12 @@ public class OccurenceActivite
     [Column("avancement")]
     public double Avancement { get; set; }
     
+    [Column("details")]
+    public string Details { get; set; }
+    
+    [Column("issupp")]
+    public bool IsSupp { get; set; }
+    
     [NotMapped]
     public string Couleur { get; set; }
     
@@ -42,9 +44,6 @@ public class OccurenceActivite
     
     [ForeignKey("IdOccurenceResultat")]
     public virtual OccurenceResultat? OccurenceResultat { get; set; }
-    
-    [ForeignKey("IdActivite")]
-    public virtual Activite? Activite { get; set;  }
     
     [NotMapped]
     public List<OccurenceSousActivite> ListeOccurenceSousActivites { get; set; }

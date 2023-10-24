@@ -31,7 +31,7 @@ public class OccurenceActiviteController : Controller
         return View("~/Views/OccurenceActivite/Create.cshtml");
     }
 
-    public IActionResult Create(int idoccurenceresultat, DateOnly datedebut, DateOnly datefin, string budget, int idactivite)
+    public IActionResult Create(int idoccurenceresultat, DateOnly datedebut, DateOnly datefin, string budget, string details)
     {
         int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
         Projet p = _context.Projet.First(a => a.Id == idprojet);
@@ -55,8 +55,8 @@ public class OccurenceActiviteController : Controller
             OccurenceActivite oa = new OccurenceActivite()
             {
                 IdOccurenceResultat = idoccurenceresultat,
-                IdActivite = idactivite,
                 Budget = Double.Parse(budget),
+                Details = details,
                 DateDebut = datedebut,
                 DateFin = datefin
             };
@@ -87,14 +87,12 @@ public class OccurenceActiviteController : Controller
         if (search == null)
         {
             query = _context.OccurenceActivite
-                .Include(a => a.Activite)
-                .Where(a => a.IdOccurenceResultat == idoccurenceresultat);
+                .Where(a => a.IdOccurenceResultat == idoccurenceresultat && a.IsSupp == false);
         }
         else
         {
             query = _context.OccurenceActivite
-                .Include(a => a.Activite)
-                .Where(a => a.IdOccurenceResultat == idoccurenceresultat && a.Activite.Nom.Contains(search));            
+                .Where(a => a.IdOccurenceResultat == idoccurenceresultat && a.Details.Contains(search) && a.IsSupp == false);            
         }
         if (page == null)
         {
@@ -185,7 +183,6 @@ public class OccurenceActiviteController : Controller
         
         ViewData["listeoccurenceactiviteindicateur"] = liste;
         OccurenceActivite oc = _context.OccurenceActivite
-            .Include(a => a.Activite)
             .First(a => a.Id == idoccurenceactivite);
 
         if (lien.Count == 0)
@@ -291,6 +288,15 @@ public class OccurenceActiviteController : Controller
 
     public IActionResult RetourVersListeOccurenceActivite(int idoccurenceresultat)
     {
+        return RedirectToAction("ListeOccurenceActivites", new { idoccurenceresultat = idoccurenceresultat });
+    }
+
+    public IActionResult deleteActivite(int idoccurenceactivite, int idoccurenceresultat)
+    {
+        OccurenceActivite oa = _context.OccurenceActivite
+            .First(a => a.Id == idoccurenceactivite);
+        oa.IsSupp = true;
+        _context.SaveChanges();
         return RedirectToAction("ListeOccurenceActivites", new { idoccurenceresultat = idoccurenceresultat });
     }
 }

@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    List<OccurenceResultat> liste = ViewData["listeresultat"] as List<OccurenceResultat>;
+}
+
+<h2>Liste Resultats supprimees</h2>
+<br>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Nom</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in liste)
+        {
+            <tr>
+                <td>@v.NomResultat</td>
+                <td>
+                    <form action="/Historique/RestaurerResultat">
+                        <input type="hidden" name="idoccurenceresultat" value="@v.Id">
+                        <button type="submit" class="btn btn-success">Restaurer</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br>
+<form action="/Projet/Details">
+    <input type="hidden" name="idprojet" value="@Context.Session.GetInt32("idprojet")">
+    <button type="submit" class="btn btn-secondary">Retour</button>
+</form>

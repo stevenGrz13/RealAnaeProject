@@ -24,29 +24,6 @@ namespace AnaeLogiciel.Controllers
         // GET: Projet
         public IActionResult Index(int? page, string? search)
         {
-            List<Projet> liste = _context.Projet
-                .Include(a => a.Bailleur)
-                .ToList();
-            foreach (var v in liste)
-            {
-                VAvancementProjet vp = _context.VAvancementProjet
-                    .FirstOrDefault(a => a.IdProjet == v.Id);
-                if (vp != null)
-                {
-                    v.Avancement = vp.Avancement;
-                }
-                else
-                {
-                    v.Avancement = 0;
-                }
-                _context.SaveChanges();
-                if (v.Avancement == 50)
-                {
-                    v.Avancement = 50.01;
-                    Fonction.Fonction.EnvoyerEmail(_smtpConfig,"razafimahefasteven130102@gmail.com","travisjamesmdg7713@gmail.com","Avancement a 50%","Le projet "+v.Nom+" avance a 50%");
-                }
-            }
-            _context.SaveChanges();
             if (page == null)
             {
                 page = 1;
@@ -55,12 +32,12 @@ namespace AnaeLogiciel.Controllers
             IQueryable<Projet> query;
             if (search == null)
             {
-                query = _context.Projet;
+                query = _context.Projet.Where(a => a.IsSupp == false);
             }
             else
             {
                 query = _context.Projet
-                    .Where(a => a.Sigle.Contains(search));
+                    .Where(a => a.Sigle.Contains(search) && a.IsSupp == false);
             }
                 
             int totalItems = query.Count();
@@ -91,40 +68,78 @@ namespace AnaeLogiciel.Controllers
             {
                 return NotFound();
             }
-
+            
             var projet = await _context.Projet
                 .Include(p => p.Bailleur)
                 .FirstOrDefaultAsync(m => m.Id == idprojet);
-            if (projet == null)
+
+            List<OccurenceResultat> listeor = new List<OccurenceResultat>();
+            
+            //
+            if (projet.Avancement == 101)
             {
-                return NotFound();
+                projet.Avancement = projet.Avancement;
+                listeor = _context.OccurenceResultat
+                    .Where(a => a.IdProjet == idprojet && a.IsSupp == false).ToList();
             }
+            else
+            {
+                VAvancementProjet vp = _context.VAvancementProjet
+                    .FirstOrDefault(a => a.IdProjet == projet.Id);
+                if (vp != null)
+                {
+                    projet.Avancement = vp.Avancement;
+                }
+                else
+                {
+                    projet.Avancement = 0;
+                }
+
+
+                if (projet.Avancement == 51)
+                {
+                    projet.Avancement = projet.Avancement;
+                }
+                if (projet.Avancement == 50)
+                {
+                    projet.Avancement = 51;
+                    Fonction.Fonction.EnvoyerEmail(_smtpConfig,"razafimahefasteven130102@gmail.com","travisjamesmdg7713@gmail.com","Avancement a 50%","Le projet "+projet.Nom+" avance a 50%");
+                }
+            
+                if (projet == null)
+                {
+                    return NotFound();
+                }
+            
+                listeor = _context.OccurenceResultat
+                    .Where(a => a.IdProjet == idprojet && a.IsSupp == false).ToList();
+                
+                foreach (var v in listeor)
+                {
+                    var element = _context.VAvancementResultat
+                        .FirstOrDefault(a => a.IdResultat == v.Id);
+                    if (element != null)
+                    {
+                        v.Avancement = element.Avancement;
+                    }
+                    else
+                    {
+                        v.Avancement = 0;
+                    }
+                }   
+            }
+            
+            //
 
             List<TechnicienProjet> tc = _context
                 .TechnicienProjet
                 .Include(a => a.Technicien)
                 .Where(a => a.IdProjet == idprojet).ToList();
-
+            
             ViewData["listetechnicien"] = tc;
             
-            List<OccurenceResultat> listeor = _context.OccurenceResultat
-                .Include(a => a.Resultat)
-                .Where(a => a.IdProjet == idprojet).ToList();
-
-            foreach (var v in listeor)
-            {
-                var element = _context.VAvancementResultat
-                    .FirstOrDefault(a => a.IdResultat == v.Id);
-                if (element != null)
-                {
-                    v.Avancement = element.Avancement;
-                }
-                else
-                {
-                    v.Avancement = 0;
-                }
-            }
-
+            ViewData["listeoccurenceresultat"] = listeor;
+            
             List<ProlongementProjet> listeprolongement = _context.ProlongementProjet
                 .Where(a => a.IdProjet == idprojet).ToList();
 
@@ -298,35 +313,19 @@ namespace AnaeLogiciel.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,DateDebutPrevision,DateFinPrevision,FinishedOrNot,Avancement,Details,IdBailleur")] Projet projet)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Details,IdBailleur")] Projet projet)
         {
             if (id != projet.Id)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(projet);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProjetExists(projet.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdBailleur"] = new SelectList(_context.Bailleur, "Id", "Nom", projet.IdBailleur);
-            return View(projet);
+            Projet pr = _context.Projet
+                .First(a => a.Id == id);
+            pr.Nom = projet.Nom;
+            pr.Details = projet.Details;
+            pr.IdBailleur = projet.IdBailleur;
+            _context.SaveChanges();
+            return RedirectToAction("Details", new {idprojet = id});
         }
 
         // GET: Projet/Delete/5
@@ -360,7 +359,7 @@ namespace AnaeLogiciel.Controllers
             var projet = await _context.Projet.FindAsync(id);
             if (projet != null)
             {
-                _context.Projet.Remove(projet);
+                projet.IsSupp = true;
             }
             
             await _context.SaveChangesAsync();
@@ -396,7 +395,6 @@ namespace AnaeLogiciel.Controllers
             ViewData["listetechnicien"] = tc;
             
             ViewData["listeoccurenceresultat"] = _context.OccurenceResultat
-                .Include(a => a.Resultat)
                 .Where(a => a.IdProjet == idprojet).ToList();
             
             List<ProjetComposant> liste = _context.ProjetComposant

@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    List<Vsommepaiementactivite> listeactivite = ViewData["listeactivite"] as List<Vsommepaiementactivite>;
+    List<Vsommepaiementsousactivite> listesousactivite = ViewData["listesousactivite"] as List<Vsommepaiementsousactivite>;
+}
+
+<h2>Tableau de bord</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Activite</th>
+        <th>Montant</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var v in listeactivite)
+    {
+        <tr>
+            <td>@v.OccurenceActivite.Details</td>
+            <td>@v.Somme.ToString("N0") Ar</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<br>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Sous Activite</th>
+        <th>Montant</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var v in listesousactivite)
+    {
+        <tr>
+            <td>@v.OccurenceSousActivite.Details</td>
+            <td>@v.Somme.ToString("N0") Ar</td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<br>
+
+<table class="table">
+    <thead>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Budget</td>
+        <td>@ViewBag.budget.ToString("N0") Ar</td>
+    </tr>
+    <tr>
+        <td>Depense</td>
+        <td>@ViewBag.depense.ToString("N0") Ar</td>
+    </tr>
+    <tr>
+        <td>Reste</td>
+        <td>@ViewBag.reste.ToString("N0") Ar</td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+
+<form action="/Projet/RetourVersDetails">
+    <input type="hidden" name="idprojet" value="@Context.Session.GetInt32("idprojet")">
+    <button class="btn btn-secondary">Retour</button>
+</form>

@@ -28,14 +28,12 @@
             <th>Avancement</th>
             <th></th>
             <th></th>
-            <th></th>
         </tr>
         </thead>
         <tbody>
         @foreach (var v in model.Items)
         {
             <tr>
-                <td>@v.Activite.Nom</td>
                 <td>
                     <progress id="file" value="@v.Avancement.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)" max="100"> @v.Avancement % </progress>
                 </td>
@@ -88,7 +86,21 @@
 
 <br>
 
-<form action="/Projet/RetourVersDetails">
-    <input type="hidden" name="idprojet" value="@idprojet">
-    <button type="submit" class="btn btn-secondary">Retour Vers Details Projet</button>
-</form>
+<table>
+    <thead>
+    <tr>
+        <th>
+            <form action="/Historique/versDeletedActivite">
+                <input type="hidden" name="idoccurenceresultat" value="@idoccurenceresultat">
+                <button class="btn btn-primary">Historique des suppressions</button>
+            </form>
+        </th>
+        <th>
+            <form action="/Projet/RetourVersDetails">
+                <input type="hidden" name="idprojet" value="@idprojet">
+                <button type="submit" class="btn btn-secondary">Retour Vers Details Projet</button>
+            </form>    
+        </th>
+    </tr>
+    </thead>
+</table>

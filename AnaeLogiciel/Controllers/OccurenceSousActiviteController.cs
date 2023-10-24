@@ -14,19 +14,20 @@ public class OccurenceSousActiviteController : Controller
         _context = context;
     }
 
-    public IActionResult ListeOccurenceSousActivite(int idoccurenceactivite, int? page)
+    public IActionResult ListeOccurenceSousActivite(int idoccurenceactivite, int? page, string search)
     {
         if (page == null)
         {
             page = 1;
         }
+        
         OccurenceActivite o = _context.OccurenceActivite
             .First(a => a.Id == idoccurenceactivite);
         ViewBag.idoccurenceresultat = o.IdOccurenceResultat;
         ViewBag.idoccurenceactivite = idoccurenceactivite;
         var listes = _context.OccurenceSousActivite
-            .Include(a => a.SousActivite)
-            .Where(a => a.IdOccurenceActivite == idoccurenceactivite).ToList();
+            .Where(a => a.IdOccurenceActivite == idoccurenceactivite && a.IsSupp == false)
+            .ToList();
         foreach (var v in listes)
         {
             List<OccurenceSousActiviteIndicateur> liste = _context.OccurenceSousActiviteIndicateur
@@ -56,14 +57,12 @@ public class OccurenceSousActiviteController : Controller
             }
 
             moyenne = moyenne / table.Length;
-            Console.WriteLine("LENGTH="+table.Length);
             if (Double.IsNaN(moyenne))
             {
                 moyenne = 0;
             }
             ViewData["listeoccurenceactiviteindicateur"] = liste;
             OccurenceSousActivite oc = _context.OccurenceSousActivite
-                .Include(a => a.SousActivite)
                 .First(a => a.Id == v.Id);
             oc.Avancement = moyenne;
             _context.SaveChanges();
@@ -103,7 +102,7 @@ public class OccurenceSousActiviteController : Controller
         return View("~/Views/OccurenceSousActivite/Insertion.cshtml");
     }
 
-    public IActionResult Create(int idoccurenceactivite, int idsousactivite, string budget, DateOnly datedebut, DateOnly datefin)
+    public IActionResult Create(int idoccurenceactivite, string budget, DateOnly datedebut, DateOnly datefin, string details)
     {
         string messageerreur = "";
         OccurenceActivite oc = _context.OccurenceActivite
@@ -127,8 +126,8 @@ public class OccurenceSousActiviteController : Controller
             OccurenceSousActivite osc = new OccurenceSousActivite()
             {
                 IdOccurenceActivite = idoccurenceactivite,
-                IdSousActivite = idsousactivite,
                 Budget = Double.Parse(budget),
+                Details = details,
                 DateDebut = datedebut,
                 DateFin = datefin
             };
@@ -159,7 +158,6 @@ public class OccurenceSousActiviteController : Controller
         ViewBag.idoccurenceactivite = idoccurenceactivite;
         OccurenceSousActivite osc = _context
             .OccurenceSousActivite
-            .Include(a => a.SousActivite)
             .First(a => a.Id == idoccurencesousactivite);
         if (Fonction.Fonction.getDateNow() > osc.DateFin && osc.Avancement != 100)
         {
@@ -202,12 +200,21 @@ public class OccurenceSousActiviteController : Controller
         ViewBag.idoccurenceactivite = idoccurenceactivite;
         return View("~/Views/SiteSousActivite/Details.cshtml");
     }
+
+    public IActionResult deleteSousActivite(int idoccurencesousactivite)
+    {
+        OccurenceSousActivite osa = _context.OccurenceSousActivite
+            .First(a => a.Id == idoccurencesousactivite);
+        osa.IsSupp = true;
+        _context.SaveChanges();
+        int idoccurenceactivite = osa.IdOccurenceActivite;
+        return RedirectToAction("ListeOccurenceSousActivite", new { idoccurenceactivite = idoccurenceactivite });
+    }
     
     public IActionResult RetourVersDetailsOccurenceSousActivite(int idoccurencesousactivite, int idoccurenceactivite)
     {
         return RedirectToAction("VersDetailsOccurenceSousActivite", new { idoccurencesousactivite = idoccurencesousactivite, idoccurenceactivite = idoccurenceactivite });
     }
-
 
     public IActionResult RetourVersListeOccurenceSousActivite(int idoccurenceactivite)
     {

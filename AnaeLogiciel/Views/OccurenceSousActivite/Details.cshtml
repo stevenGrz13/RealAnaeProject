@@ -11,8 +11,9 @@
 <table class="table">
     <thead>
     <tr>
-        <th>@osc.SousActivite.Nom</th>
+        <th>@osc.Details</th>
         <th>Avancement: @osc.Avancement.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) %</th>
+        <th>Budget: @osc.Budget.ToString("N0") Ar</th>
         <th class="@osc.Couleur">@osc.Message</th>
     </tr>
     </thead>
@@ -94,6 +95,12 @@
             <form action="/SousActiviteSourceDeVerification/VersListe">
                 <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
                 <button type="submit" class="btn btn-primary">Source de verification</button>
+            </form>   
+        </th>
+        <th>
+            <form action="/OccurenceSousActivite/deleteSousActivite">
+                <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+                <button type="submit" class="btn btn-danger">Supprimer</button>
             </form>   
         </th>
         <th>

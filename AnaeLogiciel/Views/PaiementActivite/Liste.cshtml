@@ -39,19 +39,19 @@
                     <tr>
                         <td>@v.Technicien.Email</td>
                         <td>@v.Motif</td>
-                        <td>@v.Montant Ar</td>
+                        <td>@v.Montant.ToString("N0") Ar</td>
                     </tr>
                 }
                 <tr>
                     <td></td>
                     <td></td>
-                    <td class="font-weight-bold">@total Ar</td>
+                    <td class="font-weight-bold">@total.ToString("N0") Ar</td>
                 </tr>
             </tbody>
         </table>
 
-        <p>Budget: <span class="font-weight-bold">@budget Ar</span></p>
-        <p>Reste: <span class="font-weight-bold">@reste Ar</span></p>
+        <p>Budget: <span class="font-weight-bold">@budget.ToString("N0") Ar</span></p>
+        <p>Reste: <span class="font-weight-bold">@reste.ToString("N0") Ar</span></p>
         <p class="text-danger"><strong>@ViewBag.messageerreur</strong></p>
 
     </div>

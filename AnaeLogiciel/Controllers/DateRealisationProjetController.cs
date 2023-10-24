@@ -15,7 +15,7 @@ public class DateRealisationProjetController : Controller
         _smtpConfig = smtpConfig;
     }
 
-    public IActionResult FinalisationProjet(int idprojet)
+    public async Task<IActionResult> FinalisationProjet(int idprojet)
     {
         Projet projet = _context.Projet
             .First(a => a.Id == idprojet);
@@ -29,7 +29,7 @@ public class DateRealisationProjetController : Controller
             DateFinRealisation = DateOnly.FromDateTime(DateTime.Now)
         };
         _context.Add(dr);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return RedirectToAction("Details", "Projet", new { idprojet = idprojet });
     }
     

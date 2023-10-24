@@ -41,7 +41,7 @@
     @foreach (var v in listebudget)
     {
         <tr>
-            <td>@v.Budget Ar</td>
+            <td>@v.Budget.ToString("N0") Ar</td>
             <td>@v.DateAction</td>
         </tr>
     }
