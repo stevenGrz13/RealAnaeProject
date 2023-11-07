@@ -15,8 +15,12 @@ public class TableauDeBordProjetController : Controller
         _context = context;
     }
 
-    public IActionResult VersTableau()
+    public IActionResult VersTableau(int? iddevise)
     {
+        if (iddevise == null)
+        {
+            iddevise = 1;
+        }
         double somme = 0;
         int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
         List<OccurenceResultat> listeres = _context.OccurenceResultat
@@ -59,9 +63,26 @@ public class TableauDeBordProjetController : Controller
 
         Projet projet = _context.Projet
             .First(a => a.Id == idprojet);
-        ViewBag.budget = projet.Budget;
-        ViewBag.depense = somme;
-        ViewBag.reste = projet.Budget - somme;
+        if (iddevise == 2)
+        {
+            ViewBag.budget = projet.Budget * projet.ValeurDevise;
+            ViewBag.depense = somme * projet.ValeurDevise;
+            ViewBag.reste = (projet.Budget - somme) * projet.ValeurDevise;   
+        }
+
+        if (iddevise == 3)
+        {
+            ViewBag.budget = projet.Budget * projet.ValeurDevise;
+            ViewBag.depense = somme * projet.ValeurDevise;
+            ViewBag.reste = (projet.Budget - somme) * projet.ValeurDevise;  
+        }
+
+        else
+        {
+            ViewBag.budget = projet.Budget;
+            ViewBag.depense = somme;
+            ViewBag.reste = projet.Budget - somme;
+        }
         return View("~/Views/Projet/TableauDeBord.cshtml");
     }
 }

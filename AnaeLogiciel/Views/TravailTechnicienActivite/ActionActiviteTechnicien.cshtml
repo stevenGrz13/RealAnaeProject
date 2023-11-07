@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    int idindicateur = ViewBag.idindicateur;
+    int idtechnicien = ViewBag.idtechnicien;
+}
+
+<br>
+
+@ViewBag.messageerreur
+
+<h2>AJOUTER ACTION</h2>
+
+<br>
+
+<form action="/TravailTechnicienActivite/CreateWithDate" class="form">
+    <input type="hidden" name="idindicateur" value="@idindicateur">
+    <input type="hidden" name="idtechnicien" value="@idtechnicien">
+
+    <div class="form-group">
+        <label for="quantiteeffectue">Quantité Effectuée :</label>
+        <input type="text" name="quantiteeffectue" id="quantiteeffectue" placeholder="Quantité Effectuée" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label for="datedebut">Date de Début :</label>
+        <input type="date" name="datedebut" id="datedebut" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label for="datefin">Date de Fin :</label>
+        <input type="date" name="datefin" id="datefin" class="form-control">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Ajouter</button>
+</form>

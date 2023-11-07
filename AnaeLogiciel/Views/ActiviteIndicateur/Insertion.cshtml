@@ -1,7 +1,7 @@
 ﻿@{
     ViewBag.Title = "title";
     Layout = "_LayoutGlobalProject";
-    List<TypeIndicateur> liste = ViewData["listeindicateur"] as List<TypeIndicateur>;
+    List<IndicateurActivite> liste = ViewData["liste"] as List<IndicateurActivite>;
     int idoccurenceactivite = ViewBag.idoccurenceactivite;
 }
 
@@ -16,10 +16,10 @@
 
         <div class="form-group">
             <label for="idindicateur">Sélectionnez un indicateur</label>
-            <select class="form-control" id="idindicateur" name="idindicateur">
+            <select class="form-control" id="idindicateuractivite" name="idindicateuractivite">
                 @foreach (var v in liste)
                 {
-                    <option value="@v.Id">@v.Nom</option>
+                    <option value="@v.Id">@v.NomIndicateur</option>
                 }
             </select>
         </div>

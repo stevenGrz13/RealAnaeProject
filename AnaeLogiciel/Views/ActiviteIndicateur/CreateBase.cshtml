@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    int idoccurenceactivite = ViewBag.idoccurenceactivite;
+}
+
+<div class="container mt-5">
+    <h3>Insertion Indicateur</h3>
+    <br>
+    <form action="/IndicateurActivite/CreateBase">
+        <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+
+        <div class="form-group">
+            <label for="idindicateur">Sélectionnez un indicateur</label>
+            
+            <input type="text" name="nomindicateur">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Ajouter Indicateur</button>
+    </form>
+</div>

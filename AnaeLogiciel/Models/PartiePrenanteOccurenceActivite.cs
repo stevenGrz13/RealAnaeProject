@@ -15,13 +15,9 @@ public class PartiePrenanteOccurenceActivite
     [DisplayName("occurenceactivite")]
     public int IdOccurenceActivite { get; set; }
     
-    [Column("idpartieprenante")]
-    [DisplayName("partieprenante")]
-    public int IdPartiePrenante { get; set; }
+    [Column("partieprenante")]
+    public string PartiePrenante { get; set; }
     
     [ForeignKey("IdOccurenceActivite")]
     public virtual OccurenceActivite? OccurenceActivite { get; set; }
-    
-    [ForeignKey("IdPartiePrenante")]
-    public virtual PartiePrenante? PartiePrenante { get; set; }
 }

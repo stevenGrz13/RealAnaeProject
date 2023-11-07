@@ -56,7 +56,7 @@ namespace AnaeLogiciel.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nom,Value")] Devise devise)
+        public async Task<IActionResult> Create([Bind("Id,Nom,Valeur")] Devise devise)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace AnaeLogiciel.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Value")] Devise devise)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nom,Valeur")] Devise devise)
         {
             if (id != devise.Id)
             {

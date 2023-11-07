@@ -75,61 +75,8 @@ namespace AnaeLogiciel.Controllers
 
             List<OccurenceResultat> listeor = new List<OccurenceResultat>();
             
-            //
-            if (projet.Avancement == 101)
-            {
-                projet.Avancement = projet.Avancement;
-                listeor = _context.OccurenceResultat
-                    .Where(a => a.IdProjet == idprojet && a.IsSupp == false).ToList();
-            }
-            else
-            {
-                VAvancementProjet vp = _context.VAvancementProjet
-                    .FirstOrDefault(a => a.IdProjet == projet.Id);
-                if (vp != null)
-                {
-                    projet.Avancement = vp.Avancement;
-                }
-                else
-                {
-                    projet.Avancement = 0;
-                }
-
-
-                if (projet.Avancement == 51)
-                {
-                    projet.Avancement = projet.Avancement;
-                }
-                if (projet.Avancement == 50)
-                {
-                    projet.Avancement = 51;
-                    Fonction.Fonction.EnvoyerEmail(_smtpConfig,"razafimahefasteven130102@gmail.com","travisjamesmdg7713@gmail.com","Avancement a 50%","Le projet "+projet.Nom+" avance a 50%");
-                }
-            
-                if (projet == null)
-                {
-                    return NotFound();
-                }
-            
-                listeor = _context.OccurenceResultat
-                    .Where(a => a.IdProjet == idprojet && a.IsSupp == false).ToList();
-                
-                foreach (var v in listeor)
-                {
-                    var element = _context.VAvancementResultat
-                        .FirstOrDefault(a => a.IdResultat == v.Id);
-                    if (element != null)
-                    {
-                        v.Avancement = element.Avancement;
-                    }
-                    else
-                    {
-                        v.Avancement = 0;
-                    }
-                }   
-            }
-            
-            //
+            listeor = _context.OccurenceResultat
+                .Where(a => a.IdProjet == idprojet && a.IsSupp == false).ToList();
 
             List<TechnicienProjet> tc = _context
                 .TechnicienProjet
@@ -180,32 +127,25 @@ namespace AnaeLogiciel.Controllers
             ViewData["listeoccurenceresultat"] = listeor;
             
             List<ProjetComposant> liste = _context.ProjetComposant
-                .Include(a => a.Composant)
                 .Where(a => a.IdProjet == idprojet).ToList();
             ViewData["listecomposant"] = liste;
 
             ViewData["listepartenaire"] = _context.ProjetPartenaireTechnique
-                .Include(a => a.PartenaireTechnique)
                 .Where(a => a.IdProjet == idprojet)
                 .ToList();
 
-            ViewData["composant"] = _context.Composant
-                .ToList();
             return View(projet);
         }
 
-        public IActionResult AjoutComposant(List<int> listecomposant)
+        public IActionResult AjoutComposant(string Composant)
         {
             int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
-            foreach (var v in listecomposant)
+            ProjetComposant pr = new ProjetComposant()
             {
-                ProjetComposant pr = new ProjetComposant()
-                {
-                    IdComposant = v,
-                    IdProjet = idprojet
-                };
-                _context.Add(pr);
-            }
+                Composant = Composant,
+                IdProjet = idprojet
+            };
+            _context.Add(pr);
             _context.SaveChanges();
             Console.WriteLine("AVY NISAVE IZY ZAO");
             return RedirectToAction("Details", new {idprojet = idprojet});
@@ -217,11 +157,10 @@ namespace AnaeLogiciel.Controllers
             ViewBag.messageerreur = messageerreur;
             ViewData["listedevise"] = _context.Devise.ToList();
             ViewData["listebailleur"] = _context.Bailleur.ToList();
-            ViewData["listecomposant"] = _context.Composant.ToList();
             return View();
         }
 
-        public IActionResult CreateProjet(int reference, string sigle,string nom, string details, DateOnly datedebut, DateOnly datefin, int idbailleur, List<int> idcomposant, string budget, int iddevise, string valeur)
+        public IActionResult CreateProjet(string reference, string sigle,string nom, string details, DateOnly datedebut, DateOnly datefin, int idbailleur, string budget, int iddevise, string valeur)
         {
             string messageerreur = "";
             try
@@ -257,6 +196,7 @@ namespace AnaeLogiciel.Controllers
                     DateFinPrevision = datefin,
                     IdBailleur = idbailleur,
                     IdDevise = iddevise,
+                    ValeurDevise = Double.Parse(valeur),
                     Budget = Double.Parse(valeur)*Double.Parse(budget),
                     Sigle = sigle,
                     Reference = reference
@@ -264,15 +204,6 @@ namespace AnaeLogiciel.Controllers
                 _context.Add(projet);
                 _context.SaveChanges();
                 Projet np = _context.Projet.First(a => a == projet);
-                foreach (var v in idcomposant)
-                {
-                    ProjetComposant pr = new ProjetComposant()
-                    {
-                        IdProjet = np.Id,
-                        IdComposant = v
-                    };
-                    _context.ProjetComposant.Add(pr);
-                }
 
                 RealDataProjet rl = new RealDataProjet()
                 {
@@ -398,7 +329,6 @@ namespace AnaeLogiciel.Controllers
                 .Where(a => a.IdProjet == idprojet).ToList();
             
             List<ProjetComposant> liste = _context.ProjetComposant
-                .Include(a => a.Composant)
                 .Where(a => a.IdProjet == idprojet).ToList();
             ViewData["listecomposant"] = liste;
             return RedirectToAction("Details",new {idprojet = idprojet});
@@ -413,22 +343,20 @@ namespace AnaeLogiciel.Controllers
         public IActionResult VersInsertionPartenaireTechnique(int idprojet)
         {
             ViewBag.idprojet = idprojet;
-            ViewData["listepartenaire"] = _context.PartenaireTechnique.ToList();
+            ViewData["listepartenaire"] = _context.ProjetPartenaireTechnique
+                .Where(a => a.IdProjet == idprojet)
+                .ToList();
             return View("PageInsertionPartenaireTechnique");
         }
 
-        public IActionResult InsertionPartenaire(List<int> idpartenaire, int idprojet)
+        public IActionResult InsertionPartenaire(string partenairetechnique, int idprojet)
         {
-            foreach (var v in idpartenaire)
+            ProjetPartenaireTechnique pt = new ProjetPartenaireTechnique()
             {
-                ProjetPartenaireTechnique pt = new ProjetPartenaireTechnique()
-                {
-                    IdProjet = idprojet,
-                    IdPartenaireTechnique = v
-                };
-                _context.Add(pt);
-            }
-
+                IdProjet = idprojet,
+                PartenaireTechnique = partenairetechnique
+            };
+            _context.Add(pt);
             _context.SaveChanges();
             return RedirectToAction("Details", new { idprojet = idprojet });
         }

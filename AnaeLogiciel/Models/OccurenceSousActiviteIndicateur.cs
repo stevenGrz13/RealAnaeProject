@@ -15,9 +15,9 @@ public class OccurenceSousActiviteIndicateur
     [DisplayName("occurencesousactivite")]
     public int IdOccurenceSousActivite { get; set; }
     
-    [Column("idindicateur")]
-    [DisplayName("typeindicateur")]
-    public int IdIndicateur { get; set; }
+    [Column("idindicateursousactivite")]
+    [DisplayName("indicateursousactivite")]
+    public int IdIndicateurSousActivite { get; set; }
     
     [Column("target")]
     public double Target { get; set; }
@@ -25,6 +25,6 @@ public class OccurenceSousActiviteIndicateur
     [ForeignKey("IdOccurenceSousActivite")]
     public virtual OccurenceSousActivite? OccurenceSousActivite { get; set; }
     
-    [ForeignKey("IdIndicateur")]
-    public virtual TypeIndicateur? TypeIndicateur { get; set; }
+    [ForeignKey("IdIndicateurSousActivite")]
+    public virtual IndicateurSousActivite? IndicateurSousActivite { get; set; }
 }

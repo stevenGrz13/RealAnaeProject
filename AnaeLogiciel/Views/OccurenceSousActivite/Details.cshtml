@@ -3,9 +3,8 @@
     int idoccurencesousactivite = ViewBag.idoccurencesousactivite;
     Layout = "_LayoutGlobalProject";
     int idoccurenceactivite = ViewBag.idoccurenceactivite;
-    List<SiteSousActivite> liste = ViewData["listesiteoccurencesousactivite"] as List<SiteSousActivite>;
-    List<OccurenceSousActiviteIndicateur> listeindic = ViewData["listeoccurencesousactiviteindicateur"] as List<OccurenceSousActiviteIndicateur>;
     OccurenceSousActivite osc = ViewData["osc"] as OccurenceSousActivite;
+    List<OccurenceSousActiviteIndicateur> listeindic = ViewData["liste"] as List<OccurenceSousActiviteIndicateur>;
 }
 
 <table class="table">
@@ -19,6 +18,27 @@
     </thead>
 </table>
 <br>
+<table>
+    <thead>
+    <tr>
+        <th>
+            <form action="/IndicateurSousActivite/versCreateBase">
+                <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+                <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+                <button type="submit" class="btn btn-primary">Inserer nouvel indicateur</button>
+            </form>
+        </th>
+        <th>
+            <form action="/IndicateurSousActivite/VersInsertionBaseSousActiviteIndicateur">
+                <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+                <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+                <button type="submit" class="btn btn-primary">Ajouter quantite indicateur</button>
+            </form>
+        </th>
+    </tr>
+    </thead>
+</table>
+<br>
 <div class="container mt-5">
     <br>
     <h3>Target Indicateur</h3>
@@ -28,64 +48,28 @@
         <tr>
             <th>Indicateur</th>
             <th>Target</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         @foreach (var v in listeindic)
         {
             <tr>
-                <td>@v.TypeIndicateur.Nom</td>
+                <td>@v.IndicateurSousActivite.NomIndicateur</td>
                 <td>@v.Target</td>
-            </tr>
-        }
-        </tbody>
-    </table>
-
-    <form action="/SiteSousActivite/VersInsertionSiteSousActivite">
-        <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
-        <button type="submit" class="btn btn-primary mt-2">Insérer Nouveau Site</button>
-    </form>
-
-    <br>
-    <h3 class="mt-4">Liste des Sites</h3>
-    <br>
-
-    <table class="table">
-        <thead class="thead-dark">
-        <tr>
-            <th>Libellé</th>
-            <th>Commune</th>
-            <th>District</th>
-            <th>Région</th>
-            <th></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var v in liste)
-        {
-            <tr>
-                <td>@v.Libelle</td>
-                <td>@v.Commune.Nom</td>
-                <td>@v.District.Libelle</td>
-                <td>@v.Region.Nom</td>
                 <td>
-                    <form action="/OccurenceSousActivite/VersDetailsSiteSousActivite/">
-                        <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
-                        <input type="hidden" name="idsitesousactivite" value="@v.Id">
-                        <button type="submit" class="btn btn-link">Détails</button>
-                    </form>
-                </td>
-                <td>
-                    <form action="/BackOfficeSousActivite/VersListeRapportSousActivite">
-                        <input type="hidden" name="idsitesousactivite" value="@v.Id">
-                        <button type="submit" class="btn btn-link">Liste Rapport</button>
+                    <form action="/IndicateurSousActivite/DetailsIndicateurSousActivite">
+                        <input type="hidden" name="idoccurencesousactiviteindicateur" value="@v.Id">
+                        <button type="submit" class="btn btn-primary">Etat</button>
                     </form>
                 </td>
             </tr>
         }
         </tbody>
     </table>
+
+    <br>
 </div>
 <br>
 

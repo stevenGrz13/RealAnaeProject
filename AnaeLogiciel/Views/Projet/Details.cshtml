@@ -6,7 +6,7 @@
     List<OccurenceResultat> lister = ViewData["listeoccurenceresultat"] as List<OccurenceResultat>;
     List<TechnicienProjet> listet = ViewData["listetechnicien"] as List<TechnicienProjet>;
     List<ProjetPartenaireTechnique> listep = ViewData["listepartenaire"] as List<ProjetPartenaireTechnique>;
-    List<Composant> listec = ViewData["composant"] as List<Composant>;
+    List<ProjetComposant> listec = ViewData["listecomposant"] as List<ProjetComposant>;
 }
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -125,10 +125,10 @@ $(document).ready(function () {
             </tr>
         </thead>
         <tbody>
-            @foreach (var v in liste)
+            @foreach (var v in listec)
             {
                 <tr>
-                    <td>@v.Composant.Nom</td>
+                    <td>@v.Composant</td>
                 </tr>
             }
         <tr>
@@ -141,29 +141,13 @@ $(document).ready(function () {
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Choisir Composant a ajouter</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Composant</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <table class="table">
-                                        <thead>
-                                        <tr>
-                                            <th>Nom</th>
-                                            <th></th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach (var v in listec)
-                                        {
-                                            <tr>
-                                                <td>@v.Nom</td>
-                                                <td><input type="checkbox" name="listecomposant" value="@v.Id"></td>
-                                            </tr>
-                                        }
-                                        </tbody>
-                                    </table>
+                                    <textarea class="form-control" id="composant" name="composant" rows="4"></textarea>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary">
@@ -266,7 +250,7 @@ $(document).ready(function () {
             @foreach (var v in listep)
             {
                 <tr>
-                    <td>@v.PartenaireTechnique.Nom</td>
+                    <td>@v.PartenaireTechnique</td>
                 </tr>   
             }
         </tbody>

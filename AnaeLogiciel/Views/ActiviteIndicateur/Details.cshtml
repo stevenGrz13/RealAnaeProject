@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    List<TargetTechnicienIndicateurActivite> liste = ViewData["liste"] as List<TargetTechnicienIndicateurActivite>;
+    OccurenceActiviteIndicateur oai = ViewData["indicateur"] as OccurenceActiviteIndicateur;
+}
+
+<h3>Objectif par technicien</h3>
+<br>
+Indicateur : @oai.IndicateurActivite.NomIndicateur
+<br>
+<br>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Technicien</th>
+        <th>Objectif</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var v in liste)
+    {
+        <tr>
+            <td>@v.Technicien.Email</td>
+            <td>@v.Target</td>
+            <td>
+                <form action="/TravailTechnicienActivite/versCreateActionActivite">
+                    <input type="hidden" name="idindicateur" value="@oai.IdIndicateurActivite">
+                    <input type="hidden" name="idtechnicien" value="@v.IdTechnicien">
+                    <button type="submit" class="btn btn-primary">Action</button>
+                </form>
+            </td>
+            <td>
+                <form action="/TravailTechnicienActivite/versListeActionActivite">
+                    <input type="hidden" name="idindicateur" value="@oai.IdIndicateurActivite">
+                    <input type="hidden" name="idtechnicien" value="@v.IdTechnicien">
+                    <button type="submit" class="btn btn-primary">Liste Actions</button>
+                </form>
+            </td>
+        </tr>   
+    }
+    </tbody>
+</table>
+<br>
+<table>
+    <thead>
+    <tr>
+        <th>
+            <form action="/TravailTechnicienActivite/AttributionTravailActivite">
+                <input type="hidden" name="idoccurenceactiviteindicateur" value="@oai.Id">
+                <button type="submit" class="btn btn-primary">Attribuer nouveau travail</button>
+            </form>
+        </th>
+        <th>
+            <form action="/OccurenceActivite/Details">
+                <input type="hidden" name="idoccurenceactivite" value="@oai.IdOccurenceActivite">
+                <button class="btn btn-secondary">Retour</button>
+            </form>
+        </th>
+    </tr>
+    </thead>
+</table>

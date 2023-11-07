@@ -127,6 +127,37 @@
       <_ContentIncludedByDefault Remove="Views\DateRealisationProjet\Details.cshtml" />
       <_ContentIncludedByDefault Remove="Views\DateRealisationProjet\Edit.cshtml" />
       <_ContentIncludedByDefault Remove="Views\DateRealisationProjet\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Partenaire\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Partenaire\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Partenaire\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Partenaire\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Partenaire\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PartenaireTechnique\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PartenaireTechnique\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PartenaireTechnique\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PartenaireTechnique\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PartenaireTechnique\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PartiePrenante\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PartiePrenante\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PartiePrenante\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PartiePrenante\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\PartiePrenante\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Composant\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Composant\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Composant\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Composant\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Composant\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\SiteActivite\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\SiteSousActivite\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\RapportIndicateurActivite\Insertion.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\RapportIndicateurActivite\Liste.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\RapportIndicateurSousActivite\Insertion.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\RapportIndicateurSousActivite\Liste.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Devise\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Devise\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Devise\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Devise\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Devise\Index.cshtml" />
     </ItemGroup>
 
     <ItemGroup>
@@ -166,6 +197,8 @@
       <UpToDateCheckInput Remove="Views\Projet\Details.cshtml" />
       <UpToDateCheckInput Remove="Views\Projet\Edit.cshtml" />
       <UpToDateCheckInput Remove="Views\Projet\Index.cshtml" />
+
+
 
 
 

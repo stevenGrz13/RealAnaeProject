@@ -2,9 +2,8 @@
     ViewBag.Title = "title";
     Layout = "_LayoutGlobalProject";
     OccurenceActivite oc = ViewData["occurenceactivite"] as OccurenceActivite;
-    List<OccurenceActiviteIndicateur> liste = ViewData["listeoccurenceactiviteindicateur"] as List<OccurenceActiviteIndicateur>;
-    List<SiteActivite> listesite = ViewData["listesiteoccurenceactivite"] as List<SiteActivite>;
     List<PartiePrenanteOccurenceActivite> listep = ViewData["listepartieprenante"] as List<PartiePrenanteOccurenceActivite>;
+    List<OccurenceActiviteIndicateur> liste = ViewData["listeoccurenceactiviteindicateur"] as List<OccurenceActiviteIndicateur>;
 }
 
 <div class="container mt-5">
@@ -40,10 +39,24 @@
         </div>
     </div>
 
-    <form action="/IndicateurActivite/VersInsertionActiviteIndicateur">
-        <input type="hidden" name="idoccurenceactivite" value="@oc.Id">
-        <button type="submit" class="btn btn-primary mt-2">Ajouter indicateur</button>
-    </form>
+    <table>
+        <thead>
+        <tr>
+            <th>
+                <form action="/IndicateurActivite/VersInsertionBaseActiviteIndicateur">
+                    <input type="hidden" name="idoccurenceactivite" value="@oc.Id">
+                    <button type="submit" class="btn btn-primary">Ajouter Quantite indicateur</button>
+                </form>
+            </th>
+            <th>
+                <form action="/IndicateurActivite/versCreateBase">
+                    <input type="hidden" name="idoccurenceactivite" value="@oc.Id">
+                    <button type="submit" class="btn btn-primary">Nouvelle Indicateur</button>
+                </form>
+            </th>
+        </tr>
+        </thead>
+    </table>
 
     <br>
     <h4 class="mt-4">Target Indicateurs</h4>
@@ -51,56 +64,20 @@
         <thead>
         <tr>
             <th>Indicateur</th>
-            <th>Target</th>
+            <th>Objectif</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         @foreach (var v in liste)
         {
             <tr>
-                <td>@v.TypeIndicateur.Nom</td>
+                <td>@v.IndicateurActivite.NomIndicateur</td>
                 <td>@v.Target</td>
-            </tr>
-        }
-        </tbody>
-    </table>
-
-    <form action="/SiteActivite/VersInsertionSiteActivite">
-        <input type="hidden" name="idoccurenceactivite" value="@oc.Id">
-        <button type="submit" class="btn btn-primary mt-2">Ajouter sites</button>
-    </form>
-
-    <h3 class="mt-4">Liste Sites</h3>
-
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Libelle</th>
-            <th>Commune</th>
-            <th>District</th>
-            <th>Region</th>
-            <th></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var v in listesite)
-        {
-            <tr>
-                <td>@v.Libelle</td>
-                <td>@v.Commune.Nom</td>
-                <td>@v.District.Libelle</td>
-                <td>@v.Region.Nom</td>
                 <td>
-                    <form action="/SiteActivite/VersDetailsSiteActivite">
-                        <input type="hidden" name="idsiteactivite" value="@v.Id">
-                        <button type="submit" class="btn btn-link">Détails</button>
-                    </form>
-                </td>
-                <td>
-                    <form action="/BackOfficeActivite/VersListeRapportActivite">
-                        <input type="hidden" name="idsiteactivite" value="@v.Id">
-                        <button type="submit" class="btn btn-link">Liste rapport</button>
+                    <form action="/IndicateurActivite/DetailsIndicateurActivite">
+                        <input type="hidden" name="idoccurenceactiviteindicateur" value="@v.Id">
+                        <button type="submit" class="btn btn-primary">Etat</button>
                     </form>
                 </td>
             </tr>
@@ -121,7 +98,7 @@
     @foreach (var v in listep)
     {
         <tr>
-            <td>@v.PartiePrenante.Nom</td>
+            <td>@v.PartiePrenante</td>
         </tr>
     }
     </tbody>

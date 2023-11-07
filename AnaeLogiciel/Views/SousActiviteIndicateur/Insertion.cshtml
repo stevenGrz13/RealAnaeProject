@@ -1,11 +1,11 @@
 ﻿@{
     ViewBag.Title = "title";
     Layout = "_LayoutGlobalProject";
-    List<TypeIndicateur> liste = ViewData["listeindicateur"] as List<TypeIndicateur>;
     int idoccurencesousactivite = ViewBag.idoccurencesousactivite;
     int idoccurenceactivite = ViewBag.idoccurenceactivite;
+    List<IndicateurSousActivite> liste = ViewData["liste"] as List<IndicateurSousActivite>;
 }
-@ViewBag.messageerreur;
+@ViewBag.messageerreur
 <br>
 <div class="container mt-5">
     <h3>Insertion Indicateur pour Sous-Activité</h3>
@@ -18,7 +18,7 @@
             <select class="form-control" id="idindicateur" name="idindicateur">
                 @foreach (var v in liste)
                 {
-                    <option value="@v.Id">@v.Nom</option>
+                    <option value="@v.Id">@v.NomIndicateur</option>
                 }
             </select>
         </div>

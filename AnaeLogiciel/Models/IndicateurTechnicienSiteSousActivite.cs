@@ -11,9 +11,9 @@ public class IndicateurTechnicienSiteSousActivite
     [Column("id")]
     public int Id { get; set; }
     
-    [Column("idsitesousactivite")]
-    [DisplayName("sitesousactivite")]
-    public int IdSiteSousActivite { get; set; }
+    [Column("idsite")]
+    [DisplayName("site")]
+    public int IdSite { get; set; }
     
     [Column("idindicateur")]
     [DisplayName("typeindicateur")]
@@ -26,8 +26,8 @@ public class IndicateurTechnicienSiteSousActivite
     [Column("target")]
     public double Target { get; set; }
     
-    [ForeignKey("IdSiteSousActivite")]
-    public virtual SiteSousActivite? SiteSousActivite { get; set; }
+    [ForeignKey("IdSite")]
+    public virtual Site? Site { get; set; }
     
     [ForeignKey("IdIndicateur")]
     public virtual TypeIndicateur? TypeIndicateur { get; set; }

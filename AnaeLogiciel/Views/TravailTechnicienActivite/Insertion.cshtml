@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    List<TechnicienProjet> liste = ViewData["liste"] as List<TechnicienProjet>;
+    int idoccurenceactiviteindicateur = ViewBag.idoccurenceactiviteindicateur;
+}
+
+<h2>Attribution Travail</h2>
+<br>
+
+<form action="/TravailTechnicienActivite/Create" class="form">
+    <input type="hidden" name="idoccurenceactiviteindicateur" value="@idoccurenceactiviteindicateur">
+
+    <div class="form-group">
+        <label for="idtechnicien">Sélectionnez un technicien :</label>
+        <select name="idtechnicien" id="idtechnicien" class="form-control">
+            @foreach (var v in liste)
+            {
+                <option value="@v.Id">@v.Technicien.Email</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="target">Objectif :</label>
+        <input type="text" name="target" id="target" placeholder="Objectif" class="form-control">
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Attribuer</button>
+</form>

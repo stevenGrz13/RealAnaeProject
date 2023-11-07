@@ -1,6 +1,8 @@
 ﻿using AnaeLogiciel.Data;
 using AnaeLogiciel.Models;
+using iTextSharp.awt.geom;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AnaeLogiciel.Controllers;
 
@@ -12,26 +14,42 @@ public class IndicateurSousActiviteController : Controller
     {
         _context = context;
     }
-
-    public IActionResult VersInsertionSousActiviteIndicateur(int idoccurencesousactivite)
+    
+    public IActionResult VersInsertionBaseSousActiviteIndicateur(int idoccurencesousactivite, int idoccurenceactivite)
     {
         if (TempData["messageerreur"] != null)
         {
             ViewBag.messageerreur = TempData["messageerreur"];
         }
-        OccurenceSousActivite os = _context
-            .OccurenceSousActivite
-            .First(a => a.Id == idoccurencesousactivite);
-        ViewBag.idoccurenceactivite = os.IdOccurenceActivite;
         ViewBag.idoccurencesousactivite = idoccurencesousactivite;
-        ViewData["listeindicateur"] = _context
-            .TypeIndicateur
-            .OrderByDescending(a => a.Id)
+        ViewBag.idoccurenceactivite = idoccurenceactivite;
+        List<IndicateurSousActivite> liste = _context.IndicateurSousActivite
+            .Where(a => a.IdOccurenceSousActivite == idoccurencesousactivite)
             .ToList();
+        ViewData["liste"] = liste;
         return View("~/Views/SousActiviteIndicateur/Insertion.cshtml");
     }
 
-    public IActionResult Create(string target, int idindicateur, int idoccurencesousactivite, int idoccurenceactivite)
+    public IActionResult versCreateBase(int idoccurencesousactivite, int idoccurenceactivite)
+    {
+        ViewBag.idoccurenceactivite = idoccurenceactivite;
+        ViewBag.idoccurencesousactivite = idoccurencesousactivite;
+        return View("~/Views/SousActiviteIndicateur/CreateBase.cshtml");
+    }
+    
+    public IActionResult CreateBase(int idoccurenceactivite, int idoccurencesousactivite, string nomindicateur)
+    {
+        IndicateurSousActivite ia = new IndicateurSousActivite()
+        {
+            IdOccurenceSousActivite = idoccurencesousactivite,
+            NomIndicateur = nomindicateur
+        };
+        _context.Add(ia);
+        _context.SaveChanges();
+        return RedirectToAction("VersDetailsOccurenceSousActivite","OccurenceSousActivite", new {idoccurenceactivite = idoccurenceactivite, idoccurencesousactivite = idoccurencesousactivite});
+    }
+
+    public IActionResult Create(int idoccurenceactivite, int idoccurencesousactivite, int idindicateur, string target)
     {
         string messageerreur = "";
         try
@@ -45,22 +63,50 @@ public class IndicateurSousActiviteController : Controller
 
         if (messageerreur == "")
         {
-            OccurenceSousActiviteIndicateur os = new OccurenceSousActiviteIndicateur()
+            List<OccurenceSousActiviteIndicateur> last = _context.OccurenceSousActiviteIndicateur
+                .Where(a =>
+                    a.IdIndicateurSousActivite == idindicateur && a.IdOccurenceSousActivite == idoccurencesousactivite)
+                    .ToList();
+            if (last.Count > 0)
             {
-                IdOccurenceSousActivite = idoccurencesousactivite,
-                IdIndicateur = idindicateur,
-                Target = Double.Parse(target)
-            };
-            _context.Add(os);
+                last[0].Target += Double.Parse(target);
+            }
+            else
+            {
+                OccurenceSousActiviteIndicateur oi = new OccurenceSousActiviteIndicateur()
+                {
+                    IdOccurenceSousActivite = idoccurencesousactivite,
+                    IdIndicateurSousActivite = idindicateur,
+                    Target = Double.Parse(target)
+                };
+                _context.Add(oi);
+            }
             _context.SaveChanges();
-            return RedirectToAction("VersDetailsOccurenceSousActivite", "OccurenceSousActivite",
-                new { idoccurencesousactivite = idoccurencesousactivite, idoccurenceactivite = idoccurenceactivite });   
+            return RedirectToAction("VersDetailsOccurenceSousActivite","OccurenceSousActivite", new { idoccurenceactivite = idoccurenceactivite, idoccurencesousactivite = idoccurencesousactivite});
         }
         else
         {
             TempData["messageerreur"] = messageerreur;
-            return RedirectToAction("VersInsertionSousActiviteIndicateur",
-                new { idoccurencesousactivite = idoccurencesousactivite });
+            return RedirectToAction("VersInsertionBaseSousActiviteIndicateur", "IndicateurSousActivite",
+                new { idoccurenceactivite = idoccurenceactivite, idoccurencesousactivite = idoccurencesousactivite });
         }
+    }
+
+    public IActionResult DetailsIndicateurSousActivite(int idoccurencesousactiviteindicateur)
+    {
+        OccurenceSousActiviteIndicateur oai = _context
+            .OccurenceSousActiviteIndicateur
+            .Include(a => a.IndicateurSousActivite)
+            .First(a => a.Id == idoccurencesousactiviteindicateur);
+        List<TargetTechnicienIndicateurSousActivite> liste = _context.TargetTechnicienIndicateurSousActivite
+            .Include(a => a.Technicien)
+            .Where(a => a.IdIndicateurSousActivite == oai.IdIndicateurSousActivite)
+            .ToList();
+        ViewData["indicateur"] = oai;
+        ViewData["liste"] = liste;
+        ViewBag.idoccurencesousactivite = oai.IdOccurenceSousActivite;
+        ViewBag.idoccurenceactivite = _context.OccurenceSousActivite
+            .First(a => a.Id == oai.IdOccurenceSousActivite).IdOccurenceActivite;
+        return View("~/Views/SousActiviteIndicateur/Details.cshtml");
     }
 }

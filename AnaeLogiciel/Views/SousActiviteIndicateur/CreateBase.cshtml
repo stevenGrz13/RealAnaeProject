@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    int idoccurencesousactivite = ViewBag.idoccurencesousactivite;
+    int idoccurenceactivite = ViewBag.idoccurenceactivite;
+}
+
+<h2>Insérer un Indicateur</h2>
+<br>
+
+<form action="/IndicateurSousActivite/CreateBase" class="form">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+
+    <div class="form-group">
+        <label for="nomindicateur">Nom de l'Indicateur :</label>
+        <input type="text" name="nomindicateur" id="nomindicateur" placeholder="Nom de l'Indicateur" class="form-control">
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Insérer</button>
+</form>
+<br>
+<button type="submit" class="btn btn-secondary">Retour</button>

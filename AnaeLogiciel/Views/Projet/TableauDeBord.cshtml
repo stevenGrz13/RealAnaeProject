@@ -5,12 +5,24 @@
     List<Vsommepaiementsousactivite> listesousactivite = ViewData["listesousactivite"] as List<Vsommepaiementsousactivite>;
 }
 
-<h2>Tableau de bord</h2>
+<form action="/TableauDeBordProjet/VersTableau" class="mb-3">
+    <div class="d-flex align-items-center justify-content-between">
+        <h2>Tableau de bord</h2>
+        <div class="d-flex align-items-center">
+            <select name="iddevise" id="iddevise" class="form-select me-2">
+                <option value="1">Ariary</option>
+                <option value="2">Dollar</option>
+                <option value="3">Euro</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Valider</button>
+        </div>
+    </div>
+</form>
 
 <table class="table">
     <thead>
     <tr>
-        <th>Activite</th>
+        <th>Activité</th>
         <th>Montant</th>
     </tr>
     </thead>
@@ -30,7 +42,7 @@
 <table class="table">
     <thead>
     <tr>
-        <th>Sous Activite</th>
+        <th>Sous Activité</th>
         <th>Montant</th>
     </tr>
     </thead>
@@ -56,7 +68,7 @@
         <td>@ViewBag.budget.ToString("N0") Ar</td>
     </tr>
     <tr>
-        <td>Depense</td>
+        <td>Dépense</td>
         <td>@ViewBag.depense.ToString("N0") Ar</td>
     </tr>
     <tr>
@@ -68,7 +80,7 @@
 
 <br>
 
-<form action="/Projet/RetourVersDetails">
+<form action="/Projet/RetourVersDetails" class="mb-3">
     <input type="hidden" name="idprojet" value="@Context.Session.GetInt32("idprojet")">
     <button class="btn btn-secondary">Retour</button>
 </form>

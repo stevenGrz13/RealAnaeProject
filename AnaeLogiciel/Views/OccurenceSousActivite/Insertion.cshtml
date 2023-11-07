@@ -2,7 +2,6 @@
     ViewBag.Title = "title";
     int idoccurenceactivite = ViewBag.idoccurenceactivite;
     Layout = "_LayoutGlobalProject";
-    List<SousActivite> liste = ViewData["listesousactivite"] as List<SousActivite>;
 }
 
 <p style="color: red;">@ViewBag.messageerreur</p>
@@ -12,9 +11,8 @@
         <div class="col-md-12">
             <form action="/OccurenceSousActivite/Create" method="post" class="my-4">
                 <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
-              
                 <div class="form-group">
-                    <label for="details">Details:</label>
+                    <label for="details">Nom:</label>
                     <textarea class="form-control" id="details" name="details" rows="4"></textarea>
                 </div>
                 

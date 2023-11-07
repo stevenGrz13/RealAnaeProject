@@ -2,6 +2,7 @@
 using System.Net.Mail;
 using System.Security.Cryptography;
 using AnaeLogiciel.Controllers;
+using AnaeLogiciel.Data;
 using AnaeLogiciel.Models;
 using SQLitePCL;
 
@@ -169,5 +170,116 @@ public class Fonction
         res = SecureDate(debut1,fin2);
         
         return res;
+    }
+
+    public static void Action(int idprojet, ApplicationDbContext _context)
+    {
+        Console.WriteLine("MANDALO ATO AMLE FONCTION");
+        Projet projet = _context.Projet
+            .First(a => a.Id == idprojet);
+        List<OccurenceActivite> listeactivite = new List<OccurenceActivite>();
+        
+        List<OccurenceResultat> listeresultat = _context.OccurenceResultat
+            .Where(a => a.IdProjet == idprojet)
+            .ToList();
+
+        foreach (var v in listeresultat)
+        {
+            listeactivite.AddRange(_context.OccurenceActivite
+                .Where(a => a.IdOccurenceResultat == v.Id));
+        }
+
+        foreach (var v in listeactivite)
+        {
+            OccurenceActivite oa = _context.OccurenceActivite
+                .First(a => a.Id == v.Id);
+            double moyenneparactivite = 0;
+            List<OccurenceActiviteIndicateur> listeindicateuractivite = _context.OccurenceActiviteIndicateur
+                .Where(a => a.IdOccurenceActivite == v.Id)
+                .ToList();
+            double[] moyenneparindicateur = new double[listeindicateuractivite.Count];
+            int j = 0;
+            foreach (var z in listeindicateuractivite)
+            {
+                double somme = 0;
+                List<RapportIndicateurActivite> listerapportactivite = _context.RapportIndicateurActivite
+                    .Where(a => a.IdIndicateurActivite == z.IdIndicateurActivite)
+                    .ToList();
+                for (int i = 0; i < listerapportactivite.Count; i++)
+                {
+                    somme += listerapportactivite[i].QuantiteEffectue;
+                }
+
+                if (somme == 0)
+                {
+                    moyenneparindicateur[j] = somme;
+                }
+                if (somme > 0)
+                {
+                    moyenneparindicateur[j] = (somme * 100) / z.Target;
+                }
+            }
+
+            double newmoyenne = 0;
+            
+            for (int i = 0; i < listeindicateuractivite.Count; i++)
+            {
+                newmoyenne += moyenneparindicateur[i];
+            }
+
+            moyenneparactivite = newmoyenne / moyenneparindicateur.Length;
+            if (Double.IsNaN(moyenneparactivite))
+            {
+                oa.Avancement = 0;
+            }
+            else
+            {
+                oa.Avancement = moyenneparactivite;
+            }
+            _context.SaveChanges();
+        }
+
+        double moyenneparresultat = 0;
+        foreach (var v in listeresultat)
+        {
+            OccurenceResultat or = _context.OccurenceResultat
+                .First(a => a.Id == v.Id);
+            List<OccurenceActivite> liste = _context.OccurenceActivite
+                .Where(a => a.IdOccurenceResultat == v.Id)
+                .ToList();
+            foreach (var z in liste)
+            {
+                moyenneparresultat += z.Avancement;
+            }
+
+            moyenneparresultat = moyenneparresultat / liste.Count;
+            if (Double.IsNaN(moyenneparresultat))
+            {
+                or.Avancement = 0;
+            }
+            else
+            {
+                or.Avancement = moyenneparresultat;
+            }
+            _context.SaveChanges();
+        }
+
+        double moyenneduprojet = 0;
+        foreach (var v in listeresultat)
+        {
+            moyenneduprojet += v.Avancement;
+        }
+
+        moyenneduprojet = moyenneduprojet / listeresultat.Count;
+        if (Double.IsNaN(moyenneduprojet))
+        {
+            projet.Avancement = 0;
+        }
+        else
+        {
+            projet.Avancement = moyenneduprojet;
+        }
+        _context.SaveChanges();
+        Console.WriteLine("DE MIVOKA AVEO");
     }
 }

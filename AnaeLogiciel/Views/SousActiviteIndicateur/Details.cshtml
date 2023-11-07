@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    List<TargetTechnicienIndicateurSousActivite> liste = ViewData["liste"] as List<TargetTechnicienIndicateurSousActivite>;
+    OccurenceSousActiviteIndicateur oai = ViewData["indicateur"] as OccurenceSousActiviteIndicateur;
+    int idoccurenceactivite = ViewBag.idoccurenceactivite;
+    int idoccurencesousactivite = ViewBag.idoccurencesousactivite;
+}
+
+<h3>Objectif par technicien</h3>
+<br>
+Indicateur : @oai.IndicateurSousActivite.NomIndicateur
+<br>
+<br>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Technicien</th>
+        <th>Objectif</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var v in liste)
+    {
+        <tr>
+            <td>@v.Technicien.Email</td>
+            <td>@v.Target</td>
+            <td>
+                <form action="/TravailTechnicienSousActivite/versCreateActionSousActivite">
+                    <input type="hidden" name="idindicateur" value="@oai.IdIndicateurSousActivite">
+                    <input type="hidden" name="idtechnicien" value="@v.IdTechnicien">
+                    <button type="submit" class="btn btn-primary">Action</button>
+                </form>
+            </td>
+            <td>
+                <form action="/TravailTechnicienSousActivite/versListeActionSousActivite">
+                    <input type="hidden" name="idindicateur" value="@oai.IdIndicateurSousActivite">
+                    <input type="hidden" name="idtechnicien" value="@v.IdTechnicien">
+                    <button type="submit" class="btn btn-primary">Liste Actions</button>
+                </form>
+            </td>
+        </tr>   
+    }
+    </tbody>
+</table>
+<br>
+<table>
+    <thead>
+    <tr>
+        <th>
+            <form action="/TravailTechnicienSousActivite/AttributionTravailSousActivite">
+                <input type="hidden" name="idoccurencesousactiviteindicateur" value="@oai.Id">
+                <button type="submit" class="btn btn-primary">Attribuer nouveau travail</button>
+            </form>    
+        </th>
+        <th>
+            <form action="/OccurenceSousActivite/VersDetailsOccurenceSousActivite">
+                <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+                <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+                <button type="submit" class="btn btn-secondary">Retour</button>
+            </form>
+        </th>
+    </tr>
+    </thead>
+</table>

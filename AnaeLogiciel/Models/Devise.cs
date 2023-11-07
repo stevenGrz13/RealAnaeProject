@@ -13,6 +13,6 @@ public class Devise
     [Column("nom")]
     public string Nom { get; set; }
     
-    [Column("value")]
-    public double Value { get; set; }
+    [Column("valeur")]
+    public double Valeur { get; set; }
 }

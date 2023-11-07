@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    List<RapportIndicateurActivite> liste = ViewData["liste"] as List<RapportIndicateurActivite>;
+}
+
+<h2>Liste Actions</h2>
+<br>
+<div class="row">
+    <div class="col-md-6">
+        <p>Technicien : @ViewBag.technicien</p>
+        <p>Indicateur : @ViewBag.indicateur</p>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Quantité Effectuée</th>
+            <th>Date de Début</th>
+            <th>Date de Fin</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in liste)
+        {
+            <tr>
+                <td>@v.QuantiteEffectue</td>
+                <td>@v.DateDebut</td>
+                <td>@v.DateFin</td>
+            </tr>
+        }
+    </tbody>
+</table>

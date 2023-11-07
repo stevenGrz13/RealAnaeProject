@@ -1,23 +1,18 @@
 ﻿@{
     ViewBag.Title = "title";
     Layout = "_LayoutGlobalProject";
-    List<PartenaireTechnique> liste = ViewData["listepartenaire"] as List<PartenaireTechnique>;
     int idprojet = ViewBag.idprojet;
 }
 
-<h3>Choisir:</h3>
+<h3>Partenaire Technique:</h3>
 <br>
 <form action="/Projet/InsertionPartenaire">
     <input type="hidden" name="idprojet" value="@idprojet">
     <table class="table">
         <thead>
-        @foreach (var v in liste)
-        {
-            <tr>
-                <td>@v.Nom</td>
-                <td><input type="checkbox" name="idpartenaire" value="@v.Id"></td>
-            </tr>
-        }
+        <tr>
+            <input type="text" name="partenairetechnique" placeholder="Partenaire">
+        </tr>
         </thead>
     </table>
     <button type="submit" class="btn btn-primary">Ajouter</button>

@@ -44,10 +44,13 @@ public class Projet
     public string Sigle { get; set; }
     
     [Column("reference")]
-    public int Reference { get; set; }
+    public string Reference { get; set; }
     
     [Column("issupp")]
     public bool IsSupp { get; set; }
+    
+    [Column("valeurdevise")]
+    public double ValeurDevise { get; set; }
     
     [NotMapped]
     public string Couleur { get; set; }

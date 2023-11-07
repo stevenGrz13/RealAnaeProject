@@ -1,7 +1,6 @@
 ﻿@{
     Layout = "_LayoutGlobalProject";
     int idoccurenceresultat = ViewBag.idoccurenceresultat;
-    List<Activite> liste = ViewData["listeactivite"] as List<Activite>;
     int idprojet = ViewBag.idprojet;
 }
 
@@ -14,7 +13,7 @@
                 <input type="hidden" name="idoccurenceresultat" value="@idoccurenceresultat">
                 
                 <div class="form-group">
-                    <label for="details">Details:</label>
+                    <label for="details">Nom:</label>
                     <textarea class="form-control" id="details" name="details" rows="4"></textarea>
                 </div>
                 

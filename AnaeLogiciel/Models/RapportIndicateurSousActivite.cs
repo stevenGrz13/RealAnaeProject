@@ -15,26 +15,22 @@ public class RapportIndicateurSousActivite
     [DisplayName("technicien")]
     public int IdTechnicien { get; set; }
     
-    [Column("idsitesousactivite")]
-    [DisplayName("sitesousactivite")]
-    public int IdSiteSousActivite { get; set; }
+    [Column("idindicateursousactivite")]
+    [DisplayName("indicateursousactivite")]
+    public int IdIndicateurSousActivite { get; set; }
     
-    [Column("idindicateur")]
-    [DisplayName("typeindicateur")]
-    public int IdIndicateur { get; set; }
+    [Column("quantiteeffectue")]
+    public double QuantiteEffectue { get; set; }
     
-    [Column("quantite")]
-    public double Quantite { get; set; }
+    [Column("datedebut")]
+    public DateOnly DateDebut { get; set; }
     
-    [Column("dateaction")]
-    public DateOnly DateAction { get; set; }
+    [Column("datefin")]
+    public DateOnly DateFin { get; set; }
     
     [ForeignKey("IdTechnicien")]
     public virtual Technicien? Technicien { get; set; }
     
-    [ForeignKey("IdSiteSousActivite")]
-    public virtual SiteSousActivite? SitesousActivite { get; set; }
-    
-    [ForeignKey("IdIndicateur")]
-    public virtual TypeIndicateur? TypeIndicateur { get; set; }
+    [ForeignKey("IdIndicateurSousActivite")]
+    public virtual IndicateurSousActivite? IndicateurSousActivite { get; set; }
 }
