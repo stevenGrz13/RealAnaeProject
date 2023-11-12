@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    List<Site> listesite = ViewData["listesite"] as List<Site>;
+}
+
+<h2>Liste Sites</h2>
+<br>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Region</th>
+        <th>Disctrict</th>
+        <th>Commune</th>
+        <th>Details</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var v in listesite)
+    {
+        <tr>
+            <td>@v.Region.Nom</td>
+            <td>@v.District.Libelle</td>
+            <td>@v.Commune.Nom</td>
+            <td>@v.Details</td>
+            <td>
+                <form action="/Site/VersMap">
+                    <input type="hidden" name="idsite" value="@v.Id">
+                    <button type="submit" class="btn btn-primary">MAP</button>
+                </form>
+            </td>
+        </tr>   
+    }
+    </tbody>
+</table>
+<br>
+
+<table>
+    <thead>
+    <tr>
+        <th>
+            <form action="/Site/VersInsertion">
+                <button type="submit" class="btn btn-primary">Inserer Nouvelle Site</button>
+            </form>    
+        </th>
+        <th>
+            <form action="/Projet/Details">
+                <input type="hidden" name="idprojet" value="@Context.Session.GetInt32("idprojet").GetValueOrDefault()">
+                <button class="btn btn-secondary">Retour Vers Details Projet</button>
+            </form>
+        </th>
+    </tr>
+    </thead>
+</table>

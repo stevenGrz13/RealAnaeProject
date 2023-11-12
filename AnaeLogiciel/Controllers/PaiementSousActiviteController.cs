@@ -15,14 +15,22 @@ public class PaiementSousActiviteController : Controller
         _context = context;
     }
 
-    public IActionResult VersListePaiementSousActivite(int idoccurencesousactivite)
+    public IActionResult VersListePaiementSousActivite(int idoccurencesousactivite, int? iddevise)
     {
+        if (iddevise == null)
+        {
+            iddevise = 1;
+        }
+        int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
+        Projet projet = _context.Projet
+            .Include(a => a.Devise)
+            .First(a => a.Id == idprojet);
+        ViewBag.nomdevise = projet.Devise.Nom;
         List<PaiementOccurenceSousActivite> liste = _context
             .PaiementOccurenceSousActivite
             .Include(a => a.Technicien)
             .Where(a => a.IdOccurenceSousActivite == idoccurencesousactivite)
             .ToList();
-        ViewData["listepaiement"] = liste;
         ViewBag.idoccurencesousactivite = idoccurencesousactivite;
         OccurenceSousActivite os = _context.OccurenceSousActivite
             .First(a => a.Id == idoccurencesousactivite);
@@ -35,9 +43,26 @@ public class PaiementSousActiviteController : Controller
         }
 
         reste = os.Budget - total;
-        ViewBag.total = total;
-        ViewBag.budget = os.Budget;
-        ViewBag.reste = reste;
+
+        if (iddevise == 1)
+        {
+            ViewBag.total = total;
+            ViewBag.budget = os.Budget;
+            ViewBag.reste = reste;
+        }
+        else
+        {
+            foreach (var v in liste)
+            {
+                v.Montant = v.Montant / projet.ValeurDevise;
+            }
+            ViewBag.total = total / projet.ValeurDevise;
+            ViewBag.budget = os.Budget / projet.ValeurDevise;
+            ViewBag.reste = reste / projet.ValeurDevise;   
+        }
+        
+        ViewData["listepaiement"] = liste;
+        
         string messageerreur = "";
         if (reste < 0)
         {
@@ -46,6 +71,13 @@ public class PaiementSousActiviteController : Controller
 
         ViewBag.messageerreur = messageerreur;
         ViewBag.idoccurenceactivite = os.IdOccurenceActivite;
+        List<Devise> listedevise = _context.Devise
+            .Where(a => a.Id == projet.IdDevise)
+            .ToList();
+        Devise ariary = _context.Devise.First(a => a.Id == 1);
+        listedevise.Add(ariary);
+        ViewData["listedevise"] = listedevise;
+
         return View("~/Views/PaiementSousActivite/Liste.cshtml");
     }
 
@@ -67,6 +99,9 @@ public class PaiementSousActiviteController : Controller
 
     public IActionResult Create(int idoccurencesousactivite, int idtechnicien, string montant, string motif, DateOnly dateaction)
     {
+        int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
+        Projet projet = _context.Projet
+            .First(a => a.Id == idprojet);
         string messageerreur = "";
         try
         {
@@ -83,7 +118,7 @@ public class PaiementSousActiviteController : Controller
             {
                 IdOccurenceSousActivite = idoccurencesousactivite,
                 IdTechnicien = idtechnicien,
-                Montant = Double.Parse(montant),
+                Montant = Double.Parse(montant) * projet.ValeurDevise,
                 Motif = motif,
                 DateAction = dateaction
             };

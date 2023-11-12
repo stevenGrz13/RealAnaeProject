@@ -87,10 +87,23 @@ $(document).ready(function () {
                 <dd class="col-sm-9">@Model.Budget.ToString("N0") Ar</dd>
                 <hr />
                 
-                <dt class="col-sm-3"></dt>
-                <form action="/TableauDeBordProjet/VersTableau">
-                    <dd class="col-sm-9"><button type="submit" class="btn btn-primary">tableau de bord budgetaire</button></dd>
-                </form>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>
+                            <form action="/TableauDeBordProjet/VersTableau">
+                                <dd class="col-sm-9"><button type="submit" class="btn btn-primary">Tableau de bord budgetaire</button></dd>
+                            </form>
+                        </th>
+                        <th>
+                            <form action="/Site/VersListeSiteProjet">
+                                <dd class="col-sm-9"><button type="submit" class="btn btn-primary">Etat des Sites</button></dd>
+                            </form>
+                        </th>
+                    </tr>
+                    </thead>
+                </table>
+                
             </dl>
         </div>
 
@@ -186,12 +199,6 @@ $(document).ready(function () {
                 <form action="/OccurenceActivite/ListeOccurenceActivites">
                     <input type="hidden" name="idoccurenceresultat" value="@v.Id">
                     <button type="submit" class="btn btn-link">Liste activités</button>
-                </form>
-            </td>
-            <td>
-                <form action="/OccurenceActivite/VersInsertionOccurenceActivite">
-                    <input type="hidden" name="idoccurenceresultat" value="@v.Id">
-                    <button type="submit" class="btn btn-link">Ajouter activité</button>
                 </form>
             </td>
             <td>

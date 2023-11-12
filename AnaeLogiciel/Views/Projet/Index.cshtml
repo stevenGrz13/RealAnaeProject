@@ -1,14 +1,17 @@
+<style>
+    .cadre-liste {
+        border: 1px solid #ccc;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 20px; /* Ajustez la marge selon vos besoins */
+    }
+</style>
+
 @{
     ViewData["Title"] = "Index";
     var model = ViewData["listeprojet"] as PagedList<Projet>;
 }
-
-<p>
-    <a asp-action="Create">Nouveau Projet</a>
-</p>
-
-<p style="color: red;">@ViewBag.messageerreur</p>
-
+<h3>Liste Projets</h3>
 <br>
 <form action="/Projet/Index">
     <div class="input-group mb-3">
@@ -19,37 +22,45 @@
     </div>
 </form>
 <br>
+<p>
+    <form action="/Projet/Create">
+        <button type="submit" class="btn btn-primary">Nouveau Projet</button>
+    </form>
+</p>
 
-<table class="table">
-    <thead class="thead-dark">
-    <tr>
-        <th>Sigle</th>
-        <th>Debut Prevision</th>
-        <th>Fin Prevision</th>
-        <th>Avancement</th>
-        <th></th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-        @foreach (var v in model.Items)
-        {
+<div class="cadre-liste">
+    <table class="table">
+        <thead class="thead-dark">
             <tr>
-                <td>@v.Sigle</td>
-                <td>@v.DateDebutPrevision</td>
-                <td>@v.DateFinPrevision</td>
-                <td>
-                  <progress id="file" value="@v.Avancement.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)" max="100"> @v.Avancement.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) % </progress>
-                </td>
-                <form action="/Projet/Details">
-                    <input type="hidden" name="idprojet" value="@v.Id">
-                    <td><input type="submit" value="details"></td>
-                </form>
+                <th>Sigle</th>
+                <th>Debut Prevision</th>
+                <th>Fin Prevision</th>
+                <th>Avancement</th>
+                <th></th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
-<nav>
+        </thead>
+        <tbody>
+            @foreach (var v in model.Items)
+            {
+                <tr>
+                    <td>@v.Sigle</td>
+                    <td>@v.DateDebutPrevision</td>
+                    <td>@v.DateFinPrevision</td>
+                    <td>
+                        <progress id="file" value="@v.Avancement.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)" max="100"> @v.Avancement.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) % </progress>
+                    </td>
+                    <td>
+                        <form action="/Projet/Details">
+                            <input type="hidden" name="idprojet" value="@v.Id">
+                            <td><input type="submit" value="details"></td>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <nav>
         <ul class="pagination">
             @if (model.HasPreviousPage)
             {
@@ -71,3 +82,4 @@
             }
         </ul>
     </nav>
+</div>

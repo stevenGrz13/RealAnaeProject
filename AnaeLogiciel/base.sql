@@ -62,8 +62,7 @@ drop table partenaire cascade;
 drop table composant cascade;
 drop table bailleur cascade; 
 drop table resultat cascade; 
-drop table sitesousactivite cascade;
-drop table siteactivite cascade;
+drop table site cascade;
 drop table indicateurtechniciensiteactivite cascade;    
 drop table indicateurtechniciensitesousactivite cascade;
 drop table occurenceactiviteindicateur cascade;
@@ -93,6 +92,7 @@ drop table targettechnicienindicateuractivite cascade;
 drop table targettechnicienindicateursousactivite cascade;
 drop table rapportacteuractivite cascade;
 drop table rapportacteursousactivite cascade;
+drop table siteactivite cascade;
 
 create table bailleur(
     id serial not null,
@@ -111,9 +111,9 @@ create table devise(
                        primary key(id)
 );
 
-insert into devise(nom) values ('Euro');
-insert into devise(nom) values ('Dollar');
-insert into devise(nom) values ('Ariary');
+insert into devise(nom,valeur) values ('Ariary',1);
+insert into devise(nom,valeur) values ('Euro',4800);
+insert into devise(nom,valeur) values ('Dollar',4500);
 
 create table projet(
     id serial not null,
@@ -219,14 +219,12 @@ create table occurencesousactivite(
 create table site(
                      id serial not null,
                      idprojet int not null,
-                     idprovince int not null,
                      idregion int not null,
                      iddistrict int not null,
                      idcommune int not null,
                      details varchar(1000) not null,
                      primary key(id),
                      foreign key(idprojet) references projet(id),
-                     foreign key(idprovince) references province(id),
                      foreign key(idregion) references region(id),
                      foreign key(iddistrict) references district(id),
                      foreign key(idcommune) references commune(id)
@@ -481,7 +479,13 @@ create table rapportacteursousactivite(
     foreign key(idindicateursousactivite) references indicateursousactivite(id)                          
 );
 
-
+create table siteactivite(
+    id serial not null,
+    libelle varchar(2000) not null,
+    idoccurenceactivite int not null,
+    primary key(id),
+    foreign key(idoccurenceactivite) references occurenceactivite(id)
+);
 
 
 

@@ -3,6 +3,7 @@
     Layout = "_LayoutGlobalProject";
     List<Vsommepaiementactivite> listeactivite = ViewData["listeactivite"] as List<Vsommepaiementactivite>;
     List<Vsommepaiementsousactivite> listesousactivite = ViewData["listesousactivite"] as List<Vsommepaiementsousactivite>;
+    List<Devise> listedevise = ViewData["listedevise"] as List<Devise>;
 }
 
 <form action="/TableauDeBordProjet/VersTableau" class="mb-3">
@@ -10,9 +11,10 @@
         <h2>Tableau de bord</h2>
         <div class="d-flex align-items-center">
             <select name="iddevise" id="iddevise" class="form-select me-2">
-                <option value="1">Ariary</option>
-                <option value="2">Dollar</option>
-                <option value="3">Euro</option>
+                @foreach (var v in listedevise)
+                {
+                    <option value="@v.Id">@v.Nom</option>   
+                }
             </select>
             <button type="submit" class="btn btn-primary">Valider</button>
         </div>
@@ -31,7 +33,7 @@
     {
         <tr>
             <td>@v.OccurenceActivite.Details</td>
-            <td>@v.Somme.ToString("N0") Ar</td>
+            <td>@v.Somme.ToString("N0") </td>
         </tr>
     }
     </tbody>
@@ -51,7 +53,7 @@
     {
         <tr>
             <td>@v.OccurenceSousActivite.Details</td>
-            <td>@v.Somme.ToString("N0") Ar</td>
+            <td>@v.Somme.ToString("N0") </td>
         </tr>
     }
     </tbody>
@@ -65,15 +67,15 @@
     <tbody>
     <tr>
         <td>Budget</td>
-        <td>@ViewBag.budget.ToString("N0") Ar</td>
+        <td>@ViewBag.budget.ToString("N0") </td>
     </tr>
     <tr>
         <td>Dépense</td>
-        <td>@ViewBag.depense.ToString("N0") Ar</td>
+        <td>@ViewBag.depense.ToString("N0") </td>
     </tr>
     <tr>
         <td>Reste</td>
-        <td>@ViewBag.reste.ToString("N0") Ar</td>
+        <td>@ViewBag.reste.ToString("N0") </td>
     </tr>
     </tbody>
 </table>

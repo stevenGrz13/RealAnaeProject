@@ -16,6 +16,10 @@ public class TravailTechnicienActiviteController : Controller
 
     public IActionResult AttributionTravailActivite(int idoccurenceactiviteindicateur)
     {
+        if (TempData["messageerreur"] != null)
+        {
+            ViewBag.messageerreur = TempData["messageerreur"];
+        }
         int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
         ViewBag.idoccurenceactiviteindicateur = idoccurenceactiviteindicateur;
         List<TechnicienProjet> liste = _context
@@ -29,31 +33,49 @@ public class TravailTechnicienActiviteController : Controller
 
     public IActionResult Create(int idoccurenceactiviteindicateur, int idtechnicien, string target)
     {
+        string messageerreur = "";
+        try
+        {
+            Double.Parse(target);
+        }
+        catch (Exception e)
+        {
+            messageerreur += "- target invalide -";
+        }
         int idindicateur = _context.OccurenceActiviteIndicateur
             .First(a => a.Id == idoccurenceactiviteindicateur)
             .IdIndicateurActivite;
-        TargetTechnicienIndicateurActivite tg = new TargetTechnicienIndicateurActivite()
+        if (messageerreur == "")
         {
-            IdIndicateurActivite = idindicateur,
-            IdTechnicien = idtechnicien,
-            Target = Double.Parse(target)
-        };
-        _context.Add(tg);
-        _context.SaveChanges();
+            TargetTechnicienIndicateurActivite tg = new TargetTechnicienIndicateurActivite()
+            {
+                IdIndicateurActivite = idindicateur,
+                IdTechnicien = idtechnicien,
+                Target = Double.Parse(target)
+            };
+            _context.Add(tg);
+            _context.SaveChanges();   
+        }
+        else
+        {
+            TempData["messageerreur"] = messageerreur;
+            return RedirectToAction("AttributionTravailActivite", new { idoccurenceactiviteindicateur = idoccurenceactiviteindicateur });
+        }
         return RedirectToAction("DetailsIndicateurActivite", "IndicateurActivite", new { idoccurenceactiviteindicateur = idoccurenceactiviteindicateur});
     }
 
-    public IActionResult versListeActionActivite(int idindicateur, int idtechnicien)
+    public IActionResult versListeActionActivite(int idindicateur, int idtechnicien, int idoccurenceactiviteindicateur)
     {
         List<RapportIndicateurActivite> liste = _context.RapportIndicateurActivite
             .Include(a => a.IndicateurActivite)
             .Where(a => a.IdIndicateurActivite == idindicateur && a.IdTechnicien == idtechnicien)
             .ToList();
         ViewData["liste"] = liste;
+        ViewBag.idoccurenceactiviteindicateur = idoccurenceactiviteindicateur;
         return View("Liste");
     }
     
-    public IActionResult versCreateActionActivite(int idtechnicien, int idindicateur)
+    public IActionResult versCreateActionActivite(int idtechnicien, int idindicateur, int idoccurenceactiviteindicateur)
     {
         if (TempData["messageerreur"] != null)
         {
@@ -61,10 +83,11 @@ public class TravailTechnicienActiviteController : Controller
         }
         ViewBag.idtechnicien = idtechnicien;
         ViewBag.idindicateur = idindicateur;
+        ViewBag.idoccurenceactiviteindicateur = idoccurenceactiviteindicateur;
         return View("ActionActiviteTechnicien");
     }
 
-    public IActionResult CreateWithDate(int idtechnicien, int idindicateur, string quantiteeffectue, DateOnly datedebut, DateOnly datefin)
+    public IActionResult CreateWithDate(int idtechnicien, int idindicateur, string quantiteeffectue, DateOnly datedebut, DateOnly datefin, int idoccurenceactiviteindicateur)
     {
         int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
         string messageerreur = "";
@@ -97,7 +120,7 @@ public class TravailTechnicienActiviteController : Controller
         {
             TempData["messageerreur"] = messageerreur;
             return RedirectToAction("versCreateActionActivite",
-                new { idindicateur = idindicateur, idtechnicien = idtechnicien = 1 });
+                new { idindicateur = idindicateur, idtechnicien = idtechnicien, idoccurenceactiviteindicateur = idoccurenceactiviteindicateur });
         }
     }
 }

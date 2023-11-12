@@ -7,7 +7,8 @@
 
 <h2>Attribution Travail</h2>
 <br>
-
+@ViewBag.messageerreur
+<br>
 <form action="/TravailTechnicienActivite/Create" class="form">
     <input type="hidden" name="idoccurenceactiviteindicateur" value="@idoccurenceactiviteindicateur">
 
@@ -27,4 +28,9 @@
     </div>
     <br>
     <button type="submit" class="btn btn-primary">Attribuer</button>
+</form>
+<br>
+<form action="/IndicateurActivite/DetailsIndicateurActivite">
+    <input type="hidden" name="idoccurenceactiviteindicateur" value="@idoccurenceactiviteindicateur">
+    <button type="submit" class="btn btn-secondary">Retour</button>
 </form>

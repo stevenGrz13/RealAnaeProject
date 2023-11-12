@@ -6,8 +6,8 @@
     double reste = ViewBag.reste;
     double budget = ViewBag.budget;
     double total = ViewBag.total;
-    List<ProlongementBudgetOccurenceActivite> listep = ViewData["listeprolongement"] as List<ProlongementBudgetOccurenceActivite>;
     int idoccurenceresultat = ViewBag.idoccurenceresultat;
+    List<Devise> listedevise = ViewData["listedevise"] as List<Devise>;
 }
 
 <!DOCTYPE html>
@@ -23,35 +23,48 @@
             <button type="submit" class="btn btn-primary">Ajouter mouvement budgetaire</button>
         </form>
 
-        <h3 class="mt-4">LISTE DES MOUVEMENTS</h3>
-
+        <div class="d-flex align-items-center justify-content-between">
+            <h3 class="mt-4">LISTE DES MOUVEMENTS</h3>
+            <form action="/PaiementActivite/VersListePaiementActivite">
+                <div class="d-flex align-items-center">
+                    <select name="iddevise" id="iddevise" class="form-select me-2">
+                        @foreach (var v in listedevise)
+                        {
+                            <option value="@v.Id">@v.Nom</option>
+                        }
+                    </select>
+                    <button type="submit" class="btn btn-primary">Valider</button>
+                </div>
+                <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+            </form>
+        </div>
         <table class="table">
             <thead class="thead-dark">
-                <tr>
-                    <th>Technicien</th>
-                    <th>Motif</th>
-                    <th>Montant</th>
-                </tr>
+            <tr>
+                <th>Technicien</th>
+                <th>Motif</th>
+                <th>Montant</th>
+            </tr>
             </thead>
             <tbody>
-                @foreach (var v in liste)
-                {
-                    <tr>
-                        <td>@v.Technicien.Email</td>
-                        <td>@v.Motif</td>
-                        <td>@v.Montant.ToString("N0") Ar</td>
-                    </tr>
-                }
+            @foreach (var v in liste)
+            {
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td class="font-weight-bold">@total.ToString("N0") Ar</td>
+                    <td>@v.Technicien.Email</td>
+                    <td>@v.Motif</td>
+                    <td>@v.Montant.ToString("N0") </td>
                 </tr>
+            }
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="font-weight-bold">@total.ToString("N0") </td>
+            </tr>
             </tbody>
         </table>
 
-        <p>Budget: <span class="font-weight-bold">@budget.ToString("N0") Ar</span></p>
-        <p>Reste: <span class="font-weight-bold">@reste.ToString("N0") Ar</span></p>
+        <p>Budget: <span class="font-weight-bold">@budget.ToString("N0") </span></p>
+        <p>Reste: <span class="font-weight-bold">@reste.ToString("N0") </span></p>
         <p class="text-danger"><strong>@ViewBag.messageerreur</strong></p>
 
     </div>

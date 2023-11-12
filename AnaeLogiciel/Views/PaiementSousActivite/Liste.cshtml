@@ -7,6 +7,8 @@
     double budget = ViewBag.budget;
     double total = ViewBag.total;
     int idoccurenceactivite = ViewBag.idoccurenceactivite;
+    string nomdevise = ViewBag.nomdevise;
+    List<Devise> listedevise = ViewData["listedevise"] as List<Devise>;
 }
 
 <!DOCTYPE html>
@@ -21,8 +23,22 @@
             <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
             <button type="submit" class="btn btn-primary">Ajouter un Mouvement</button>
         </form>
-
-        <h3 class="mt-4">LISTE DES MOUVEMENTS</h3>
+        
+        <div class="d-flex align-items-center justify-content-between">
+            <h3 class="mt-4">LISTE DES MOUVEMENTS</h3>
+            <form action="/PaiementSousActivite/VersListePaiementSousActivite">
+                <div class="d-flex align-items-center">
+                    <select name="iddevise" id="iddevise" class="form-select me-2">
+                        @foreach (var v in listedevise)
+                        {
+                            <option value="@v.Id">@v.Nom</option>
+                        }
+                    </select>
+                    <button type="submit" class="btn btn-primary">Valider</button>
+                </div>
+                <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+            </form>
+        </div>
 
         <table class="table">
             <thead class="thead-dark">
@@ -38,19 +54,19 @@
                     <tr>
                         <td>@v.Technicien.Email</td>
                         <td>@v.Motif</td>
-                        <td>@v.Montant.ToString("N0") Ar</td>
+                        <td>@v.Montant.ToString("N0") </td>
                     </tr>
                 }
                 <tr>
                     <td></td>
                     <td></td>
-                    <td class="font-weight-bold">@total.ToString("N0") Ar</td>
+                    <td class="font-weight-bold">@total.ToString("N0") </td>
                 </tr>
             </tbody>
         </table>
 
-        <p><strong>Budget:</strong> @budget.ToString("N0") Ar</p>
-        <p><strong>Reste:</strong> @reste.ToString("N0") Ar</p>
+        <p><strong>Budget:</strong> @budget.ToString("N0") </p>
+        <p><strong>Reste:</strong> @reste.ToString("N0") </p>
         <p class="text-danger"><strong>@ViewBag.messageerreur</strong></p>
     </div>
 <br>

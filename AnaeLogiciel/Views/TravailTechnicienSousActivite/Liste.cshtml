@@ -2,6 +2,7 @@
     ViewBag.Title = "title";
     Layout = "_LayoutGlobalProject";
     List<RapportIndicateurSousActivite> liste = ViewData["liste"] as List<RapportIndicateurSousActivite>;
+    int idindicateursousactivite = ViewBag.idindicateursousactivite;
 }
 
 <h2>Liste Actions</h2>
@@ -32,3 +33,8 @@
     }
     </tbody>
 </table>
+<br>
+<form action="/IndicateurSousActivite/DetailsIndicateurSousActivite">
+    <input type="hidden" name="idoccurencesousactiviteindicateur" value="@idindicateursousactivite">
+    <button type="submit" class="btn btn-secondary">Retour</button>
+</form>

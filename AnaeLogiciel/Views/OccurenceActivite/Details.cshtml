@@ -54,6 +54,12 @@
                     <button type="submit" class="btn btn-primary">Nouvelle Indicateur</button>
                 </form>
             </th>
+            <th>
+                <form action="/SiteActivite/VersEtatSiteActivite">
+                    <input type="hidden" name="idoccurenceactivite" value="@oc.Id">
+                    <button type="submit" class="btn btn-primary">Etat Site</button>
+                </form>
+            </th>
         </tr>
         </thead>
     </table>
@@ -65,6 +71,7 @@
         <tr>
             <th>Indicateur</th>
             <th>Objectif</th>
+            <th></th>
             <th></th>
         </tr>
         </thead>
@@ -78,6 +85,11 @@
                     <form action="/IndicateurActivite/DetailsIndicateurActivite">
                         <input type="hidden" name="idoccurenceactiviteindicateur" value="@v.Id">
                         <button type="submit" class="btn btn-primary">Etat</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/">
+                        <button type="submit" class="btn btn-primary">Modifier</button>
                     </form>
                 </td>
             </tr>

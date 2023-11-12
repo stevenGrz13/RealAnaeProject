@@ -3,6 +3,7 @@
     Layout = "_LayoutGlobalProject";
     int idindicateur = ViewBag.idindicateur;
     int idtechnicien = ViewBag.idtechnicien;
+    int idindicateursousactivite = ViewBag.idindicateursousactivite;
 }
 
 <br>
@@ -16,6 +17,7 @@
 <form action="/TravailTechnicienSousActivite/CreateWithDate" class="form">
     <input type="hidden" name="idindicateur" value="@idindicateur">
     <input type="hidden" name="idtechnicien" value="@idtechnicien">
+    <input type="hidden" name="idindicateursousactivite" value="@idindicateursousactivite">
 
     <div class="form-group">
         <label for="quantiteeffectue">Quantité Effectuée :</label>
@@ -31,6 +33,11 @@
         <label for="datefin">Date de Fin :</label>
         <input type="date" name="datefin" id="datefin" class="form-control">
     </div>
-
+    <br>
     <button type="submit" class="btn btn-primary">Ajouter</button>
+</form>
+<br>
+<form action="/IndicateurSousActivite/DetailsIndicateurSousActivite">
+    <input type="hidden" name="idoccurencesousactiviteindicateur" value="@idindicateursousactivite">
+    <button type="submit" class="btn btn-secondary">Retour</button>
 </form>

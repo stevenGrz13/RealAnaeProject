@@ -15,10 +15,6 @@ public class Site
     [DisplayName("projet")]
     public int IdProjet { get; set; }
     
-    [Column("idprovince")]
-    [DisplayName("province")]
-    public int IdProvince { get; set; }
-    
     [Column("idregion")]
     [DisplayName("region")]
     public int IdRegion { get; set; }
@@ -36,9 +32,6 @@ public class Site
     
     [ForeignKey("IdProjet")]
     public virtual Projet? Projet { get; set; }
-    
-    [ForeignKey("IdProvince")]
-    public virtual Province? Province { get; set; }
     
     [ForeignKey("IdRegion")]
     public virtual Region? Region { get; set; }

@@ -4,14 +4,14 @@
     int idprojet = ViewBag.idprojet;
 }
 
-<h3>Partenaire Technique:</h3>
-<br>
+<h3>Inserer Partenaire Technique:</h3>
+<hr>
 <form action="/Projet/InsertionPartenaire">
     <input type="hidden" name="idprojet" value="@idprojet">
     <table class="table">
         <thead>
         <tr>
-            <input type="text" name="partenairetechnique" placeholder="Partenaire">
+            <textarea class="form-control" id="partenairetechnique" name="partenairetechnique" rows="4"></textarea>
         </tr>
         </thead>
     </table>

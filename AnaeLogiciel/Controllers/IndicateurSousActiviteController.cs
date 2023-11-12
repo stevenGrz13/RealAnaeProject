@@ -107,6 +107,7 @@ public class IndicateurSousActiviteController : Controller
         ViewBag.idoccurencesousactivite = oai.IdOccurenceSousActivite;
         ViewBag.idoccurenceactivite = _context.OccurenceSousActivite
             .First(a => a.Id == oai.IdOccurenceSousActivite).IdOccurenceActivite;
+        ViewBag.idindicateursousactivite = oai.Id;
         return View("~/Views/SousActiviteIndicateur/Details.cshtml");
     }
 }

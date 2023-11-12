@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    List<SiteActivite> listesite = ViewData["listesite"] as List<SiteActivite>;
+    int idoccurenceactivite = ViewBag.idoccurenceactivite;
+}
+<form action="/SiteActivite/Create">
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModals">
+        Ajouter nouvelle site
+    </button>
+    <div class="modal fade" id="myModals" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Site</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite"> 
+                    <textarea class="form-control" id="libelle" name="libelle" rows="4"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">
+                        Ajouter
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<br>
+<h2>Liste Site</h2>
+<br>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var v in listesite)
+    {
+        <tr>
+            <td>@v.Libelle</td>
+        </tr>
+    }
+    </tbody>
+</table>
+<br>
+<form action="/OccurenceActivite/Details">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <button class="btn btn-secondary">Retour</button>
+</form>

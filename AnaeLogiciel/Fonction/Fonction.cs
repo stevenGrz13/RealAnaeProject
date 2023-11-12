@@ -183,6 +183,8 @@ public class Fonction
             .Where(a => a.IdProjet == idprojet)
             .ToList();
 
+        List<OccurenceSousActivite> listesousactivite = new List<OccurenceSousActivite>();
+        
         foreach (var v in listeresultat)
         {
             listeactivite.AddRange(_context.OccurenceActivite
@@ -236,9 +238,62 @@ public class Fonction
             {
                 oa.Avancement = moyenneparactivite;
             }
+
             _context.SaveChanges();
+
+            List<OccurenceSousActivite> liste = _context.OccurenceSousActivite
+                .Where(a => a.IdOccurenceActivite == v.Id)
+                .ToList();
+            listesousactivite.AddRange(liste);
         }
 
+        foreach (var v in listesousactivite)
+        {
+            List<OccurenceSousActiviteIndicateur> listeindicateur = _context.OccurenceSousActiviteIndicateur
+                .Where(a => a.IdOccurenceSousActivite == v.Id)
+                .ToList();
+            double[] moyenneparindicateur = new double[listeindicateur.Count];
+            int x = 0;
+            foreach (var z in listeindicateur)
+            {
+                double somme = 0;
+                List<RapportIndicateurSousActivite> listerapport = _context.RapportIndicateurSousActivite
+                    .Where(a => a.IdIndicateurSousActivite == z.Id)
+                    .ToList();
+                foreach (var u in listerapport)
+                {
+                    somme += u.QuantiteEffectue;
+                }
+                
+                if (somme == 0)
+                {
+                    moyenneparindicateur[x] = somme;
+                }
+                if (somme > 0)
+                {
+                    moyenneparindicateur[x] = (somme * 100) / z.Target;
+                }
+                x++;
+            }
+
+            double newmoyenne = 0;
+            for (int i = 0; i < moyenneparindicateur.Length; i++)
+            {
+                newmoyenne += moyenneparindicateur[i];
+            }
+
+            if (Double.IsNaN(newmoyenne / moyenneparindicateur.Length))
+            {
+                v.Avancement = 0;   
+            }
+            else
+            {
+                v.Avancement = newmoyenne / moyenneparindicateur.Length;
+            }
+        }
+
+        _context.SaveChanges();
+        
         double moyenneparresultat = 0;
         foreach (var v in listeresultat)
         {
@@ -280,6 +335,34 @@ public class Fonction
             projet.Avancement = moyenneduprojet;
         }
         _context.SaveChanges();
-        Console.WriteLine("DE MIVOKA AVEO");
+
+        foreach (var v in listeactivite)
+        {
+            double finalmoyenne = 0;
+            List<VLienActiviteSousActivite> liste = _context.VLienActiviteSousActivite
+                .Where(a => a.IdOccurenceActivite == v.Id)
+                .ToList();
+            if (liste.Count > 0)
+            {
+                foreach (var z in liste)
+                {
+                    finalmoyenne += z.Avancement;
+                }
+                if(Double.IsNaN(finalmoyenne / liste.Count()))
+                {
+                    v.Avancement = v.Avancement  / 2;   
+                }
+                else
+                {
+                    v.Avancement = (v.Avancement + (finalmoyenne / liste.Count())) / 2;   
+                }
+            }
+            else
+            {
+                v.Avancement = v.Avancement;
+            }
+        }
+
+        _context.SaveChanges();
     }
 }

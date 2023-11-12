@@ -28,7 +28,7 @@ namespace AnaeLogiciel.Controllers
             {
                 page = 1;
             }
-            int pageSize = 3;
+            int pageSize = 5;
             IQueryable<Projet> query;
             if (search == null)
             {

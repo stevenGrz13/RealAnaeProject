@@ -5,19 +5,28 @@
     int idoccurenceactivite = ViewBag.idoccurenceactivite;
 }
 
-<h2>Insérer un Indicateur</h2>
-<br>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title">Insérer un Indicateur</h2>
+        </div>
+        <div class="card-body">
+            <form action="/IndicateurSousActivite/CreateBase" method="post" class="form">
+                <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+                <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
 
-<form action="/IndicateurSousActivite/CreateBase" class="form">
-    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
-    <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
-
-    <div class="form-group">
-        <label for="nomindicateur">Nom de l'Indicateur :</label>
-        <input type="text" name="nomindicateur" id="nomindicateur" placeholder="Nom de l'Indicateur" class="form-control">
+                <div class="form-group">
+                    <input type="text" name="nomindicateur" id="nomindicateur" placeholder="Nom de l'Indicateur" class="form-control" required>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Insérer</button>
+            </form>
+            <br>
+            <form action="/OccurenceSousActivite/VersDetailsOccurenceSousActivite" method="post" class="form">
+                <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+                <input type="hidden" name="idoccurencesousactivite" value="@idoccurencesousactivite">
+                <button type="submit" class="btn btn-secondary">Retour</button>
+            </form>
+        </div>
     </div>
-    <br>
-    <button type="submit" class="btn btn-primary">Insérer</button>
-</form>
-<br>
-<button type="submit" class="btn btn-secondary">Retour</button>
+</div>

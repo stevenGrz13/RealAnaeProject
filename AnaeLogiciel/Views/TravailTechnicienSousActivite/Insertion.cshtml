@@ -4,7 +4,9 @@
     List<TechnicienProjet> liste = ViewData["liste"] as List<TechnicienProjet>;
     int idoccurencesousactiviteindicateur = ViewBag.idoccurencesousactiviteindicateur;
 }
-
+<br>
+@ViewBag.messageerreur
+<br>
 <h2>Attribution Travail</h2>
 <br>
 
@@ -25,6 +27,11 @@
         <label for="target">Objectif :</label>
         <input type="text" name="target" id="target" placeholder="Objectif" class="form-control">
     </div>
-
+    <br>
     <button type="submit" class="btn btn-primary">Attribuer</button>
+</form>
+<br>
+<form action="/IndicateurSousActivite/DetailsIndicateurSousActivite">
+    <input type="hidden" name="idoccurencesousactiviteindicateur" value="@idoccurencesousactiviteindicateur">
+    <button type="submit" class="btn btn-secondary">Retour</button>
 </form>

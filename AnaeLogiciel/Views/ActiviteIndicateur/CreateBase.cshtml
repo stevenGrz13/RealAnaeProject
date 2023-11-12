@@ -5,17 +5,25 @@
 }
 
 <div class="container mt-5">
-    <h3>Insertion Indicateur</h3>
-    <br>
-    <form action="/IndicateurActivite/CreateBase">
-        <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
-
-        <div class="form-group">
-            <label for="idindicateur">Sélectionnez un indicateur</label>
-            
-            <input type="text" name="nomindicateur">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Insertion Indicateur</h3>
         </div>
-        <br>
-        <button type="submit" class="btn btn-primary">Ajouter Indicateur</button>
-    </form>
+        <div class="card-body">
+            <form action="/IndicateurActivite/CreateBase" method="post">
+                <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+
+                <div class="form-group">
+                    <label for="nomindicateur">Ajouter Indicateur</label>
+                    <input type="text" name="nomindicateur" class="form-control" required>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Ajouter Indicateur</button>
+            </form>
+        </div>
+    </div>
 </div>
+<form action="/OccurenceActivite/Details">
+    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+    <button type="submit" class="btn btn-secondary">Retour</button>
+</form>

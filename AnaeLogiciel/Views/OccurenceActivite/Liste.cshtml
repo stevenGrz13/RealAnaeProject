@@ -5,9 +5,8 @@
     int idprojet = Context.Session.GetInt32("idprojet").GetValueOrDefault();
     int idoccurenceresultat = ViewBag.idoccurenceresultat;
 }
-
 <div class="container mt-5">
-    <h2>Liste des Occurences d'Activités</h2>
+    <h2>Liste des activités</h2>
 
     <br>
     <form action="/OccurenceActivite/ListeOccurenceActivites">
@@ -19,13 +18,16 @@
             </div>
         </div>
     </form>
-    <br>
-    
+    <form action="/OccurenceActivite/VersInsertionOccurenceActivite">
+        <input type="hidden" name="idoccurenceresultat" value="@idoccurenceresultat">
+        <button type="submit" class="btn btn-primary">Ajouter activité</button>
+    </form>
     <table class="table mt-3">
         <thead class="thead-dark">
         <tr>
             <th>Activité</th>
             <th>Avancement</th>
+            <th></th>
             <th></th>
             <th></th>
         </tr>

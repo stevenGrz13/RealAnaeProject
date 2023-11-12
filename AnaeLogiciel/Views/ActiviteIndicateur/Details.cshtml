@@ -27,6 +27,7 @@ Indicateur : @oai.IndicateurActivite.NomIndicateur
             <td>@v.Target</td>
             <td>
                 <form action="/TravailTechnicienActivite/versCreateActionActivite">
+                    <input type="hidden" name="idoccurenceactiviteindicateur" value="@oai.Id">
                     <input type="hidden" name="idindicateur" value="@oai.IdIndicateurActivite">
                     <input type="hidden" name="idtechnicien" value="@v.IdTechnicien">
                     <button type="submit" class="btn btn-primary">Action</button>
@@ -34,6 +35,7 @@ Indicateur : @oai.IndicateurActivite.NomIndicateur
             </td>
             <td>
                 <form action="/TravailTechnicienActivite/versListeActionActivite">
+                    <input type="hidden" name="idoccurenceactiviteindicateur" value="@oai.Id">
                     <input type="hidden" name="idindicateur" value="@oai.IdIndicateurActivite">
                     <input type="hidden" name="idtechnicien" value="@v.IdTechnicien">
                     <button type="submit" class="btn btn-primary">Liste Actions</button>

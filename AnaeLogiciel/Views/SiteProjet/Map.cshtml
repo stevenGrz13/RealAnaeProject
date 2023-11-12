@@ -1,0 +1,118 @@
+@{
+    ViewBag.Title = "title";
+    Layout = null;
+    string province = ViewBag.province;
+    string commune = ViewBag.commune;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Recherche de coordonnées géographiques</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <!-- Ajouter le lien vers le fichier CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="text-center mb-4">Emplacement du site</h1>
+
+                <div class="input-group mb-3">
+                    <input type="text" id="cityInput" class="form-control" value="@province,@commune" placeholder="Entrez le nom de la ville">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" onclick="searchCoordinates()">Rechercher</button>
+                    </div>
+                </div>
+
+                <div id="myMap" style="width: 100%; height: 400px;"></div>
+
+                <div class="form-group mt-3">
+                    <input type="text" id="coordinatesInput" class="form-control" placeholder="Coordonnées" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var map;
+        var coordinatesInput = document.getElementById('coordinatesInput');
+        var marker;
+
+        function loadMapScenario() {
+            map = L.map('myMap').setView([-18.8792, 47.5079], 6);
+
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            map.on('click', function(e) {
+                displayCoordinates(e.latlng);
+                addOrUpdateMarker(e.latlng);
+            });
+
+            searchCoordinates();
+        }
+
+        function searchCoordinates() {
+            var city = document.getElementById('cityInput').value;
+            geocodeLocation(city);
+        }
+
+        function geocodeLocation(city) {
+            var geocodeRequest = "https://nominatim.openstreetmap.org/search?format=json&q=" + encodeURIComponent(city);
+            
+            fetch(geocodeRequest)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        var latitude = parseFloat(data[0].lat);
+                        var longitude = parseFloat(data[0].lon);
+
+                        var location = L.latLng(latitude, longitude);
+                        map.setView(location, 12);
+                        displayCoordinates(location);
+                        addOrUpdateMarker(location);
+                    } else {
+                        alert("Ville non trouvée.");
+                    }
+                })
+                .catch(error => console.error("Erreur de géocodage : ", error));
+        }
+
+        function displayCoordinates(location) {
+            var latitude = location.lat.toFixed(6);
+            var longitude = location.lng.toFixed(6);
+
+            coordinatesInput.value = "Latitude : " + latitude + ", Longitude : " + longitude;
+        }
+
+        function addOrUpdateMarker(location) {
+            if (marker) {
+                marker.setLatLng(location);
+            } else {
+                marker = L.marker(location).addTo(map);
+            }
+        }
+
+        window.onload = loadMapScenario;
+    </script>
+
+    <!-- Ajouter les fichiers JavaScript et Popper.js de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    @* <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script> *@
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+<br>
+<center>
+    <form action="/Site/VersListeSiteProjet">
+        <input type="hidden" name="idprojet" value="@Context.Session.GetInt32("idprojet")">
+        <button type="submit" class="btn btn-secondary">Retour</button>
+    </form>
+</center>

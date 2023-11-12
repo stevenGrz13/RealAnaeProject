@@ -4,23 +4,28 @@
     int idoccurenceactivite = ViewBag.idoccurenceactivite;
 }
 
-<h3>Liste Partie Prenante</h3>
-<br>
-<form action="/OccurenceActivite/InsertionPartiePrenante">
-    <table class="table">
-        <thead>
-        <tr>
-            <td>
-                <input type="text" name="partieprenante" placeholder="Partie Prenante">
-            </td>
-        </tr>
-        </thead>
-    </table>
-    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
-    <button type="submit" class="btn btn-primary">Ajouter</button>
-</form>
-<br>
-<form action="/OccurenceActivite/Details">
-    <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
-    <button type="submit" class="btn btn-secondary">Retour</button>
-</form>
+<div class="container mt-5">
+    <h3>Inserer Partie Prenante</h3>
+    <hr>
+
+    <form action="/OccurenceActivite/InsertionPartiePrenante" method="post">
+        <div class="form-group">
+            <label for="partieprenante">Partie Prenante</label>
+            <textarea class="form-control" id="partieprenante" name="partieprenante" rows="4" required></textarea>
+        </div>
+
+        <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+        <br>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+        </div>
+    </form>
+    <br>
+    <form action="/OccurenceActivite/Details">
+        <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-secondary">Retour</button>
+        </div>
+    </form>
+</div>

@@ -5,6 +5,7 @@
     OccurenceSousActiviteIndicateur oai = ViewData["indicateur"] as OccurenceSousActiviteIndicateur;
     int idoccurenceactivite = ViewBag.idoccurenceactivite;
     int idoccurencesousactivite = ViewBag.idoccurencesousactivite;
+    int idindicateursousactivite = ViewBag.idindicateursousactivite;
 }
 
 <h3>Objectif par technicien</h3>
@@ -29,6 +30,7 @@ Indicateur : @oai.IndicateurSousActivite.NomIndicateur
             <td>@v.Target</td>
             <td>
                 <form action="/TravailTechnicienSousActivite/versCreateActionSousActivite">
+                    <input type="hidden" name="idindicateursousactivite" value="@idindicateursousactivite">
                     <input type="hidden" name="idindicateur" value="@oai.IdIndicateurSousActivite">
                     <input type="hidden" name="idtechnicien" value="@v.IdTechnicien">
                     <button type="submit" class="btn btn-primary">Action</button>
@@ -36,6 +38,7 @@ Indicateur : @oai.IndicateurSousActivite.NomIndicateur
             </td>
             <td>
                 <form action="/TravailTechnicienSousActivite/versListeActionSousActivite">
+                    <input type="hidden" name="idindicateursousactivite" value="@idindicateursousactivite">
                     <input type="hidden" name="idindicateur" value="@oai.IdIndicateurSousActivite">
                     <input type="hidden" name="idtechnicien" value="@v.IdTechnicien">
                     <button type="submit" class="btn btn-primary">Liste Actions</button>
