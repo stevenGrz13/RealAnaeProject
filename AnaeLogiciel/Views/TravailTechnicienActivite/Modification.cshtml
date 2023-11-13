@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Modifier Activité";
+    Layout = "_LayoutGlobalProject";
+    TargetTechnicienIndicateurActivite tti = ViewData["targettechnicienindicateur"] as TargetTechnicienIndicateurActivite;
+    int idOccurenceActiviteIndicateur = ViewBag.idoccurenceactiviteindicateur;
+}
+
+<form action="/TravailTechnicienActivite/Modifier" method="post">
+    <input type="hidden" name="idtechnicientarget" value="@tti.Id">
+    <input type="hidden" name="idoccurenceactiviteindicateur" value="@idOccurenceActiviteIndicateur">
+
+    <h2>Modification d'Activité</h2>
+    <p>@ViewBag.messageerreur</p>
+
+    <div>
+        <label for="technicien">Technicien :</label>
+        <span>@tti.Technicien.Email</span>
+    </div>
+    <br>   
+    <div>
+        <label for="target">Nouveau Target :</label>
+        <input type="text" id="target" name="target" value="@tti.Target" placeholder="Entrez le nouveau target">
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Valider</button>
+</form>
+<br>
+<form action="/IndicateurActivite/DetailsIndicateurActivite">
+    <input type="hidden" name="idoccurenceactiviteindicateur" value="@idOccurenceActiviteIndicateur">
+    <button type="submit" class="btn btn-secondary">Retour</button>
+</form>

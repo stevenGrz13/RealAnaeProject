@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Modifier Occurrence";
+    Layout = "_LayoutGlobalProject";
+    OccurenceActiviteIndicateur oai = ViewData["occurenceactiviteindicateur"] as OccurenceActiviteIndicateur;
+}
+
+<div class="container mt-5">
+    <form action="/IndicateurActivite/Modification" method="post">
+        <input type="hidden" name="idoccurenceactiviteindicateur" value="@oai.Id">
+        <h2>Modifier le target</h2>
+        
+        <div class="form-group">
+            @ViewBag.messageerreur
+        </div>
+        
+        <div class="form-group">
+            <label for="target">Nouveau Target :</label>
+            <input type="text" class="form-control" id="target" name="target" value="@oai.Target">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Valider</button>
+    </form>
+
+    <br>
+
+    <form action="/OccurenceActivite/Details">
+        <input type="hidden" name="idoccurenceactivite" value="@oai.IdOccurenceActivite">
+        <button type="submit" class="btn btn-secondary">Retour</button>
+    </form>
+</div>

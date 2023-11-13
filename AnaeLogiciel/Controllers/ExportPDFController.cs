@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Rotativa.AspNetCore;
+using Rotativa.AspNetCore.Options;
+using ContentDisposition = Rotativa.AspNetCore.Options.ContentDisposition;
 using Document = System.Reflection.Metadata.Document;
 
 namespace AnaeLogiciel.Controllers;
@@ -33,129 +35,86 @@ public class ExportPDFController : Controller
         _tempDataProvider = tempDataProvider;
     }
 
-    public IActionResult VersExportProjet(int idprojet)
-    {
-        ViewBag.idprojet = idprojet;
-        return View("~/Views/ExportPDF/Choice.cshtml");
-    }
-
-    public IActionResult VersMainPage(int resultat, int activite, int sousactivite, int budgetresultat, int budgetactivite, int budgetsousactivite)
+    public IActionResult GeneretePDF()
     {
         int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
-        List<OccurenceResultat> resultats = new List<OccurenceResultat>();
-        List<OccurenceActivite> listeoa = new List<OccurenceActivite>();
-        List<OccurenceSousActivite> listeosa = new List<OccurenceSousActivite>();
 
-        Projet projet = _context.Projet.First(a => a.Id == idprojet);
+        Projet projet = _context.Projet
+            .Include(a => a.Bailleur)
+            .Include(a => a.Devise)
+            .First(a => a.Id == idprojet);
+
+        List<ProjetComposant> listecomposant = _context.ProjetComposant
+            .Where(a => a.IdProjet == idprojet)
+            .ToList();
+
+        List<ProjetPartenaireTechnique> listepartenaire = _context
+            .ProjetPartenaireTechnique
+            .Where(a => a.IdProjet == idprojet)
+            .ToList();
+
+        List<Site> listesiteprojet = _context.Site
+            .Include(a => a.Commune)
+            .Include(a => a.Region)
+            .Include(a => a.District)
+            .Where(a => a.IdProjet == idprojet)
+            .ToList();
         
-        if (resultat == 1)
+        if (projet.FinishedOrNot)
         {
-            resultats = _context.OccurenceResultat
-                .Where(a => a.IdProjet == idprojet && a.IsSupp == false)
-                .ToList();
-        }
-
-        if (activite == 1)
-        {
-            foreach (var v in resultats)
+            DateRealisationProjet daterealisaton = _context.DateRealisationProjet
+                .First(a => a.IdProjet == idprojet);
+            var modelPDF = new
             {
-                List<OccurenceActivite> listeoccurenceactivite = _context.OccurenceActivite
-                    .Where(a => a.IdOccurenceResultat == v.Id && a.IsSupp == false)
-                    .OrderBy(a => a.IdOccurenceResultat)
-                    .ToList();
-                listeoa.AddRange(listeoccurenceactivite);
-                if (sousactivite == 1)
-                {
-                    foreach (var z in listeoccurenceactivite)
-                    {
-                        List<OccurenceSousActivite> listeoccurencesousactivite = _context
-                            .OccurenceSousActivite
-                            .Where(a => a.IdOccurenceActivite == z.Id && a.IsSupp == false)
-                            .OrderBy(a => a.IdOccurenceActivite)
-                            .ToList();
-                        listeosa.AddRange(listeoccurencesousactivite);
-                    }
-                }
-            }
-        }
-
-        ViewData["projet"] = projet;
-        ViewData["listeoccurenceresultat"] = resultats;
-        ViewData["listeoccurenceactivite"] = listeoa;
-        ViewData["listeoccurencesousactivite"] = listeosa;
-        return View("MainPage");
-    }
-    
-    public async Task<IActionResult> GeneratePdf()
-    {
-        var tmp = Path.GetTempFileName();
-
-        var req = HttpContext.Request;
-
-        var uri = new Uri($"{req.Scheme}://{req.Host}{req.PathBase}/ExportPDF/");
-        
-        // var uri = new Uri($"{req.Scheme}://{req.Host}{req.PathBase}/ExportPDF/"+value);
-        
-        var browserPath = BrowserFetcher.GetSystemChromePath();
-
-        using var browser = new GcHtmlBrowser(browserPath);
-
-        using var htmlPage = browser.NewPage(uri);
-
-        PdfOptions pdfOptions = new PdfOptions()
-        {
-            PageRanges = "1-100",
-            Margins = new PdfMargins(0.2f),
-            Landscape = false,
-            PreferCSSPageSize = true
-        };
-
-        htmlPage.SaveAsPdf(tmp, pdfOptions);
-        var stream = new MemoryStream();
-        using (var ts = System.IO.File.OpenRead(tmp))
-            ts.CopyTo(stream);
-        System.IO.File.Delete(tmp);
-        return File(stream.ToArray(), MediaTypeNames.Application.Pdf, "document.pdf");
-    }
-    
-    public static string RenderViewToString(ControllerBase controller, string viewName, object model)
-    {
-        var httpContext = new DefaultHttpContext();
-        var actionContext = new ActionContext(httpContext, new RouteData(), new ActionDescriptor());
-    
-        var services = new ServiceCollection()
-            .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
-            .AddScoped<ITempDataProvider, SessionStateTempDataProvider>()
-            .BuildServiceProvider();
-    
-        httpContext.RequestServices = services;
-    
-        var viewEngine = controller.HttpContext.RequestServices.GetService(typeof(ICompositeViewEngine)) as ICompositeViewEngine;
-        var viewResult = viewEngine.FindView(actionContext, viewName, false);
-    
-        if (viewResult.Success)
-        {
-            var viewDictionary = new ViewDataDictionary(new EmptyModelMetadataProvider(), new ModelStateDictionary())
-            {
-                Model = model
+                listesite = listesiteprojet,
+                nomprojet = projet.Nom,
+                sigleprojet = projet.Sigle,
+                deviseprojet = projet.Devise.Nom,
+                valeurdevise = projet.ValeurDevise,
+                composants = listecomposant,
+                bailleur = projet.Bailleur.Nom, 
+                partenaires = listepartenaire,
+                datedebutprevision = projet.DateDebutPrevision,
+                datefinprevision = projet.DateFinPrevision,
+                datedebutrealisation = daterealisaton.DateDebutRealisation,
+                datefinrealisation = daterealisaton.DateFinRealisation,
+                finished = projet.FinishedOrNot
             };
-    
-            using (var writer = new StringWriter())
-            {
-                var viewContext = new ViewContext(
-                    actionContext,
-                    viewResult.View,
-                    viewDictionary,
-                    new TempDataDictionary(httpContext, services.GetRequiredService<ITempDataProvider>()),
-                    writer,
-                    new HtmlHelperOptions()
-                );
-    
-                viewResult.View.RenderAsync(viewContext).GetAwaiter().GetResult();
-                return writer.ToString();
-            }
+
+            var pdfResult = new ViewAsPdf("ITOLEIZY", modelPDF);
+            pdfResult.FileName = $"{projet.Sigle}.pdf";
+
+            pdfResult.PageOrientation = Orientation.Landscape;
+            pdfResult.PageSize = Rotativa.AspNetCore.Options.Size.A4;
+
+            pdfResult.ContentDisposition = ContentDisposition.Attachment;
+            return pdfResult;   
         }
-    
-        return null;
+        else
+        {
+            var modelPDF = new
+            {
+                listesite = listesiteprojet,
+                nomprojet = projet.Nom,
+                sigleprojet = projet.Sigle,
+                deviseprojet = projet.Devise.Nom,
+                valeurdevise = projet.ValeurDevise,
+                composants = listecomposant,
+                bailleur = projet.Bailleur.Nom, 
+                partenaires = listepartenaire,
+                datedebutprevision = projet.DateDebutPrevision,
+                datefinprevision = projet.DateFinPrevision,
+                finished = projet.FinishedOrNot
+            };
+
+            var pdfResult = new ViewAsPdf("ITOLEIZY", modelPDF);
+            pdfResult.FileName = $"{projet.Sigle}.pdf";
+
+            pdfResult.PageOrientation = Orientation.Landscape;
+            pdfResult.PageSize = Rotativa.AspNetCore.Options.Size.A4;
+
+            pdfResult.ContentDisposition = ContentDisposition.Attachment;
+            return pdfResult;
+        }
     }
 }

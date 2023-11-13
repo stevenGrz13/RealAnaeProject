@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Modifier Occurrence";
+    Layout = "_LayoutGlobalProject";
+    OccurenceActivite oa = ViewData["occurenceactivite"] as OccurenceActivite;
+    double devise = ViewBag.devise;
+    int idoccurenceresultat = ViewBag.idoccurenceresultat;
+}
+
+<form method="post" action="/OccurenceActivite/Modifier">
+    <input type="hidden" name="idoccurenceactivite" value="@oa.Id">
+    
+    <h2>Modification</h2>
+
+    <br>
+    @ViewBag.messageerreur
+    <br>
+    
+    <label for="details">Détails :</label>
+    <textarea class="form-control" id="details" name="details" rows="4">@oa.Details</textarea>
+    
+    <label for="budget">Budget :</label>
+    <input type="text" id="budget" name="budget" value="@devise" placeholder="Saisissez le budget">
+    
+    <label for="datedebut">Date de début :</label>
+    <input type="date" id="datedebut" name="datedebut" value="@oa.DateDebut.ToString("yyyy-MM-dd")">
+    
+    <label for="datefin">Date de fin :</label>
+    <input type="date" id="datefin" name="datefin" value="@oa.DateFin.ToString("yyyy-MM-dd")">
+    
+    <button type="submit" class="btn btn-primary">Valider</button>
+</form>
+<br>
+<form action="/OccurenceActivite/ListeOccurenceActivites">
+    <input type="hidden" name="idoccurenceresultat" value="@idoccurenceresultat">
+    <button type="submit" class="btn btn-secondary">Retour</button>
+</form>

@@ -28,6 +28,7 @@
             <th>Avancement</th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -51,6 +52,12 @@
                     <form action="/PaiementSousActivite/VersListePaiementSousActivite">
                         <input type="hidden" name="idoccurencesousactivite" value="@v.Id">
                         <button type="submit" class="btn btn-link">Execution budgetaire</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/OccurenceSousActivite/VersModif">
+                        <input type="hidden" name="idoccurencesousactivite" value="@v.Id">
+                        <button type="submit" class="btn btn-primary">Modifier</button>
                     </form>
                 </td>
             </tr>

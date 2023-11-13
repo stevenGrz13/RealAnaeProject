@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    OccurenceSousActiviteIndicateur oasi = ViewData["occurencesousactiviteindicateur"] as OccurenceSousActiviteIndicateur;
+}
+
+<form action="/IndicateurSousActivite/Modification">
+    <input type="hidden" name="idoccurencesousactiviteindicateur" value="@oasi.Id">
+    <h2>Modification</h2>
+    @ViewBag.messageerreur
+    <br>
+    <input type="text" name="target" value="@oasi.Target">
+    <br>
+    <button type="submit" class="btn btn-primary">Valider</button>
+</form>
+<br>
+<form action="/OccurenceSousActivite/VersDetailsOccurenceSousActivite">
+    <input type="hidden" name="idoccurenceactivite" value="@oasi.OccurenceSousActivite.IdOccurenceActivite">
+    <input type="hidden" name="idoccurencesousactivite" value="@oasi.IdOccurenceSousActivite">
+    <button type="submit" class="btn btn-secondary">Retour</button>
+</form>

@@ -30,6 +30,7 @@
             <th></th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -58,6 +59,12 @@
                     <form action="/PaiementActivite/VersListePaiementActivite">
                         <input type="hidden" name="idoccurenceactivite" value="@v.Id">
                         <button type="submit" class="btn btn-link">Execution budgetaire</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/OccurenceActivite/VersModif">
+                        <input type="hidden" name="idoccurenceactivite" value="@v.Id">
+                        <button type="submit" class="btn btn-primary">Modifier</button>
                     </form>
                 </td>
             </tr>

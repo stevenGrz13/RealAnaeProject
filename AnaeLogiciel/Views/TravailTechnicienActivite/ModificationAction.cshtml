@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Modifier Action";
+    Layout = "_LayoutGlobalProject";
+    RapportIndicateurActivite action = ViewData["action"] as RapportIndicateurActivite;
+    int idoccurenceactiviteindicateur = ViewBag.idoccurenceactiviteindicateur;
+}
+
+<form action="/TravailTechnicienActivite/ModificationAction" method="post">
+    <input type="hidden" name="idoccurenceactiviteindicateur" value="@idoccurenceactiviteindicateur">
+    <input type="hidden" name="idaction" value="@action.Id">
+
+    @ViewBag.messageerreur
+
+    <div class="container mt-5">
+        <h2>Modifier Action</h2>
+
+        <div class="form-group">
+            <label for="quantiteeffectue">Quantité effectuée :</label>
+            <input type="text" class="form-control" id="quantiteeffectue" name="quantiteeffectue" value="@action.QuantiteEffectue">
+        </div>
+
+        <div class="form-group">
+            <label for="datedebut">Date de début :</label>
+            <input type="date" class="form-control" id="datedebut" name="datedebut" value="@action.DateDebut.ToString("yyyy-MM-dd")">
+        </div>
+
+        <div class="form-group">
+            <label for="datefin">Date de fin :</label>
+            <input type="date" class="form-control" id="datefin" name="datefin" value="@action.DateFin.ToString("yyyy-MM-dd")">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Valider</button>
+    </div>
+</form>
+<br>
+<form action="/TravailTechnicienActivite/versListeActionActivite">
+    <input type="hidden" name="idindicateur" value="@action.IdIndicateurActivite">
+    <input type="hidden" name="idtechnicien" value="@action.IdTechnicien">
+    <input type="hidden" name="idoccurenceactiviteindicateur" value="@idoccurenceactiviteindicateur">
+    <button type="submit" class="btn btn-secondary">Retour</button>
+</form>

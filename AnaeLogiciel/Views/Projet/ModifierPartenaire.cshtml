@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    ProjetPartenaireTechnique pp = ViewData["partenaire"] as ProjetPartenaireTechnique;
+}
+
+<div class="container mt-4">
+    <div class="card col-md-6 mx-auto">
+        <div class="card-body">
+            <form action="/Projet/ModificationPartenaire" method="post">
+                <input type="hidden" name="idpartenaire" value="@pp.Id">
+                <h2 class="card-title mb-4">Modifier</h2>
+
+                <div class="form-group">
+                    <label for="partenaire">Partenaire Technique</label>
+                    <input type="text" class="form-control" name="partenaire" value="@pp.PartenaireTechnique" required>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Valider</button>
+            </form>
+        </div>
+    </div>
+</div>

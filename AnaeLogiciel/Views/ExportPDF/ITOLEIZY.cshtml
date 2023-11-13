@@ -1,0 +1,98 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+<center><h2>ASSOCIATION NATIONALE D'ACTIONS ENVIRONNEMENTALES - ANAE</h2></center>
+<br>
+<table border="1" cellspacing="0" cellpadding="5" width="100%">
+    <tr>
+        <th colspan="2">Informations du Projet</th>
+    </tr>
+    <tr>
+        <td><strong>Nom du Projet:</strong></td>
+        <td>@Model.nomprojet</td>
+    </tr>
+    <tr>
+        <td><strong>Sigle:</strong></td>
+        <td>@Model.sigleprojet</td>
+    </tr>
+    <tr>
+        <td><strong>Date début prévision:</strong></td>
+        <td>@Model.datedebutprevision</td>
+    </tr>
+    <tr>
+        <td><strong>Date fin prévision:</strong></td>
+        <td>@Model.datefinprevision</td>
+    </tr>
+
+    @if (Model.finished)
+    {
+        <tr>
+            <td><strong>Date début réalisation:</strong></td>
+            <td>@Model.datedebutrealisation</td>
+        </tr>
+        <tr>
+            <td><strong>Date fin réalisation:</strong></td>
+            <td>@Model.datefinrealisation</td>
+        </tr>
+    }
+</table>
+
+<br>
+
+<h4>Composants</h4>
+<table border="1" cellspacing="0" cellpadding="5" width="100%">
+    @foreach (var v in Model.composants)
+    {
+        <tr>
+            <td>@v.Composant</td>
+        </tr>
+    }
+</table>
+
+<br>
+
+<h4>Bailleur</h4>
+<p>@Model.bailleur</p>
+
+<br>
+
+<h4>Partenaires Techniques</h4>
+<table border="1" cellspacing="0" cellpadding="5" width="100%">
+    @foreach (var v in Model.partenaires)
+    {
+        <tr>
+            <td>@v.PartenaireTechnique</td>
+        </tr>
+    }
+</table>
+<br>
+<h4>Sites d'intervention</h4>
+<br>
+<table border="1" cellspacing="0" cellpadding="5" width="100%">
+    <tr>
+        <th>Region</th>
+        <th>District</th>
+        <th>Commune</th>
+        <th>Details</th>
+    </tr>
+    @foreach (var v in Model.listesite)
+    {
+        <tr>
+            <td>@v.Region.Nom</td>
+            <td>@v.District.Libelle</td>
+            <td>@v.Commune.Nom</td>
+            <td>@v.Details</td>
+        </tr>
+    }
+</table>
+
+</body>
+</html>

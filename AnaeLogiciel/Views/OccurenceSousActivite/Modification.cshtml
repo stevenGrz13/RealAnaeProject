@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    double devise = ViewBag.devise;
+    OccurenceSousActivite osa = ViewData["occurencesousactivite"] as OccurenceSousActivite;
+}
+
+<form method="post" action="/OccurenceSousActivite/Modifier">
+    <input type="hidden" name="idoccurencesousactivite" value="@osa.Id">
+    
+    <h2>Modification</h2>
+
+    <br>
+    @ViewBag.messageerreur
+    <br>
+    
+    <label for="details">Détails :</label>
+    <textarea class="form-control" id="details" name="details" rows="4">@osa.Details</textarea>
+    
+    <label for="budget">Budget :</label>
+    <input type="text" id="budget" name="budget" value="@devise" placeholder="Saisissez le budget">
+    
+    <label for="datedebut">Date de début :</label>
+    <input type="date" id="datedebut" name="datedebut" value="@osa.DateDebut.ToString("yyyy-MM-dd")">
+    
+    <label for="datefin">Date de fin :</label>
+    <input type="date" id="datefin" name="datefin" value="@osa.DateFin.ToString("yyyy-MM-dd")">
+    
+    <button type="submit" class="btn btn-primary">Valider</button>
+</form>
+<br>
+<form action="/OccurenceSousActivite/ListeOccurenceSousActivite">
+    <input type="hidden" name="idoccurenceactivite" value="@osa.IdOccurenceActivite">
+    <button type="submit" class="btn btn-secondary">Retour</button>
+</form>

@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Modifier Sous-activité";
+    Layout = "_LayoutGlobalProject";
+    TargetTechnicienIndicateurSousActivite targetTechnicien = ViewData["target"] as TargetTechnicienIndicateurSousActivite;
+    int idOccurenceSousActiviteIndicateur = ViewBag.idoccurencesousactiviteindicateur;
+}
+
+<div class="container mt-5">
+    <form action="/TravailTechnicienSousActivite/Modification" method="post">
+        <input type="hidden" name="idoccurencesousactiviteindicateur" value="@idOccurenceSousActiviteIndicateur">
+        <input type="hidden" name="idtargettechnicien" value="@targetTechnicien.Id">
+        
+        <h2>Modifier Sous-activité</h2>
+        
+        <div class="form-group">
+            @ViewBag.messageerreur
+        </div>
+        
+        <div class="form-group">
+            <label for="target">Nouveau Target :</label>
+            <input type="text" class="form-control" id="target" name="target" value="@targetTechnicien.Target">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Valider</button>
+    </form>
+
+    <br>
+
+    <form action="/IndicateurSousActivite/DetailsIndicateurSousActivite">
+        <input type="hidden" name="idoccurencesousactiviteindicateur" value="@idOccurenceSousActiviteIndicateur">
+        <button type="submit" class="btn btn-secondary">Retour</button>
+    </form>
+</div>

@@ -146,4 +146,50 @@ public class OccurenceSousActiviteController : Controller
     {
         return RedirectToAction("ListeOccurenceSousActivite", new { idoccurenceactivite = idoccurenceactivite });
     }
+
+    public IActionResult VersModif(int idoccurencesousactivite)
+    {
+        if (TempData["messageerreur"] != null)
+        {
+            ViewBag.messageerreur = TempData["messageerreur"];
+        }
+        int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
+        ViewBag.devise = _context.Projet.First(a => a.Id == idprojet).ValeurDevise;
+        OccurenceSousActivite osa = _context.OccurenceSousActivite
+            .First(a => a.Id == idoccurencesousactivite);
+        ViewData["occurencesousactivite"] = osa;
+        return View("Modification");
+    }
+
+    public IActionResult Modifier(int idoccurencesousactivite, string details, string budget, DateOnly datedebut, DateOnly datefin)
+    {
+        string messageerreur = "";
+        try
+        {
+            Double.Parse(budget);
+        }
+        catch (Exception e)
+        {
+            messageerreur += "- budget invalide -";
+        }
+
+        if (messageerreur == "")
+        {
+            int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
+            double devise = _context.Projet.First(a => a.Id == idprojet).ValeurDevise;
+            OccurenceSousActivite osa = _context.OccurenceSousActivite
+                .First(a => a.Id == idoccurencesousactivite);
+            osa.Details = details;
+            osa.Budget = Double.Parse(budget) * devise;
+            osa.DateDebut = datedebut;
+            osa.DateFin = datefin;
+            _context.SaveChanges();
+            return RedirectToAction("ListeOccurenceSousActivite", new {idoccurenceactivite = osa.IdOccurenceActivite});
+        }
+        else
+        {
+            TempData["messageerreur"] = messageerreur;
+            return RedirectToAction("VersModif", new {idoccurencesousactivite = idoccurencesousactivite});
+        }
+    }
 }

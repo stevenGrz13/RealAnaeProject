@@ -9,8 +9,8 @@
 <br>
 <div class="row">
     <div class="col-md-6">
-        <p>Technicien : @ViewBag.technicien</p>
-        <p>Indicateur : @ViewBag.indicateur</p>
+        <p>Technicien : @ViewBag.nomtechnicien</p>
+        <p>Indicateur : @ViewBag.nomindicateur</p>
     </div>
 </div>
 
@@ -20,6 +20,7 @@
         <th>Quantité Effectuée</th>
         <th>Date de Début</th>
         <th>Date de Fin</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -29,6 +30,13 @@
             <td>@v.QuantiteEffectue</td>
             <td>@v.DateDebut</td>
             <td>@v.DateFin</td>
+            <td>
+                <form action="/TravailTechnicienSousActivite/VersModifAction">
+                    <input type="hidden" name="idindicateursousactivite" value="@idindicateursousactivite">
+                    <input type="hidden" name="idaction" value="@v.Id">
+                    <button type="submit" class="btn btn-primary">Modifier</button>
+                </form>
+            </td>
         </tr>
     }
     </tbody>

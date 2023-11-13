@@ -101,4 +101,45 @@ public class IndicateurActiviteController : Controller
         ViewData["liste"] = liste;
         return View("~/Views/ActiviteIndicateur/Details.cshtml");
     }
+
+    public IActionResult VersModif(int idoccurenceactiviteindicateur)
+    {
+        if (TempData["messageerreur"] != null)
+        {
+            ViewBag.messageerreur = TempData["messageerreur"];
+        }
+        OccurenceActiviteIndicateur oai = _context.OccurenceActiviteIndicateur
+            .First(a => a.Id == idoccurenceactiviteindicateur);
+        ViewData["occurenceactiviteindicateur"] = oai;
+        return View("~/Views/ActiviteIndicateur/Modification.cshtml");
+    }
+
+    public IActionResult Modification(int idoccurenceactiviteindicateur, string target)
+    {
+        int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
+        string messageerreur = "";
+        try
+        {
+            Double.Parse(target);
+        }
+        catch (Exception e)
+        {
+            messageerreur += "- target invalide -";
+        }
+
+        if (messageerreur == "")
+        {
+            OccurenceActiviteIndicateur oai = _context.OccurenceActiviteIndicateur
+                .First(a => a.Id == idoccurenceactiviteindicateur);
+            oai.Target = Double.Parse(target);
+            _context.SaveChanges();
+            Fonction.Fonction.Action(idprojet,_context);
+            return RedirectToAction("Details","OccurenceActivite", new {idoccurenceactivite = oai.IdOccurenceActivite});
+        }
+        else
+        {
+            TempData["messageerreur"] = messageerreur;
+            return RedirectToAction("VersModif", new { idoccurenceactiviteindicateur =idoccurenceactiviteindicateur});
+        }
+    }
 }

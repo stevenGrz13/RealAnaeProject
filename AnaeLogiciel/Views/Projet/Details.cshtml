@@ -135,6 +135,8 @@ $(document).ready(function () {
         <thead class="thead-dark">
             <tr>
                 <th>Nom</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -142,6 +144,18 @@ $(document).ready(function () {
             {
                 <tr>
                     <td>@v.Composant</td>
+                    <td>
+                        <form action="/Projet/VersModifComposant">
+                            <input type="hidden" name="idcomposant" value="@v.Id">
+                            <button type="submit" class="btn btn-primary">Modifier</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/Projet/SupprimerComposant">
+                            <input type="hidden" name="idcomposant" value="@v.Id">
+                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
                 </tr>
             }
         <tr>
@@ -251,6 +265,8 @@ $(document).ready(function () {
         <thead>
         <tr>
             <th>Nom</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -258,6 +274,18 @@ $(document).ready(function () {
             {
                 <tr>
                     <td>@v.PartenaireTechnique</td>
+                    <td>
+                        <form action="/Projet/VersModifPartenaire">
+                            <input type="hidden" name="idpartenaire" value="@v.Id">
+                            <button type="submit" class="btn btn-primary">Modifier</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/Projet/SupprimerPartenaire">
+                            <input type="hidden" name="idpartenaire" value="@v.Id">
+                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
                 </tr>   
             }
         </tbody>
@@ -270,7 +298,7 @@ $(document).ready(function () {
             <th>
                 <form action="/Prolongement/VersListeProlongementProjet">
                     <input type="hidden" name="idprojet" value="@Model.Id">
-                    <button type="submit" class="btn btn-primary">Etat Prolongement</button>
+                    <button type="submit" class="btn btn-primary">Prolongement</button>
                 </form>
             </th>
             <th>
@@ -280,16 +308,15 @@ $(document).ready(function () {
                 </form>
             </th>
             <th>
-                <form action="/ExportPDF/VersExportProjet">
-                    <input type="hidden" name="idprojet" value="@Model.Id">
-                    <button type="submit" class="btn btn-primary">Vers Export PDF</button>
+                <form action="/ExportPDF/GeneretePDF">
+                    <button type="submit" class="btn btn-primary">Exporter en PDF</button>
                 </form>
             </th>
             <th>
-                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Éditer</a>            
+                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Modifier</a>            
             </th>
             <th>
-                <a asp-action="Index" class="btn btn-secondary">Retour à la liste</a>            
+                <a asp-action="Index" class="btn btn-secondary">Retour</a>            
             </th>
         </tr>
     </table>

@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    ProjetComposant pc = ViewData["projetcomposant"] as ProjetComposant;
+}
+
+<div class="container mt-4">
+    <div class="card col-md-6 mx-auto">
+        <div class="card-body">
+            <form action="/Projet/ModificationComposant" method="post">
+                <input type="hidden" name="idcomposant" value="@pc.Id">
+                <h2 class="card-title mb-4">Modifier</h2>
+
+                <div class="form-group">
+                    <label for="composant">Composant</label>
+                    <input type="text" class="form-control" name="composant" value="@pc.Composant" required>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Valider</button>
+            </form>
+        </div>
+    </div>
+</div>

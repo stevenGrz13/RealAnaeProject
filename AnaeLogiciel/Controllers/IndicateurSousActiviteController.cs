@@ -110,4 +110,46 @@ public class IndicateurSousActiviteController : Controller
         ViewBag.idindicateursousactivite = oai.Id;
         return View("~/Views/SousActiviteIndicateur/Details.cshtml");
     }
+
+    public IActionResult VersModif(int idoccurencesousactiviteindicateur)
+    {
+        if (TempData["messageerreur"] != null)
+        {
+            ViewBag.messageerreur = TempData["messageerreur"];
+        }
+        OccurenceSousActiviteIndicateur oasi = _context.OccurenceSousActiviteIndicateur
+            .Include(a => a.OccurenceSousActivite)
+            .First(a => a.Id == idoccurencesousactiviteindicateur);
+        ViewData["occurencesousactiviteindicateur"] = oasi;
+        return View("~/Views/SousActiviteIndicateur/Modification.cshtml");
+    }
+
+    public IActionResult Modification(int idoccurencesousactiviteindicateur, string target)
+    {
+        string messageerreur = "";
+        try
+        {
+            Double.Parse(target);
+        }
+        catch (Exception e)
+        {
+            messageerreur += "- target invalide -";
+        }
+
+        if (messageerreur == "")
+        {
+            OccurenceSousActiviteIndicateur oasi = _context.OccurenceSousActiviteIndicateur
+                .First(a => a.Id == idoccurencesousactiviteindicateur);
+            OccurenceSousActivite osa = _context.OccurenceSousActivite
+                .First(a => a.Id == oasi.IdOccurenceSousActivite);
+            oasi.Target = Double.Parse(target);
+            _context.SaveChanges();
+            return RedirectToAction("VersDetailsOccurenceSousActivite","OccurenceSousActivite", new {idoccurencesousactivite = oasi.IdOccurenceSousActivite, idoccurenceactivite = osa.IdOccurenceActivite});
+        }
+        else
+        {
+            TempData["messageerreur"] = messageerreur;
+            return RedirectToAction("VersModif", new {idoccurencesousactiviteindicateur = idoccurencesousactiviteindicateur});
+        }
+    }
 }

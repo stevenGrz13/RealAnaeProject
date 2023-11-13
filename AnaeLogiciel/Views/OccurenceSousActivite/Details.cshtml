@@ -50,6 +50,7 @@
             <th>Target</th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -62,6 +63,12 @@
                     <form action="/IndicateurSousActivite/DetailsIndicateurSousActivite">
                         <input type="hidden" name="idoccurencesousactiviteindicateur" value="@v.Id">
                         <button type="submit" class="btn btn-primary">Etat</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/IndicateurSousActivite/VersModif">
+                        <input type="hidden" name="idoccurencesousactiviteindicateur" value="@v.Id">
+                        <button type="submit" class="btn btn-primary">Modifier</button>
                     </form>
                 </td>
             </tr>

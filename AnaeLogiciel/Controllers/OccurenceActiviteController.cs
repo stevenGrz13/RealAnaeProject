@@ -229,4 +229,56 @@ public class OccurenceActiviteController : Controller
         _context.SaveChanges();
         return RedirectToAction("ListeOccurenceActivites", new { idoccurenceresultat = idoccurenceresultat });
     }
+
+    public IActionResult VersModif(int idoccurenceactivite)
+    {
+        if (TempData["messageerreur"] != null)
+        {
+            ViewBag.messageerreur = TempData["messageerreur"];
+        }
+        int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
+        double devise = _context.Projet.First(a => a.Id == idprojet)
+            .ValeurDevise;
+        ViewBag.devise = devise;
+        OccurenceActivite oa = _context.OccurenceActivite
+            .First(a => a.Id == idoccurenceactivite);
+        ViewBag.idoccurenceresultat = oa.IdOccurenceResultat;
+        ViewData["occurenceactivite"] = oa;
+        return View("Modification");
+    }
+
+    public IActionResult Modifier(int idoccurenceactivite, string details, string budget, DateOnly datedebut, DateOnly datefin)
+    {
+        string messageerreur = "";
+        try
+        {
+            Double.Parse(budget);
+        }
+        catch
+        {
+            messageerreur += "- budget invalide -";
+        }
+        int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
+        double valeurdevise = _context.Projet.First(a => a.Id == idprojet).ValeurDevise;
+
+        if (messageerreur == "")
+        {
+            OccurenceActivite oa = _context.OccurenceActivite
+                .First(a => a.Id == idoccurenceactivite);
+
+            oa.Details = details;
+            oa.Budget = Double.Parse(budget) * valeurdevise;
+            oa.DateDebut = datedebut;
+            oa.DateFin = datefin;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("ListeOccurenceActivites", new { idoccurenceresultat = oa.IdOccurenceResultat });   
+        }
+        else
+        {
+            TempData["messageerreur"] = messageerreur;
+            return RedirectToAction("VersModif", new {idoccurenceactivite = idoccurenceactivite});
+        }
+    }
 }

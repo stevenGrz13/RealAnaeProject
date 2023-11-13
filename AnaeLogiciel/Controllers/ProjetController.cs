@@ -364,6 +364,62 @@ namespace AnaeLogiciel.Controllers
         public IActionResult RetourVersDetails(int idprojet)
         {
             return RedirectToAction("Details", new { idprojet = idprojet });
-        } 
+        }
+
+        public IActionResult VersModifComposant(int idcomposant)
+        {
+            ProjetComposant pc = _context.ProjetComposant
+                .First(a => a.Id == idcomposant);
+            ViewData["projetcomposant"] = pc;
+            return View("ModifierComposant");
+        }
+
+        public IActionResult ModificationComposant(int idcomposant, string composant)
+        {
+            int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
+            ProjetComposant pc = _context.ProjetComposant
+                .First(a => a.Id == idcomposant);
+            pc.Composant = composant;
+            _context.SaveChanges();
+            return RedirectToAction("Details", new {idprojet = idprojet});
+        }
+
+        public IActionResult VersModifPartenaire(int idpartenaire)
+        {
+            ProjetPartenaireTechnique pp = _context.ProjetPartenaireTechnique
+                .First(a => a.Id == idpartenaire);
+            ViewData["partenaire"] = pp;
+            return View("ModifierPartenaire");
+        }
+
+        public IActionResult ModificationPartenaire(int idpartenaire, string partenaire)
+        {
+            int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
+            ProjetPartenaireTechnique pp = _context.ProjetPartenaireTechnique
+                .First(a => a.Id == idpartenaire);
+            pp.PartenaireTechnique = partenaire;
+            _context.SaveChanges();
+            return RedirectToAction("Details", new {idprojet = idprojet});
+        }
+
+        public IActionResult SupprimerComposant(int idcomposant)
+        {
+            int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
+            ProjetComposant pc = _context.ProjetComposant
+                .First(a => a.Id == idcomposant);
+            _context.Remove(pc);
+            _context.SaveChanges();
+            return RedirectToAction("Details", new {idprojet = idprojet});
+        }
+
+        public IActionResult SupprimerPartenaire(int idpartenaire)
+        {
+            int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
+            ProjetPartenaireTechnique pp = _context.ProjetPartenaireTechnique
+                .First(a => a.Id == idpartenaire);
+            _context.Remove(pp);
+            _context.SaveChanges();
+            return RedirectToAction("Details", new {idprojet = idprojet});
+        }
     }
 }

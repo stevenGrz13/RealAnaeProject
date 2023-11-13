@@ -7,13 +7,17 @@
 
 <h2>Liste Actions</h2>
 <br>
-
+Technicien : @ViewBag.nomtechnicien
+<br>
+Indicateur : @ViewBag.nomindicateur
+<br>
 <table class="table table-bordered table-striped">
     <thead class="thead-dark">
     <tr>
         <th>Quantité Effectuée</th>
         <th>Date de Début</th>
         <th>Date de Fin</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -23,6 +27,13 @@
             <td>@v.QuantiteEffectue</td>
             <td>@v.DateDebut</td>
             <td>@v.DateFin</td>
+            <td>
+                <form action="/TravailTechnicienActivite/VersModifAction">
+                    <input type="hidden" name="idoccurenceactiviteindicateur" value="@idoccurenceactiviteindicateur">
+                    <input type="hidden" name="idaction" value="@v.Id">
+                    <button type="submit" class="btn btn-primary">Modifier</button>
+                </form>
+            </td>
         </tr>
     }
     </tbody>
