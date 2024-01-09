@@ -158,6 +158,11 @@
       <_ContentIncludedByDefault Remove="Views\Devise\Details.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Devise\Edit.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Devise\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Acteur\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Acteur\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Acteur\Details.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Acteur\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Acteur\Index.cshtml" />
     </ItemGroup>
 
     <ItemGroup>

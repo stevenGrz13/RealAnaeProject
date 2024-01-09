@@ -3,7 +3,30 @@
     Layout = "_LayoutGlobalProject";
     List<RapportIndicateurSousActivite> liste = ViewData["liste"] as List<RapportIndicateurSousActivite>;
     int idindicateursousactivite = ViewBag.idindicateursousactivite;
-}
+    OccurenceSousActivite occurenceSousActivite = ViewData["occurencesousactivite"] as OccurenceSousActivite;
+}   
+
+<h2>
+    PREVISION:
+</h2> 
+
+<br>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Date Debut</th>
+        <th>Date Fin</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>@occurenceSousActivite.DateDebut</td>
+        <td>@occurenceSousActivite.DateFin</td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
 
 <h2>Liste Actions</h2>
 <br>
@@ -26,7 +49,7 @@
     <tbody>
     @foreach (var v in liste)
     {
-        <tr>
+        <tr style="background-color: @v.Couleur;">
             <td>@v.QuantiteEffectue</td>
             <td>@v.DateDebut</td>
             <td>@v.DateFin</td>

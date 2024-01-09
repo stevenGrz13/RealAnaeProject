@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    OccurenceResultat or = ViewData["occurenceresultat"] as OccurenceResultat;
+}
+
+<form action="/OccurenceResultat/Modification">
+    <div class="container mt-4">
+        <h2 class="mb-4">Modifier</h2>
+        
+        <input type="hidden" name="idoccurenceresultat" value="@or.Id">
+        
+        <div class="form-group">
+            <label for="nom">Nom du Résultat</label>
+            <textarea class="form-control" id="nom" name="nom" rows="4">@or.NomResultat</textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Valider</button>
+    </div>
+</form>

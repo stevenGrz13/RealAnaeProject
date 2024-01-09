@@ -1,0 +1,83 @@
+﻿@model AnaeLogiciel.Models.Projet
+
+@{
+    ViewBag.Title = "Modifier Projet";
+    Layout = "_LayoutGlobalProject";
+    Projet projet = ViewData["projet"] as Projet;
+    List<Devise> listed = ViewData["listedevise"] as List<Devise>;
+    List<Bailleur> liste = ViewData["listebailleur"] as List<Bailleur>;
+    double budget = projet.Budget / projet.ValeurDevise;
+}
+
+<p style="color: red;">@ViewBag.messageerreur</p>
+
+<div class="container mt-1">
+    <form method="post" action="/Projet/Modification">
+        <input type="hidden" name="idprojet" value="@projet.Id">
+        
+        <div class="form-group">
+            <label for="nom">Nom</label>
+            <input type="text" class="form-control" id="nom" name="nom" value="@projet.Nom">
+        </div>
+        
+        <div class="form-group">
+            <label for="sigle">Sigle</label>
+            <input type="text" class="form-control" id="sigle" name="sigle" value="@projet.Sigle">
+        </div>
+        
+        <div class="form-group">
+            <label for="reference">Reference</label>
+            <input type="text" class="form-control" id="reference" name="reference" value="@projet.Reference">
+        </div>
+
+        <div class="form-group">
+            <label for="details">Détails</label>
+            <textarea class="form-control" id="details" name="details" rows="4">@projet.Details</textarea>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="datedebut">Date Début</label>
+                <input type="date" class="form-control" id="datedebut" name="datedebut" value="@projet.DateDebutPrevision.ToString("yyyy-MM-dd")">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="datefin">Date Fin</label>
+                <input type="date" class="form-control" id="datefin" name="datefin" value="@projet.DateFinPrevision.ToString("yyyy-MM-dd")">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div style="display: inline-block; width: 30%;">
+                <label for="budget">Budget</label>
+                <input type="text" class="form-control" id="budget" name="budget" value="@budget">
+            </div>
+            <div style="display: inline-block; width: 30%;">
+                <label for="iddevise">Devise</label>
+                <select name="iddevise" id="iddevise" class="form-control">
+                    @foreach (var v in listed)
+                    {
+                        <option value="@v.Id" selected="@((v.Id == projet.IdDevise).ToString().ToLower())">@v.Nom</option>
+                        @* <option value="@v.Id" @(v.Id == projet.IdDevise ? "selected" : "")>@v.Nom</option> *@
+                    }
+                </select>
+            </div>
+            <div style="display: inline-block; width: 30%;">
+                <label for="valeur">Valeur</label>
+                <input type="text" class="form-control" id="valeur" name="valeur" value="@projet.ValeurDevise">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="idbailleur">Choisir Bailleur</label>
+            <select class="form-control" id="idbailleur" name="idbailleur">
+                @foreach (var v in liste)
+                {
+                    <option value="@v.Id" selected="@((v.Id == projet.IdBailleur).ToString().ToLower())">@v.Nom</option>
+                    @* <option value="@v.Id" @(v.Id == projet.IdBailleur ? "selected" : "")>@v.Nom</option> *@
+                }
+            </select>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary" name="modifier">Modifier</button>
+    </form>
+</div>

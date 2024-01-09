@@ -19,6 +19,9 @@ public class TechnicienProjet
     [DisplayName("technicien")]
     public int IdTechnicien { get; set; }
     
+    [Column("stillaffected")]
+    public bool StillAffected { get; set; }
+    
     [ForeignKey("IdProjet")]
     public virtual Projet? Projet { get; set; }
     

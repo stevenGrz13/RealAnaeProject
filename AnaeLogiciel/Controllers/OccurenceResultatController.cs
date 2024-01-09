@@ -22,4 +22,22 @@ public class OccurenceResultatController : Controller
         int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
         return RedirectToAction("Details", "Projet", new {idprojet = idprojet});
     }
+
+    public IActionResult VersModif(int idoccurenceresultat)
+    {
+        OccurenceResultat or = _context.OccurenceResultat
+            .First(a => a.Id == idoccurenceresultat);
+        ViewData["occurenceresultat"] = or;
+        return View("Modification");
+    }
+
+    public IActionResult Modification(int idoccurenceresultat, string nom)
+    {
+        OccurenceResultat or = _context.OccurenceResultat
+            .First(a => a.Id == idoccurenceresultat);
+        or.NomResultat = nom;
+        _context.SaveChanges();
+        int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
+        return RedirectToAction("Details", "Projet", new {idprojet = idprojet});
+    }
 }

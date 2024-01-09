@@ -111,11 +111,12 @@ $(document).ready(function () {
             <form action="/Projet/VersAffectationTechnicien">
                 <button type="submit" class="btn btn-primary mt-4">Affecter techniciens</button>
             </form>
-            <h3 class="mt-4">Techniciens</h3>
+            <h3 class="mt-4">Techniciens / Structure Locales</h3>
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
                         <th>Nom</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -123,6 +124,12 @@ $(document).ready(function () {
                     {
                         <tr>
                             <td>@v.Technicien.Email</td>
+                            <td>
+                                <form action="/Projet/DesAffecter">
+                                    <input type="hidden" name="idtechnicien" value="@v.IdTechnicien">
+                                    <button type="submit" class="btn btn-danger">Desaffecter</button>
+                                </form>
+                            </td>
                         </tr>
                     }
                 </tbody>
@@ -135,6 +142,7 @@ $(document).ready(function () {
         <thead class="thead-dark">
             <tr>
                 <th>Nom</th>
+                <th></th>
                 <th></th>
                 <th></th>
             </tr>
@@ -159,7 +167,6 @@ $(document).ready(function () {
                 </tr>
             }
         <tr>
-            <td>
                 <form action="/Projet/AjoutComposant">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModals">
                         Ajouter composant
@@ -185,7 +192,6 @@ $(document).ready(function () {
                         </div>
                     </div>
                 </form>
-            </td>
         </tr>
         </tbody>
     </table>
@@ -199,6 +205,7 @@ $(document).ready(function () {
         <th></th>
         <th></th>
         <th></th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
@@ -207,12 +214,19 @@ $(document).ready(function () {
         <tr>
             <td>@v.NomResultat</td>
             <td>
-                <progress id="file" value="@v.Avancement.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)" max="100"> @v.Avancement % </progress>
+                @v.Avancement %
+                @* <progress id="file" value="@v.Avancement.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)" max="100"> @v.Avancement % </progress> *@
             </td>
             <td>
                 <form action="/OccurenceActivite/ListeOccurenceActivites">
                     <input type="hidden" name="idoccurenceresultat" value="@v.Id">
                     <button type="submit" class="btn btn-link">Liste activités</button>
+                </form>
+            </td>
+            <td>
+                <form action="/OccurenceResultat/VersModif">
+                    <input type="hidden" name="idoccurenceresultat" value="@v.Id">
+                    <button type="submit" class="btn btn-primary">Modifier</button>
                 </form>
             </td>
             <td>
@@ -313,7 +327,10 @@ $(document).ready(function () {
                 </form>
             </th>
             <th>
-                <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Modifier</a>            
+                <form action="/Projet/VersModif">
+                    <input type="hidden" name="idprojet" value="@Model.Id">
+                    <button type="submit" class="btn btn-primary">Modifier</button>
+                </form>
             </th>
             <th>
                 <a asp-action="Index" class="btn btn-secondary">Retour</a>            

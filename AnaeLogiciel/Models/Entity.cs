@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AnaeLogiciel.Models;
 
-[Table("acteur")]
-public class Acteur
+[Table("entity")]
+public class Entity
 {
     [Key]
     [Column("id")]

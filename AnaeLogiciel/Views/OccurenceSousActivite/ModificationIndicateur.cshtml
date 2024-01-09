@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    IndicateurSousActivite indicateurSousActivite = ViewData["indicateur"] as IndicateurSousActivite;
+}
+
+<h2>Modifier</h2>
+
+<br>
+
+<form action="/OccurenceSousActivite/ModificationIndicateur">
+    <input type="hidden" name="idindicateursousactivite" value="@indicateurSousActivite.Id">
+    <br>
+    <textarea class="form-control" id="nom" name="nom" value="@indicateurSousActivite.NomIndicateur" rows="4">@indicateurSousActivite.NomIndicateur</textarea>
+    <br>
+    <br>
+    <button type="submit" class="btn btn-primary">Valider</button>
+</form>

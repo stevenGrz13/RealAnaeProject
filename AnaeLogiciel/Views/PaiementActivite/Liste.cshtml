@@ -2,12 +2,12 @@
     ViewBag.Title = "title";
     Layout = "_LayoutGlobalProject";
     int idoccurenceactivite = ViewBag.idoccurenceactivite;
-    List<PaiementOccurenceActivite> liste = ViewData["listepaiement"] as List<PaiementOccurenceActivite>;
     double reste = ViewBag.reste;
     double budget = ViewBag.budget;
     double total = ViewBag.total;
     int idoccurenceresultat = ViewBag.idoccurenceresultat;
     List<Devise> listedevise = ViewData["listedevise"] as List<Devise>;
+    List<Vsommepaiementsousactivite> liste = ViewData["listepaiement"] as List<Vsommepaiementsousactivite>;
 }
 
 <!DOCTYPE html>
@@ -18,20 +18,18 @@
 </head>
 <body>
     <div class="container mt-4">
-        <form action="/PaiementActivite/VersInsertionPaiementActivite">
-            <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite">
-            <button type="submit" class="btn btn-primary">Ajouter mouvement budgetaire</button>
-        </form>
+        @* <form action="/PaiementActivite/VersInsertionPaiementActivite"> *@
+        @*     <input type="hidden" name="idoccurenceactivite" value="@idoccurenceactivite"> *@
+        @*     <button type="submit" class="btn btn-primary">Ajouter mouvement budgetaire</button> *@
+        @* </form> *@
 
         <div class="d-flex align-items-center justify-content-between">
             <h3 class="mt-4">LISTE DES MOUVEMENTS</h3>
             <form action="/PaiementActivite/VersListePaiementActivite">
                 <div class="d-flex align-items-center">
                     <select name="iddevise" id="iddevise" class="form-select me-2">
-                        @foreach (var v in listedevise)
-                        {
-                            <option value="@v.Id">@v.Nom</option>
-                        }
+                        <option value="@listedevise[1].Id">@listedevise[1].Nom</option>
+                        <option value="@listedevise[0].Id">@listedevise[0].Nom</option>
                     </select>
                     <button type="submit" class="btn btn-primary">Valider</button>
                 </div>
@@ -41,8 +39,7 @@
         <table class="table">
             <thead class="thead-dark">
             <tr>
-                <th>Technicien</th>
-                <th>Motif</th>
+                <th>Sous Activite</th>
                 <th>Montant</th>
             </tr>
             </thead>
@@ -50,13 +47,11 @@
             @foreach (var v in liste)
             {
                 <tr>
-                    <td>@v.Technicien.Email</td>
-                    <td>@v.Motif</td>
-                    <td>@v.Montant.ToString("N0") </td>
+                    <td>@v.OccurenceSousActivite.Details</td>
+                    <td>@v.Somme.ToString("N0") </td>
                 </tr>
             }
             <tr>
-                <td></td>
                 <td></td>
                 <td class="font-weight-bold">@total.ToString("N0") </td>
             </tr>

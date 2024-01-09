@@ -29,10 +29,8 @@
             <form action="/PaiementSousActivite/VersListePaiementSousActivite">
                 <div class="d-flex align-items-center">
                     <select name="iddevise" id="iddevise" class="form-select me-2">
-                        @foreach (var v in listedevise)
-                        {
-                            <option value="@v.Id">@v.Nom</option>
-                        }
+                        <option value="@listedevise[1].Id">@listedevise[1].Nom</option>
+                        <option value="@listedevise[0].Id">@listedevise[0].Nom</option>
                     </select>
                     <button type="submit" class="btn btn-primary">Valider</button>
                 </div>

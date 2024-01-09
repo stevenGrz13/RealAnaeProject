@@ -81,7 +81,8 @@ namespace AnaeLogiciel.Controllers
             List<TechnicienProjet> tc = _context
                 .TechnicienProjet
                 .Include(a => a.Technicien)
-                .Where(a => a.IdProjet == idprojet).ToList();
+                .Where(a => a.IdProjet == idprojet && a.StillAffected == true)
+                .ToList();
             
             ViewData["listetechnicien"] = tc;
             
@@ -302,36 +303,87 @@ namespace AnaeLogiciel.Controllers
           return (_context.Projet?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
+        // public async Task<IActionResult> AffectationTechnicien(List<int> idtechnicien)
+        // {
+        //     int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
+        //     var projet = await _context.Projet
+        //         .Include(p => p.Bailleur)
+        //         .FirstOrDefaultAsync(m => m.Id == idprojet);
+        //     foreach (var v in idtechnicien)
+        //     {
+        //         TechnicienProjet tp = new TechnicienProjet()
+        //         {
+        //             IdProjet = idprojet,
+        //             IdTechnicien = v
+        //         };
+        //         _context.Add(tp);   
+        //     }
+        //     _context.SaveChanges();
+        //     List<TechnicienProjet> tc = _context
+        //         .TechnicienProjet
+        //         .Include(a => a.Technicien)
+        //         .Where(a => a.IdProjet == idprojet).ToList();
+        //
+        //     ViewData["listetechnicien"] = tc;
+        //     
+        //     ViewData["listeoccurenceresultat"] = _context.OccurenceResultat
+        //         .Where(a => a.IdProjet == idprojet).ToList();
+        //     
+        //     List<ProjetComposant> liste = _context.ProjetComposant
+        //         .Where(a => a.IdProjet == idprojet).ToList();
+        //     ViewData["listecomposant"] = liste;
+        //     return RedirectToAction("Details",new {idprojet = idprojet});
+        // }
+
         public async Task<IActionResult> AffectationTechnicien(List<int> idtechnicien)
         {
             int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
             var projet = await _context.Projet
                 .Include(p => p.Bailleur)
                 .FirstOrDefaultAsync(m => m.Id == idprojet);
+
             foreach (var v in idtechnicien)
             {
-                TechnicienProjet tp = new TechnicienProjet()
+                // Vérifier si le lien TechnicienProjet existe déjà
+                var existingTechnicienProjet = _context.TechnicienProjet
+                    .FirstOrDefault(tp => tp.IdProjet == idprojet && tp.IdTechnicien == v);
+
+                if (existingTechnicienProjet != null)
                 {
-                    IdProjet = idprojet,
-                    IdTechnicien = v
-                };
-                _context.Add(tp);   
+                    // Si le lien existe, mettre à jour StillAffected à true
+                    existingTechnicienProjet.StillAffected = true;
+                }
+                else
+                {
+                    // Sinon, créer un nouveau lien TechnicienProjet
+                    TechnicienProjet tp = new TechnicienProjet()
+                    {
+                        IdProjet = idprojet,
+                        IdTechnicien = v,
+                        StillAffected = true
+                    };
+                    _context.Add(tp);
+                }
             }
+
             _context.SaveChanges();
+
             List<TechnicienProjet> tc = _context
                 .TechnicienProjet
                 .Include(a => a.Technicien)
-                .Where(a => a.IdProjet == idprojet).ToList();
+                .Where(a => a.IdProjet == idprojet && a.StillAffected == true)
+                .ToList();
 
             ViewData["listetechnicien"] = tc;
-            
+
             ViewData["listeoccurenceresultat"] = _context.OccurenceResultat
                 .Where(a => a.IdProjet == idprojet).ToList();
-            
+
             List<ProjetComposant> liste = _context.ProjetComposant
                 .Where(a => a.IdProjet == idprojet).ToList();
             ViewData["listecomposant"] = liste;
-            return RedirectToAction("Details",new {idprojet = idprojet});
+
+            return RedirectToAction("Details", new { idprojet = idprojet });
         }
         
         public IActionResult VersAffectationTechnicien()
@@ -339,6 +391,7 @@ namespace AnaeLogiciel.Controllers
             ViewData["listetechnicien"] = _context.Technicien.ToList();
             return View("AffectationTechnicien");
         }
+
 
         public IActionResult VersInsertionPartenaireTechnique(int idprojet)
         {
@@ -420,6 +473,93 @@ namespace AnaeLogiciel.Controllers
             _context.Remove(pp);
             _context.SaveChanges();
             return RedirectToAction("Details", new {idprojet = idprojet});
+        }
+
+        public IActionResult VersModif(int idprojet)
+        {
+            Projet projet = _context.Projet
+                .First(a => a.Id == idprojet);
+            ViewData["projet"] = projet;
+            ViewData["listedevise"] = _context.Devise.ToList();
+            ViewData["listebailleur"] = _context.Bailleur.ToList();
+            return View("Modification");
+        }
+        
+        public IActionResult Modification(int idprojet, string reference, string sigle, string nom, string details, DateOnly datedebut, DateOnly datefin, int idbailleur, string budget, int iddevise, string valeur)
+        {
+            string messageerreur = "";
+            try
+            {
+                Double.Parse(budget);
+            }
+            catch (Exception e)
+            {
+                messageerreur += "- montant invalide -";
+            }
+
+            try
+            {
+                Double.Parse(valeur);
+            }
+            catch (Exception e)
+            {
+                messageerreur += "- valeur devise invalide -";
+            }
+
+            if (!Fonction.Fonction.SecureDate(datedebut, datefin))
+            {
+                messageerreur += "- dates invalide -";
+            }
+
+            if (messageerreur == "")
+            {
+                Projet projet = _context.Projet.FirstOrDefault(p => p.Id == idprojet);
+
+                if (projet != null)
+                {
+                    projet.Nom = nom;
+                    projet.Details = details;
+                    projet.DateDebutPrevision = datedebut;
+                    projet.DateFinPrevision = datefin;
+                    projet.IdBailleur = idbailleur;
+                    projet.IdDevise = iddevise;
+                    projet.ValeurDevise = Double.Parse(valeur);
+                    projet.Budget = Double.Parse(valeur) * Double.Parse(budget);
+                    projet.Sigle = sigle;
+                    projet.Reference = reference;
+
+                    _context.SaveChanges();
+
+                    RealDataProjet realData = _context.RealDataProjet.FirstOrDefault(r => r.IdProjet == idprojet);
+
+                    if (realData != null)
+                    {
+                        realData.DateFin = projet.DateFinPrevision;
+                        realData.Budget = projet.Budget;
+                        _context.SaveChanges();
+                    }
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Edit", new { idprojet = idprojet, messageerreur = messageerreur });
+            }
+        }
+
+        public IActionResult DesAffecter(int idtechnicien)
+        {
+            int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
+            TechnicienProjet tp = _context.TechnicienProjet
+                .First(a => a.IdProjet == idprojet && a.IdTechnicien == idtechnicien);
+            tp.StillAffected = false;
+            _context.SaveChanges();
+            return RedirectToAction("Details", new { idprojet = idprojet });
         }
     }
 }

@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    List<IndicateurActivite> listeindicateur = ViewData["listeindicateur"] as List<IndicateurActivite>;
+}
+
+<h2>Liste Indicateur</h2>
+<br>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>nom</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in listeindicateur)
+        {
+            <tr>
+                <td>@v.NomIndicateur</td>
+                <td>
+                    <form action="/OccurenceActivite/VersModifIndicateur">
+                        <input type="hidden" name="idindicateuractivite" value="@v.Id">
+                        <button type="submit" class="btn btn-primary">Modifier</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

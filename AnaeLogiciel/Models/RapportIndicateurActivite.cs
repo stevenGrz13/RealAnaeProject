@@ -27,6 +27,9 @@ public class RapportIndicateurActivite
     
     [Column("datefin")]
     public DateOnly DateFin { get; set; }
+
+    [NotMapped]
+    public string Couleur { get; set; }
     
     [ForeignKey("IdTechnicien")]
     public virtual Technicien? Technicien { get; set; }

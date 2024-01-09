@@ -76,18 +76,32 @@ public class TravailTechnicienSousActiviteController : Controller
 
     public IActionResult versListeActionSousActivite(int idindicateur, int idtechnicien, int idindicateursousactivite)
     {
+        IndicateurSousActivite indicateur = _context.IndicateurSousActivite
+            .First(a => a.Id == idindicateur);
+        OccurenceSousActivite occurenceSousActivite = _context.OccurenceSousActivite
+            .First(a => a.Id == indicateur.IdOccurenceSousActivite);
         List<RapportIndicateurSousActivite> liste = _context.RapportIndicateurSousActivite
             .Include(a => a.Technicien)
             .Include(a => a.IndicateurSousActivite)
             .Where(a => a.IdIndicateurSousActivite == idindicateur && a.IdTechnicien == idtechnicien)
             .ToList();
+        foreach (var v in liste)
+        {
+            if (v.DateDebut >= occurenceSousActivite.DateDebut && v.DateFin <= occurenceSousActivite.DateFin)
+            {
+                v.Couleur = "lightgreen";
+            }
+            else
+            {
+                v.Couleur = "red";
+            }
+        }
         ViewData["liste"] = liste;
         ViewBag.idindicateursousactivite = idindicateursousactivite;
         Technicien technicien = _context.Technicien.First(a => a.Id == idtechnicien);
         ViewBag.nomtechnicien = technicien.Email;
-        IndicateurSousActivite indicateur = _context.IndicateurSousActivite
-            .First(a => a.Id == idindicateur);
         ViewBag.nomindicateur = indicateur.NomIndicateur;
+        ViewData["occurencesousactivite"] = occurenceSousActivite;
         return View("Liste");
     }
     

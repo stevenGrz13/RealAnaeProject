@@ -16,74 +16,134 @@ public class PaiementActiviteController : Controller
 
     public IActionResult VersListePaiementActivite(int idoccurenceactivite, int? iddevise)
     {
-        int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
-        Projet projet = _context.Projet
-            .First(a => a.Id == idprojet);
         if (iddevise == null)
         {
             iddevise = 1;
         }
-        double totalprolongement = 0;
-        List<ProlongementBudgetOccurenceActivite> listeprolongement = _context
-            .ProlongementBudgetOccurenceActivite
-            .Where(a => a.IdOccurenceActivite == idoccurenceactivite)
-            .ToList();
-        foreach (var v in listeprolongement)
-        {
-            totalprolongement += v.Budget;
-        }
-        List<PaiementOccurenceActivite> liste = _context
-            .PaiementOccurenceActivite
-            .Include(a => a.Technicien)
-            .Where(a => a.IdOccurenceActivite == idoccurenceactivite)
-            .ToList();
-        ViewBag.idoccurenceactivite = idoccurenceactivite;
-        OccurenceActivite os = _context.OccurenceActivite
+        int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
+        Projet projet = _context.Projet.First(a => a.Id == idprojet);
+        OccurenceActivite occurenceActivite = _context.OccurenceActivite
             .First(a => a.Id == idoccurenceactivite);
-        ViewBag.budget = os.Budget;
-        double total = 0;
-        double reste = 0;
-        foreach (var v in liste)
-        {
-            total += v.Montant;
-        }
-
-        reste = (os.Budget+totalprolongement) - total;
-
-        if (iddevise == 1)
-        {
-            ViewBag.total = total;
-            ViewBag.budget = os.Budget;
-            ViewBag.reste = reste;
-        }
-        else
-        {
-            foreach (var v in liste)
-            {
-                v.Montant = v.Montant / projet.ValeurDevise;
-            }
-            ViewBag.total = total / projet.ValeurDevise;
-            ViewBag.budget = os.Budget / projet.ValeurDevise;
-            ViewBag.reste = reste / projet.ValeurDevise;
-        }
-        
-        string messageerreur = "";
-        if (reste < 0)
-        {
-            messageerreur = "attention budget deja depassee";
-        }
-
-        ViewBag.messageerreur = messageerreur;
-        ViewBag.idoccurenceresultat = os.IdOccurenceResultat;
-        ViewData["listepaiement"] = liste;
+        List<Vsommepaiementsousactivite> liste = _context.Vsommepaiementsousactivite
+            .Include(a => a.OccurenceSousActivite)
+            .Where(a => a.IdOccurenceActivite == idoccurenceactivite)
+            .ToList();
+        ViewData["liste"] = liste;
         List<Devise> listedevise = _context.Devise
             .Where(a => a.Id == projet.IdDevise)
             .ToList();
         Devise ariary = _context.Devise.First(a => a.Id == 1);
         listedevise.Add(ariary);
         ViewData["listedevise"] = listedevise;
+        
+        double reste = 0;
+        double montantbudget = 0;
+        foreach (var v in liste)
+        {
+            montantbudget += v.Somme;
+        }
+        double budget = occurenceActivite.Budget;
+        reste = occurenceActivite.Budget - montantbudget;
+        string messageerreur = "";
+        if (reste < 0)
+        {
+            messageerreur = "attention budget deja depassee";
+        }
+        
+        if (iddevise == 1)
+        {
+            ViewBag.total = montantbudget;
+            ViewBag.reste = reste;
+            ViewBag.budget = budget;
+        }
+        else
+        {
+            foreach (var v in liste)
+            {
+                v.Somme = v.Somme / projet.ValeurDevise;
+            }
+            ViewBag.total = montantbudget / projet.ValeurDevise;
+            ViewBag.reste = reste / projet.ValeurDevise;
+            ViewBag.budget = budget / projet.ValeurDevise;
+        }
+
+        ViewBag.idoccurenceactivite = occurenceActivite.Id;
+        ViewData["listepaiement"] = liste;
+        ViewBag.idoccurenceresultat = occurenceActivite.IdOccurenceResultat;
+        ViewBag.messageerreur = messageerreur;
         return View("~/Views/PaiementActivite/Liste.cshtml");
     }
+    
+    // public IActionResult VersListePaiementActivite(int idoccurenceactivite, int? iddevise)
+    // {
+    //     int idprojet = HttpContext.Session.GetInt32("idprojet").GetValueOrDefault();
+    //     Projet projet = _context.Projet
+    //         .First(a => a.Id == idprojet);
+    //     if (iddevise == null)
+    //     {
+    //         iddevise = 1;
+    //     }
+    //     double totalprolongement = 0;
+    //     List<ProlongementBudgetOccurenceActivite> listeprolongement = _context
+    //         .ProlongementBudgetOccurenceActivite
+    //         .Where(a => a.IdOccurenceActivite == idoccurenceactivite)
+    //         .ToList();
+    //     foreach (var v in listeprolongement)
+    //     {
+    //         totalprolongement += v.Budget;
+    //     }
+    //     List<PaiementOccurenceActivite> liste = _context
+    //         .PaiementOccurenceActivite
+    //         .Include(a => a.Technicien)
+    //         .Where(a => a.IdOccurenceActivite == idoccurenceactivite)
+    //         .ToList();
+    //     ViewBag.idoccurenceactivite = idoccurenceactivite;
+    //     OccurenceActivite os = _context.OccurenceActivite
+    //         .First(a => a.Id == idoccurenceactivite);
+    //     ViewBag.budget = os.Budget;
+    //     double total = 0;
+    //     double reste = 0;
+    //     foreach (var v in liste)
+    //     {
+    //         total += v.Montant;
+    //     }
+    //
+    //     reste = (os.Budget+totalprolongement) - total;
+    //
+    //     if (iddevise == 1)
+    //     {
+    //         ViewBag.total = total;
+    //         ViewBag.budget = os.Budget;
+    //         ViewBag.reste = reste;
+    //     }
+    //     else
+    //     {
+    //         foreach (var v in liste)
+    //         {
+    //             v.Montant = v.Montant / projet.ValeurDevise;
+    //         }
+    //         ViewBag.total = total / projet.ValeurDevise;
+    //         ViewBag.budget = os.Budget / projet.ValeurDevise;
+    //         ViewBag.reste = reste / projet.ValeurDevise;
+    //     }
+    //     
+    //     string messageerreur = "";
+    //     if (reste < 0)
+    //     {
+    //         messageerreur = "attention budget deja depassee";
+    //     }
+    //
+    //     ViewBag.messageerreur = messageerreur;
+    //     ViewBag.idoccurenceresultat = os.IdOccurenceResultat;
+    //     ViewData["listepaiement"] = liste;
+    //     List<Devise> listedevise = _context.Devise
+    //         .Where(a => a.Id == projet.IdDevise)
+    //         .ToList();
+    //     Devise ariary = _context.Devise.First(a => a.Id == 1);
+    //     listedevise.Add(ariary);
+    //     ViewData["listedevise"] = listedevise;
+    //     return View("~/Views/PaiementActivite/Liste.cshtml");
+    // }
 
     public IActionResult VersInsertionPaiementActivite(int idoccurenceactivite)
     {

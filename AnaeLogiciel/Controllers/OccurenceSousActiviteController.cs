@@ -109,16 +109,23 @@ public class OccurenceSousActiviteController : Controller
         OccurenceSousActivite osc = _context
             .OccurenceSousActivite
             .First(a => a.Id == idoccurencesousactivite);
+        
         if (Fonction.Fonction.getDateNow() > osc.DateFin && osc.Avancement != 100)
         {
             osc.Couleur = "text-danger";
             osc.Message = "En retard";
         }
+        if (osc.Avancement == 100)
+        {
+            osc.Couleur = "text-success";
+            osc.Message = "Terminee";   
+        }
         else
         {
             osc.Couleur = "text-success";
-            osc.Message = "A temps";
+            osc.Message = "En cours";
         }
+        
         ViewData["osc"] = osc;
         ViewData["liste"] = _context.OccurenceSousActiviteIndicateur
             .Include(a => a.IndicateurSousActivite)
@@ -191,5 +198,29 @@ public class OccurenceSousActiviteController : Controller
             TempData["messageerreur"] = messageerreur;
             return RedirectToAction("VersModif", new {idoccurencesousactivite = idoccurencesousactivite});
         }
+    }
+    
+    public IActionResult VersListeIndicateur(int idoccurencesousactivite)
+    {
+        ViewData["listeindicateur"] = _context.IndicateurSousActivite
+            .Where(a => a.IdOccurenceSousActivite == idoccurencesousactivite)
+            .ToList();
+        return View("ListeIndicateur");
+    }
+
+    public IActionResult VersModifIndicateur(int idindicateursousactivite)
+    {
+        ViewData["indicateur"] = _context.IndicateurSousActivite
+            .First(a => a.Id == idindicateursousactivite);
+        return View("ModificationIndicateur");
+    }
+
+    public IActionResult ModificationIndicateur(int idindicateursousactivite, string nom)
+    {
+        IndicateurSousActivite i = _context.IndicateurSousActivite
+            .First(a => a.Id == idindicateursousactivite);
+        i.NomIndicateur = nom;
+        _context.SaveChanges();
+        return RedirectToAction("VersListeIndicateur", new {idoccurencesousactivite = i.IdOccurenceSousActivite});
     }
 }

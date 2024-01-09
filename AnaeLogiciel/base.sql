@@ -8,7 +8,6 @@ drop table province cascade;
 drop table admin cascade;
 drop table employe cascade;
 drop table technicien cascade;
-drop table acteur cascade;
 
 create table admin(
                       id serial not null,
@@ -35,36 +34,19 @@ create table technicien(
                            primary key(id)
 ); --
 
-create table acteur(
-    id serial not null,
-    nom varchar(500) not null,
-    primary key(id) 
-);
-
-insert into acteur(nom) values ('KMT');
-insert into acteur(nom) values ('PK');
-
 drop table bailleur cascade;
 drop table devise cascade;
 
 drop table projet cascade;
-drop table activite cascade;
 drop table sourcedeverification cascade;
-drop table typeindicateur cascade;
 drop table occurenceactivite cascade;
 drop table daterealisationprojet cascade;
 drop table projetcomposant cascade;
 drop table occurenceactivite cascade;
 drop table occurencesousactivite cascade;
 drop table occurenceresultat cascade;
-drop table sousactivite cascade; 
-drop table partenaire cascade; 
-drop table composant cascade;
 drop table bailleur cascade; 
-drop table resultat cascade; 
 drop table site cascade;
-drop table indicateurtechniciensiteactivite cascade;    
-drop table indicateurtechniciensitesousactivite cascade;
 drop table occurenceactiviteindicateur cascade;
 drop table occurencesousactiviteindicateur cascade;
 drop table technicienprojet cascade;
@@ -77,7 +59,6 @@ drop table occurencesousactivitesource cascade;
 drop table occurenceactivitesourcetechnicien cascade;
 drop table occurencesousactivitesourcetechnicien cascade;
 drop table devise cascade;
-drop table partenairetechnique cascade;
 drop table projetpartenairetechnique cascade;
 drop table partieprenanteoccurenceactivite cascade;
 drop table prolongementprojet cascade;
@@ -90,8 +71,6 @@ drop table indicateuractivite cascade;
 drop table indicateursousactivite cascade;
 drop table targettechnicienindicateuractivite cascade;
 drop table targettechnicienindicateursousactivite cascade;
-drop table rapportacteuractivite cascade;
-drop table rapportacteursousactivite cascade;
 drop table siteactivite cascade;
 
 create table bailleur(
@@ -455,30 +434,6 @@ create table rapportindicateursousactivite(
     foreign key(idindicateursousactivite) references indicateursousactivite(id)
 );
 
-create table rapportacteuractivite(
-    id serial not null,
-    idacteur int not null,
-    idindicateuractivite int not null,
-    quantiteeffectue real not null,
-    datedebut date not null,
-    datefin date not null,
-    primary key(id),
-    foreign key(idacteur) references acteur(id),
-    foreign key (idindicateuractivite) references indicateuractivite(id)
-);
-
-create table rapportacteursousactivite(
-    id serial not null,
-    idacteur int not null,
-    idindicateursousactivite int not null,
-    quantiteeffectue real not null,
-    datedebut date not null,
-    datefin date not null,
-    primary key(id),
-    foreign key(idacteur) references acteur(id),
-    foreign key(idindicateursousactivite) references indicateursousactivite(id)                          
-);
-
 create table siteactivite(
     id serial not null,
     libelle varchar(2000) not null,
@@ -486,6 +441,36 @@ create table siteactivite(
     primary key(id),
     foreign key(idoccurenceactivite) references occurenceactivite(id)
 );
+
+create table entity(
+    id serial not null,
+    nom varchar(5000) not null,
+    primary key(id) 
+);
+
+create table technicienentitysousactivite(
+    id serial not null,
+    idtechnicien int not null,
+    idoccurencesousactivite int not null,
+    identity int not null,
+    quantite int not null,
+    primary key(id),
+    foreign key(idtechnicien) references technicien(id),
+    foreign key(idoccurencesousactivite) references occurencesousactivite(id),
+    foreign key(identity) references entity(id)
+);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -139,10 +139,15 @@ public class OccurenceActiviteController : Controller
             oc.Couleur = "text-danger";
             oc.Message = "En retard";
         }
+        if (oc.Avancement == 100)
+        {
+            oc.Couleur = "text-success";
+            oc.Message = "Terminee";
+        }
         else
         {
             oc.Couleur = "text-success";
-            oc.Message = "A temps";
+            oc.Message = "En cours";
         }
 
         List<ProlongementOccurenceActivite> listeprolongement = _context.ProlongementOccurenceActivite
@@ -280,5 +285,29 @@ public class OccurenceActiviteController : Controller
             TempData["messageerreur"] = messageerreur;
             return RedirectToAction("VersModif", new {idoccurenceactivite = idoccurenceactivite});
         }
+    }
+
+    public IActionResult VersListeIndicateur(int idoccurenceactivite)
+    {
+        ViewData["listeindicateur"] = _context.IndicateurActivite
+            .Where(a => a.IdOccurenceActivite == idoccurenceactivite)
+            .ToList();
+        return View("ListeIndicateur");
+    }
+
+    public IActionResult VersModifIndicateur(int idindicateur)
+    {
+        ViewData["indicateur"] = _context.IndicateurActivite
+            .First(a => a.Id == idindicateur);
+        return View("ModificationIndicateur");
+    }
+
+    public IActionResult ModificationIndicateur(int idindicateuractivite, string nom)
+    {
+        IndicateurActivite i = _context.IndicateurActivite
+            .First(a => a.Id == idindicateuractivite);
+        i.NomIndicateur = nom;
+        _context.SaveChanges();
+        return RedirectToAction("VersListeIndicateur", new {idoccurenceactivite = i.IdOccurenceActivite});
     }
 }

@@ -48,7 +48,8 @@
                     <td>@v.DateDebutPrevision</td>
                     <td>@v.DateFinPrevision</td>
                     <td>
-                        <progress id="file" value="@v.Avancement.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)" max="100"> @v.Avancement.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) % </progress>
+                        @v.Avancement %
+                        @* <progress id="file" value="@v.Avancement.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture)" max="100"> @v.Avancement.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture) % </progress> *@
                     </td>
                     <td>
                         <form action="/Projet/Details">
