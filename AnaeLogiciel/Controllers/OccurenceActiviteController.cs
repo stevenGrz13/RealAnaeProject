@@ -310,4 +310,30 @@ public class OccurenceActiviteController : Controller
         _context.SaveChanges();
         return RedirectToAction("VersListeIndicateur", new {idoccurenceactivite = i.IdOccurenceActivite});
     }
+
+    public IActionResult VersModifPartie(int idpartie)
+    {
+        PartiePrenanteOccurenceActivite partie = _context.PartiePrenanteOccurenceActivite
+            .First(a => a.Id == idpartie);
+        ViewData["partie"] = partie;
+        return View("ModificationPartiePrenante");
+    }
+
+    public IActionResult ModifierPartie(int idpartie, string nom)
+    {
+        PartiePrenanteOccurenceActivite partie = _context.PartiePrenanteOccurenceActivite
+            .First(a => a.Id == idpartie);
+        partie.PartiePrenante = nom;
+        _context.SaveChanges();
+        return RedirectToAction("Details", new {idoccurenceactivite = partie.IdOccurenceActivite});
+    }
+
+    public IActionResult SupprimerPartie(int idpartie)
+    {
+        PartiePrenanteOccurenceActivite partie = _context.PartiePrenanteOccurenceActivite
+            .First(a => a.Id == idpartie);
+        _context.Remove(partie);
+        _context.SaveChanges();
+        return RedirectToAction("Details", new { idoccurenceactivite = partie.IdOccurenceActivite });
+    }
 }

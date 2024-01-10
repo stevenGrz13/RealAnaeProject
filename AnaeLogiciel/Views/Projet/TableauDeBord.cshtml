@@ -1,8 +1,7 @@
 ﻿@{
     ViewBag.Title = "title";
     Layout = "_LayoutGlobalProject";
-    List<Vsommepaiementactivite> listeactivite = ViewData["listeactivite"] as List<Vsommepaiementactivite>;
-    List<Vsommepaiementsousactivite> listesousactivite = ViewData["listesousactivite"] as List<Vsommepaiementsousactivite>;
+    List<Vsommepaiementsousactivite> listesousactivite = ViewData["listepaiement"] as List<Vsommepaiementsousactivite>;
     List<Devise> listedevise = ViewData["listedevise"] as List<Devise>;
 }
 
@@ -11,10 +10,8 @@
         <h2>Tableau de bord</h2>
         <div class="d-flex align-items-center">
             <select name="iddevise" id="iddevise" class="form-select me-2">
-                @foreach (var v in listedevise)
-                {
-                    <option value="@v.Id">@v.Nom</option>   
-                }
+                <option value="@listedevise[1].Id">@listedevise[1].Nom</option>
+                <option value="@listedevise[0].Id">@listedevise[0].Nom</option>
             </select>
             <button type="submit" class="btn btn-primary">Valider</button>
         </div>
@@ -29,30 +26,10 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (var v in listeactivite)
-    {
-        <tr>
-            <td>@v.OccurenceActivite.Details</td>
-            <td>@v.Somme.ToString("N0") </td>
-        </tr>
-    }
-    </tbody>
-</table>
-
-<br>
-
-<table class="table">
-    <thead>
-    <tr>
-        <th>Sous Activité</th>
-        <th>Montant</th>
-    </tr>
-    </thead>
-    <tbody>
     @foreach (var v in listesousactivite)
     {
         <tr>
-            <td>@v.OccurenceSousActivite.Details</td>
+            <td>@v.OccurenceActivite.Details</td>
             <td>@v.Somme.ToString("N0") </td>
         </tr>
     }

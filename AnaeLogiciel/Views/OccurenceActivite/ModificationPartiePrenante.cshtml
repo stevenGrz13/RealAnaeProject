@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "title";
+    Layout = "_LayoutGlobalProject";
+    PartiePrenanteOccurenceActivite partie = ViewData["partie"] as PartiePrenanteOccurenceActivite;
+}
+
+<form action="/OccurenceActivite/ModifierPartie" class="container mt-5">
+    <h2 class="mb-4">Modification</h2>
+    
+    <input type="hidden" name="idpartie" value="@partie.Id" class="form-control mb-3">
+    
+    <div class="mb-3">
+        <label for="nom" class="form-label">Nom:</label>
+        <input type="text" name="nom" value="@partie.PartiePrenante" class="form-control">
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Modifier</button>
+</form>
