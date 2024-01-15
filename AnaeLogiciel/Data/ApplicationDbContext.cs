@@ -47,10 +47,6 @@ public class ApplicationDbContext : IdentityDbContext
     
     public DbSet<AnaeLogiciel.Models.RapportIndicateurSousActivite> RapportIndicateurSousActivite { get; set; } = default!;
     
-    public DbSet<AnaeLogiciel.Models.VAvancementResultat> VAvancementResultat { get; set; } = default!;
-    
-    public DbSet<AnaeLogiciel.Models.VAvancementProjet> VAvancementProjet { get; set; } = default!;
-
     public DbSet<AnaeLogiciel.Models.PaiementOccurenceSousActivite> PaiementOccurenceSousActivite { get; set; } = default!;
     
     public DbSet<AnaeLogiciel.Models.PaiementOccurenceActivite> PaiementOccurenceActivite { get; set; } = default!;
@@ -84,7 +80,6 @@ public class ApplicationDbContext : IdentityDbContext
     
     public DbSet<AnaeLogiciel.Models.ProlongementOccurenceActivite> ProlongementOccurenceActivite { get; set; } = default!;
 
-    public DbSet<AnaeLogiciel.Models.VCalculStatHommeFemme> VCalculStatHommeFemme { get; set; } = default!;
     
     public DbSet<AnaeLogiciel.Models.RealDataOccurenceActivite> RealDataOccurenceActivite { get; set; } = default!;
     

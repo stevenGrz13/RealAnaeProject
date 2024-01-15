@@ -442,23 +442,6 @@ create table siteactivite(
     foreign key(idoccurenceactivite) references occurenceactivite(id)
 );
 
-create table entity(
-    id serial not null,
-    nom varchar(5000) not null,
-    primary key(id) 
-);
-
-create table technicienentitysousactivite(
-    id serial not null,
-    idtechnicien int not null,
-    idoccurencesousactivite int not null,
-    identity int not null,
-    quantite int not null,
-    primary key(id),
-    foreign key(idtechnicien) references technicien(id),
-    foreign key(idoccurencesousactivite) references occurencesousactivite(id),
-    foreign key(identity) references entity(id)
-);
 
 
 
@@ -476,6 +459,7 @@ create table technicienentitysousactivite(
 
 
 
+-- ITO NO MIDITRA VOALOHANY
 
 create table province (
     id serial not null,

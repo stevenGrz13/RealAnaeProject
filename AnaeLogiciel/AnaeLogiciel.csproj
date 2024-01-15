@@ -163,6 +163,7 @@
       <_ContentIncludedByDefault Remove="Views\Acteur\Details.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Acteur\Edit.cshtml" />
       <_ContentIncludedByDefault Remove="Views\Acteur\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Statistique\StatistiqueHommeFemme.cshtml" />
     </ItemGroup>
 
     <ItemGroup>
