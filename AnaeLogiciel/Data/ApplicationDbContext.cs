@@ -104,8 +104,4 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<AnaeLogiciel.Models.TargetTechnicienIndicateurActivite> TargetTechnicienIndicateurActivite { get; set; } = default!;
     
     public DbSet<AnaeLogiciel.Models.SiteActivite> SiteActivite { get; set; } = default!;
-
-    public DbSet<AnaeLogiciel.Models.Entity> Entity { get; set; } = default!;
-    
-    public DbSet<AnaeLogiciel.Models.TechnicienEntitySousActivite> TechnicienEntitySousActivite { get; set; } = default!;
 }
