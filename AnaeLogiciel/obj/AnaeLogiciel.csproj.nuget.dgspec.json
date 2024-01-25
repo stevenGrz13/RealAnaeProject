@@ -42,6 +42,10 @@
               "target": "Package",
               "version": "[6.2.3, )"
             },
+            "MYSQLConnectorPackage": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.5, )"
@@ -80,6 +84,18 @@
               "target": "Package",
               "version": "[7.0.8, )"
             },
+            "MySQLConnectorLibrary": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
+            "MySql.Data.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.22, )"
+            },
+            "MySqlConnector": {
+              "target": "Package",
+              "version": "[2.3.3, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
@@ -91,6 +107,10 @@
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[8.0.0-preview.4, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[7.0.0, )"
             },
             "Portable.itextsharp.xmlworker": {
               "target": "Package",

@@ -123,6 +123,12 @@ namespace AnaeLogiciel.Controllers
                 projet.Couleur = "text-success";
                 projet.Message = "A temps";
             }
+
+            if (projet.FinishedOrNot)
+            {
+                projet.Couleur = "text-success";
+                projet.Message = "Finie";
+            }
             
             _context.SaveChanges();
             ViewData["listeoccurenceresultat"] = listeor;

@@ -178,13 +178,13 @@ public class Fonction
         Projet projet = _context.Projet
             .First(a => a.Id == idprojet);
         List<OccurenceActivite> listeactivite = new List<OccurenceActivite>();
-        
+
         List<OccurenceResultat> listeresultat = _context.OccurenceResultat
             .Where(a => a.IdProjet == idprojet)
             .ToList();
 
         List<OccurenceSousActivite> listesousactivite = new List<OccurenceSousActivite>();
-        
+
         foreach (var v in listeresultat)
         {
             listeactivite.AddRange(_context.OccurenceActivite
@@ -193,61 +193,13 @@ public class Fonction
 
         foreach (var v in listeactivite)
         {
-            OccurenceActivite oa = _context.OccurenceActivite
-                .First(a => a.Id == v.Id);
-            double moyenneparactivite = 0;
-            List<OccurenceActiviteIndicateur> listeindicateuractivite = _context.OccurenceActiviteIndicateur
-                .Where(a => a.IdOccurenceActivite == v.Id)
-                .ToList();
-            double[] moyenneparindicateur = new double[listeindicateuractivite.Count];
-            int j = 0;
-            foreach (var z in listeindicateuractivite)
-            {
-                double somme = 0;
-                List<RapportIndicateurActivite> listerapportactivite = _context.RapportIndicateurActivite
-                    .Where(a => a.IdIndicateurActivite == z.IdIndicateurActivite)
-                    .ToList();
-                for (int i = 0; i < listerapportactivite.Count; i++)
-                {
-                    somme += listerapportactivite[i].QuantiteEffectue;
-                }
-
-                if (somme == 0)
-                {
-                    moyenneparindicateur[j] = somme;
-                }
-                if (somme > 0)
-                {
-                    moyenneparindicateur[j] = (somme * 100) / z.Target;
-                }
-            }
-
-            double newmoyenne = 0;
-            
-            for (int i = 0; i < listeindicateuractivite.Count; i++)
-            {
-                newmoyenne += moyenneparindicateur[i];
-            }
-
-            moyenneparactivite = newmoyenne / moyenneparindicateur.Length;
-            if (Double.IsNaN(moyenneparactivite))
-            {
-                oa.Avancement = 0;
-            }
-            else
-            {
-                oa.Avancement = moyenneparactivite;
-            }
-
-            _context.SaveChanges();
-
             List<OccurenceSousActivite> liste = _context.OccurenceSousActivite
                 .Where(a => a.IdOccurenceActivite == v.Id)
                 .ToList();
             listesousactivite.AddRange(liste);
         }
-
-        foreach (var v in listesousactivite)
+        
+    foreach (var v in listesousactivite)
         {
             List<OccurenceSousActiviteIndicateur> listeindicateur = _context.OccurenceSousActiviteIndicateur
                 .Where(a => a.IdOccurenceSousActivite == v.Id)
@@ -264,15 +216,17 @@ public class Fonction
                 {
                     somme += u.QuantiteEffectue;
                 }
-                
+
                 if (somme == 0)
                 {
                     moyenneparindicateur[x] = somme;
                 }
+
                 if (somme > 0)
                 {
                     moyenneparindicateur[x] = (somme * 100) / z.Target;
                 }
+
                 x++;
             }
 
@@ -284,7 +238,7 @@ public class Fonction
 
             if (Double.IsNaN(newmoyenne / moyenneparindicateur.Length))
             {
-                v.Avancement = 0;   
+                v.Avancement = 0;
             }
             else
             {
@@ -294,6 +248,38 @@ public class Fonction
 
         _context.SaveChanges();
         
+        foreach (var v in listeactivite)
+        {
+            double finalmoyenne = 0;
+            List<VLienActiviteSousActivite> liste = _context.VLienActiviteSousActivite
+                .Where(a => a.IdOccurenceActivite == v.Id)
+                .ToList();
+            if (liste.Count > 0)
+            {
+                foreach (var z in liste)
+                {
+                    finalmoyenne += z.Avancement;
+                }
+        
+                if (Double.IsNaN(finalmoyenne / liste.Count()))
+                {
+                    v.Avancement = 0;
+                }
+                else
+                {
+                    v.Avancement = (finalmoyenne / liste.Count());
+                }
+            }
+            else
+            {
+                v.Avancement = v.Avancement;
+            }
+        }
+
+        _context.SaveChanges();
+
+        //
+        
         double moyenneparresultat = 0;
         foreach (var v in listeresultat)
         {
@@ -302,12 +288,15 @@ public class Fonction
             List<OccurenceActivite> liste = _context.OccurenceActivite
                 .Where(a => a.IdOccurenceResultat == v.Id)
                 .ToList();
+            Console.WriteLine("NOMBRE ACTIVITE ="+liste.Count());
             foreach (var z in liste)
             {
+                Console.WriteLine("AVANCEMENT ACTIVITE ="+z.Avancement);
                 moyenneparresultat += z.Avancement;
             }
 
             moyenneparresultat = moyenneparresultat / liste.Count;
+            Console.WriteLine("MOYENNE RESULTAT = "+moyenneparresultat);
             if (Double.IsNaN(moyenneparresultat))
             {
                 or.Avancement = 0;
@@ -316,9 +305,10 @@ public class Fonction
             {
                 or.Avancement = moyenneparresultat;
             }
+
             _context.SaveChanges();
         }
-
+        
         double moyenneduprojet = 0;
         foreach (var v in listeresultat)
         {
@@ -333,34 +323,6 @@ public class Fonction
         else
         {
             projet.Avancement = moyenneduprojet;
-        }
-        _context.SaveChanges();
-
-        foreach (var v in listeactivite)
-        {
-            double finalmoyenne = 0;
-            List<VLienActiviteSousActivite> liste = _context.VLienActiviteSousActivite
-                .Where(a => a.IdOccurenceActivite == v.Id)
-                .ToList();
-            if (liste.Count > 0)
-            {
-                foreach (var z in liste)
-                {
-                    finalmoyenne += z.Avancement;
-                }
-                if(Double.IsNaN(finalmoyenne / liste.Count()))
-                {
-                    v.Avancement = v.Avancement  / 2;   
-                }
-                else
-                {
-                    v.Avancement = (v.Avancement + (finalmoyenne / liste.Count())) / 2;   
-                }
-            }
-            else
-            {
-                v.Avancement = v.Avancement;
-            }
         }
 
         _context.SaveChanges();

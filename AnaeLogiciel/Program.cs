@@ -20,6 +20,7 @@ builder.Services.AddSingleton(smtpConfig);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddSession(); 
